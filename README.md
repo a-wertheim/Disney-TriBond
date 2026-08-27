@@ -12,42 +12,37 @@ HTML file with its own CSS, JavaScript and card deck inside it.
 
 ---
 
-## Publishing it
+## Deploying to Netlify
 
-1. Push this folder to a GitHub repository.
-2. **Settings → Pages → Source**, and pick one:
-   - **Deploy from a branch** — choose `main` and `/ (root)`. Simplest option.
-     Delete `.github/workflows/deploy.yml`, you won't need it.
-   - **GitHub Actions** — the included workflow uploads the whole repo as-is on
-     every push to `main`. Use this if you'd rather not hand Pages a branch.
-3. Wait for the first deploy, then open `https://<user>.github.io/<repo>/`.
+There is nothing to build. Pick whichever of these suits you.
 
-Every link and asset path in the site is **relative**, so it works unchanged
-whether it's served from a repo subpath (`user.github.io/games/`), a user site
-(`user.github.io/`), or a custom domain. Nothing to configure.
+### Drag and drop — fastest
 
-### Local preview
+Go to **[app.netlify.com/drop](https://app.netlify.com/drop)** and drag this
+folder onto the page. That's the whole process. You get a live URL like
+`glittering-otter-12ab34.netlify.app` within a few seconds.
+
+To update later, drag the folder again onto the same site's **Deploys** tab.
+
+### Netlify CLI — repeatable
 
 ```bash
-python3 -m http.server 8000
-# then open http://localhost:8000
+npm i -g netlify-cli
+netlify deploy --dir . --prod
 ```
 
-Opening the files directly with `file://` mostly works too, but a local server
-matches what Pages actually does.
+The first run walks you through linking or creating a site.
 
-### Checking it before you push
+### Connected to a git repository — deploys on every push
 
-```bash
-npm i playwright && npx playwright install chromium
-node tools/selftest.js
-```
+In Netlify: **Add new site → Import an existing project**, pick the repo, and
+when it asks for build settings:
 
-This serves the site from a fake repo subpath — the same shape as
-`user.github.io/repo/` — and checks every page for a valid doctype, UTF-8, a
-viewport tag, broken links and assets, JavaScript errors, horizontal overflow at
-phone width, and that each game still deals a card. It exits non-zero on any
-failure, so it drops straight into CI if you ever want it there.
+- **Build command** — leave empty
+- **Publish directory** — `.`
+
+`netlify.toml` in this folder already declares both, so you can just accept
+what it fills in. Every push to your default branch redeploys.
 
 ---
 
@@ -58,8 +53,8 @@ index.html                 the shelf — links to the three games
 once-upon-a-year.html      \
 the-year-drawer.html        }  one self-contained game each
 e-ticket-tribond.html      /
-404.html                   fallback page, served automatically by Pages
-.nojekyll                  see below — do not delete
+404.html                   Netlify serves this automatically for missing pages
+netlify.toml               publish dir, short links, cache and security headers
 site.webmanifest           lets the site be added to a phone home screen
 robots.txt                 allows indexing
 assets/
@@ -70,16 +65,61 @@ assets/
 tools/
   wrap-artifact.py         re-wraps a Claude Artifacts export (see below)
   make-images.js           regenerates the og and icon PNGs
-  selftest.js              serves the site and checks every page
-.github/workflows/
-  deploy.yml               optional — only for the "GitHub Actions" source
+  selftest.js              serves the site like Netlify does and checks it
 ```
 
-### `.nojekyll`
+Every link and asset path is **relative**, so the site works unchanged at a
+`netlify.app` subdomain, at a custom domain, or in a subfolder.
 
-GitHub Pages runs everything through Jekyll by default, which silently ignores
-files and folders whose names begin with `_` or `.`. This site doesn't need
-Jekyll at all, and the empty `.nojekyll` file switches it off. Keep it.
+### Short links
+
+`netlify.toml` sets up three, so you can say one out loud across a room:
+
+| Type this | Get this |
+|---|---|
+| `/disney` | Once Upon a Year |
+| `/timeline` | The Year Drawer |
+| `/tribond` | E-Ticket TriBond |
+
+---
+
+## Pointing blockcitylabs.com at it
+
+In Netlify: **Site configuration → Domain management → Add a domain**, enter
+`blockcitylabs.com`.
+
+Then at your DNS provider, **replace** the four GitHub Pages `A` records the
+domain currently has:
+
+- **Apex** (`blockcitylabs.com`) — an `ALIAS`, `ANAME` or flattened `CNAME`
+  record pointing to `apex-loadbalancer.netlify.com`. If your provider doesn't
+  offer those record types, use an `A` record to `75.2.60.5` instead.
+- **www** — a `CNAME` record pointing to your `<site-name>.netlify.app`.
+
+Delete the old `185.199.108–111.153` records, or the domain will keep resolving
+to GitHub. Netlify issues the TLS certificate on its own once DNS resolves,
+which usually takes minutes but can take up to a day.
+
+---
+
+## Checking it before you deploy
+
+```bash
+python3 -m http.server 8000     # then open http://localhost:8000
+```
+
+For the fuller check:
+
+```bash
+npm i playwright && npx playwright install chromium
+node tools/selftest.js
+```
+
+That one serves the site the way Netlify actually does — folder at the domain
+root, `.html` stripped from URLs, the short links redirecting, `404.html` on a
+miss — and verifies every page has a valid doctype, UTF-8, a viewport tag, no
+broken links or assets, no JavaScript errors, no horizontal overflow at phone
+width, and that each game still deals a card. It exits non-zero on any failure.
 
 ---
 
@@ -102,7 +142,7 @@ const DECK = [
   defined just above the deck
 - `f` — the one-line fact shown after the card is placed
 
-Add or edit a line, save, reload. Nothing to rebuild.
+Add or edit a line, save, redeploy. Nothing to rebuild.
 
 E-Ticket TriBond's deck uses different fields: `c` is the array of three clues,
 `a` is the answer, `h` is the hint, `n` is the note, and `t` is the ticket grade
@@ -112,7 +152,7 @@ E-Ticket TriBond's deck uses different fields: `c` is the array of three clues,
 
 "The Game Shelf" appears in `index.html` (the `<h1>`, the `<title>` and the
 Open Graph tags), in the footer of each game page, in `404.html`, and in
-`site.webmanifest`. A find-and-replace across the repo covers all of them.
+`site.webmanifest`. A find-and-replace across the folder covers all of them.
 
 ---
 
@@ -131,7 +171,7 @@ preview tags and the footer link back to the index:
 python3 tools/wrap-artifact.py ~/Downloads/once-upon-a-year.html
 ```
 
-It writes to the repo root using the input filename, and fills in that game's
+It writes to this folder using the input filename and fills in that game's
 metadata automatically when the name matches one of the three. It refuses to run
 on a file that is already a complete document, so it is safe to re-run.
 
@@ -140,22 +180,15 @@ on a file that is already a complete document, so it is safe to re-run.
 ## Link previews
 
 The `og:image` tags use relative paths, which most link scrapers resolve against
-the page URL. If you want them fully spec-compliant, make them absolute once you
-know your Pages URL:
+the page URL. To make them absolute once you know your domain:
 
 ```bash
 grep -rl 'content="assets/og-' *.html | xargs sed -i '' \
-  's#content="assets/og-#content="https://USER.github.io/REPO/assets/og-#'
+  's#content="assets/og-#content="https://blockcitylabs.com/assets/og-#'
 ```
 
-(Drop the `''` after `-i` on Linux.)
-
-To regenerate the preview images themselves after changing a title:
-
-```bash
-npm i playwright && npx playwright install chromium
-node tools/make-images.js
-```
+(Drop the `''` after `-i` on Linux.) To regenerate the images themselves after
+changing a title: `node tools/make-images.js`.
 
 ---
 
@@ -171,6 +204,6 @@ stack, so the games work correctly offline and if that request is blocked.
 
 The card decks are original text written for these games. Disney, Pixar, Marvel,
 Star Wars and the attraction and film names are trademarks of their respective
-owners, referred to here descriptively. Nothing in this repo is affiliated with
-or endorsed by The Walt Disney Company. TriBond is a trademark of its owner;
+owners, referred to here descriptively. Nothing here is affiliated with or
+endorsed by The Walt Disney Company. TriBond is a trademark of its owner;
 "E-Ticket TriBond" is a homemade variant, not a licensed product.

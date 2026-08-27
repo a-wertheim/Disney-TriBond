@@ -6,7 +6,7 @@ Why this exists
 ---------------
 An artifact export is a fragment: it starts at <title> and has no <!doctype>,
 <html>, <head> or <body>. The artifact runtime supplies those at publish time.
-GitHub Pages does not. Served raw, the page renders in quirks mode with no
+Netlify does not. Served raw, the page renders in quirks mode with no
 charset (star and arrow glyphs turn into mojibake) and no viewport tag (phones
 render it at desktop width and zoom out).
 
