@@ -1,0 +1,75 @@
+# Netlify configuration.
+#
+# This site has no build step - every page is a self-contained HTML file - so
+# there is no `command` here. Netlify just serves the folder as-is.
+#
+# This file only matters for git-connected deploys. If you drag the folder onto
+# app.netlify.com/drop, Netlify uses the folder you dropped and reads the
+# redirects and headers below all the same.
+
+[build]
+  # The folder that becomes the site root. "." means the repo root.
+  publish = "."
+
+# ---------------------------------------------------------------------------
+# Short links, so you can say one out loud across a room
+#   yoursite.com/disney    yoursite.com/timeline    yoursite.com/tribond
+# ---------------------------------------------------------------------------
+
+[[redirects]]
+  from = "/disney"
+  to = "/once-upon-a-year.html"
+  status = 301
+
+[[redirects]]
+  from = "/timeline"
+  to = "/the-year-drawer.html"
+  status = 301
+
+[[redirects]]
+  from = "/tribond"
+  to = "/e-ticket-tribond.html"
+  status = 301
+
+[[redirects]]
+  from = "/games"
+  to = "/"
+  status = 301
+
+# ---------------------------------------------------------------------------
+# Caching
+# ---------------------------------------------------------------------------
+
+# The card decks live inside the HTML, so a deck edit changes the HTML itself.
+# Revalidate every time and a redeploy is live immediately, with no stale cache.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Icons and preview images have stable names and rarely change.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# ---------------------------------------------------------------------------
+# Basic hardening. Nothing here changes how the games behave.
+# ---------------------------------------------------------------------------
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=()"
+
+# A Content-Security-Policy is left off by default because a wrong one breaks
+# the games silently. If you want it, this is the correct policy for these
+# pages - inline style and script are required because each game is one file,
+# and Google Fonts is the only external host any page talks to:
+#
+# [[headers]]
+#   for = "/*"
+#   [headers.values]
+#     Content-Security-Policy = "default-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
