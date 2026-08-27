@@ -1,0 +1,1294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Slot undated events into a timeline you build as you go. Solo runs with three lives and a cash-out, or 2 to 4 player press-your-luck.">
+<meta name="theme-color" content="#E9E6D8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161D1A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon-year-drawer.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="site.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Year Drawer">
+<meta property="og:description" content="Slot undated events into a timeline you build as you go. Solo runs with three lives and a cash-out, or 2 to 4 player press-your-luck.">
+<meta property="og:image" content="assets/og-the-year-drawer.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>The Year Drawer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Karla:wght@400;500;700&family=Courier+Prime:wght@400;700&display=swap">
+
+<style>
+/* ---------- tokens: light is the base ---------- */
+:root{
+  --paper:#E9E6D8;
+  --paper-2:#DFDBCA;
+  --card:#F8F5EA;
+  --card-edge:#D8D1B9;
+  --ink:#25302B;
+  --ink-soft:#5B665F;
+  --ink-faint:#96A099;
+  --rule:#D2CCB8;
+  --teal:#1C6F6B;
+  --teal-wash:#D6E6E3;
+  --red:#B4372B;
+  --red-wash:#F1DCD7;
+  --ochre:#9E7415;
+  --ochre-wash:#EFE3C3;
+  --c-hist:#9E7415;
+  --c-sci:#1C6F6B;
+  --c-cult:#7A4A86;
+  --c-space:#2C5885;
+  --c-sport:#4C7639;
+  --shadow:0 1px 0 rgba(37,48,43,.12), 0 6px 18px -10px rgba(37,48,43,.45);
+  --slab:"Zilla Slab","Rockwell",Georgia,serif;
+  --sans:"Karla","Helvetica Neue",Arial,sans-serif;
+  --mono:"Courier Prime","Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#161D1A;
+    --paper-2:#101614;
+    --card:#232B27;
+    --card-edge:#39433D;
+    --ink:#EAE6D7;
+    --ink-soft:#A4AEA7;
+    --ink-faint:#6D7972;
+    --rule:#333D37;
+    --teal:#5CC3B9;
+    --teal-wash:#1A3B37;
+    --red:#E97F71;
+    --red-wash:#3D2420;
+    --ochre:#DFB55E;
+    --ochre-wash:#3A2E15;
+    --c-hist:#DFB55E;
+    --c-sci:#5CC3B9;
+    --c-cult:#C093CC;
+    --c-space:#7EAAD9;
+    --c-sport:#8FC073;
+    --shadow:0 1px 0 rgba(0,0,0,.4), 0 8px 22px -12px rgba(0,0,0,.9);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#161D1A;
+  --paper-2:#101614;
+  --card:#232B27;
+  --card-edge:#39433D;
+  --ink:#EAE6D7;
+  --ink-soft:#A4AEA7;
+  --ink-faint:#6D7972;
+  --rule:#333D37;
+  --teal:#5CC3B9;
+  --teal-wash:#1A3B37;
+  --red:#E97F71;
+  --red-wash:#3D2420;
+  --ochre:#DFB55E;
+  --ochre-wash:#3A2E15;
+  --c-hist:#DFB55E;
+  --c-sci:#5CC3B9;
+  --c-cult:#C093CC;
+  --c-space:#7EAAD9;
+  --c-sport:#8FC073;
+  --shadow:0 1px 0 rgba(0,0,0,.4), 0 8px 22px -12px rgba(0,0,0,.9);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:22px 18px 64px}
+
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:2px}
+.hidden{display:none !important}
+[hidden]{display:none !important}
+
+/* ---------- header ---------- */
+.top{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+  padding-bottom:14px;border-bottom:2px solid var(--rule);
+}
+.brand{display:flex;align-items:center;gap:12px}
+.drawerpull{
+  width:44px;height:34px;flex:none;
+  border:2px solid var(--ink);border-radius:3px;
+  display:grid;place-items:center;background:var(--card);
+}
+.drawerpull i{display:block;width:20px;height:6px;border-radius:3px;background:var(--ink)}
+.brand h1{
+  font-family:var(--slab);font-weight:700;
+  font-size:clamp(22px,3.4vw,30px);letter-spacing:-.01em;margin:0;line-height:1.05;
+}
+.brand .tag{font-family:var(--mono);font-size:12px;color:var(--ink-soft);letter-spacing:.04em}
+
+.themetoggle{
+  font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+  border:1.5px solid var(--rule);border-radius:3px;padding:6px 10px;color:var(--ink-soft);
+}
+.themetoggle:hover{border-color:var(--ink-soft);color:var(--ink)}
+
+/* ---------- shared bits ---------- */
+.kicker{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-faint);
+}
+h2.sect{font-family:var(--slab);font-weight:600;font-size:19px;margin:0 0 10px}
+
+.btn{
+  font-family:var(--sans);font-weight:700;font-size:15px;
+  padding:11px 20px;border-radius:4px;border:2px solid var(--ink);
+  background:var(--card);color:var(--ink);
+  transition:transform .1s ease, background .12s ease, color .12s ease;
+}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn:active{transform:translateY(1px)}
+.btn--go{background:var(--teal);border-color:var(--teal);color:#FFF}
+.btn--go:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.btn--bank{background:var(--ochre);border-color:var(--ochre);color:#231A03}
+.btn--bank:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.btn--quiet{border-color:var(--rule);color:var(--ink-soft);background:transparent}
+.btn--quiet:hover{background:transparent;border-color:var(--ink-soft);color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn:disabled:hover{background:var(--card);color:var(--ink)}
+
+.chip{
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;
+  padding:7px 12px;border:1.5px solid var(--rule);border-radius:3px;
+  color:var(--ink-soft);background:transparent;transition:all .12s ease;
+}
+.chip:hover{border-color:var(--ink-soft);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+
+/* ---------- home ---------- */
+.home{display:grid;gap:26px;padding-top:26px}
+.lede{max-width:60ch;margin:0;color:var(--ink-soft);font-size:17px}
+.lede b{color:var(--ink);font-weight:700}
+
+.howto{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+}
+.step{
+  background:var(--card);border:1.5px solid var(--card-edge);border-radius:4px;
+  padding:14px 16px 16px;display:grid;gap:5px;box-shadow:var(--shadow);
+  position:relative;
+}
+.step .n{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-faint);
+}
+.step h3{font-family:var(--slab);font-weight:600;font-size:16px;margin:0}
+.step p{margin:0;font-size:14.5px;color:var(--ink-soft);line-height:1.5}
+
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mode{
+  text-align:left;background:var(--card);border:2px solid var(--card-edge);border-radius:4px;
+  padding:16px 18px 18px;display:grid;gap:6px;box-shadow:var(--shadow);
+  transition:border-color .12s ease, transform .1s ease;
+}
+.mode:hover{border-color:var(--teal);transform:translateY(-1px)}
+.mode[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-wash)}
+.mode h3{font-family:var(--slab);font-weight:700;font-size:19px;margin:0}
+.mode p{margin:0;font-size:14.5px;color:var(--ink-soft);line-height:1.5}
+
+.panel{
+  background:var(--card);border:1.5px solid var(--card-edge);border-radius:4px;
+  padding:16px 18px 18px;display:grid;gap:16px;box-shadow:var(--shadow);
+}
+.field{display:grid;gap:8px}
+.roster{display:grid;gap:8px}
+.rosterrow{display:flex;gap:8px;align-items:center}
+.rosterrow .dot{width:11px;height:11px;border-radius:50%;flex:none;background:var(--c)}
+.rosterrow input{
+  flex:1;background:transparent;border:0;border-bottom:1.5px solid var(--rule);
+  color:var(--ink);font-family:var(--slab);font-weight:600;font-size:17px;padding:5px 2px;
+}
+.rosterrow input::placeholder{color:var(--ink-faint);font-weight:500}
+.rosterrow input:focus{outline:none;border-bottom-color:var(--teal)}
+.rosterrow .x{color:var(--ink-faint);font-family:var(--mono);font-size:16px;padding:2px 7px;border-radius:3px}
+.rosterrow .x:hover{color:var(--red);background:var(--red-wash)}
+
+.startrow{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.deckn{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft)}
+.deckn b{color:var(--teal);font-weight:700}
+
+/* ---------- play: status ---------- */
+.status{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  padding:12px 0 14px;
+}
+.statusL{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.turn{font-family:var(--slab);font-weight:700;font-size:20px;display:flex;align-items:center;gap:9px}
+.turn .dot{width:12px;height:12px;border-radius:50%;background:var(--c)}
+.meta{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.metric{display:flex;flex-direction:column;line-height:1.15}
+.metric .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
+.metric .v{font-family:var(--slab);font-weight:700;font-size:20px;font-variant-numeric:tabular-nums}
+.metric .v.pot{color:var(--ochre)}
+.lives{display:flex;gap:5px;padding-top:3px}
+.lives span{width:12px;height:12px;border-radius:50%;background:var(--red);display:block}
+.lives span.spent{background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink-faint)}
+
+.hunchbtn{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;
+  border:1.5px solid var(--ochre);color:var(--ochre);border-radius:3px;padding:8px 12px;
+}
+.hunchbtn:hover:not(:disabled){background:var(--ochre-wash)}
+.hunchbtn:disabled{opacity:.35;cursor:not-allowed}
+
+/* ---------- play: the undated card ---------- */
+.deal{display:grid;gap:14px;justify-items:center;padding:4px 0 18px}
+.indexcard{
+  width:min(560px,100%);
+  background:var(--card);border:1.5px solid var(--card-edge);border-radius:4px;
+  box-shadow:var(--shadow);
+  padding:0;overflow:hidden;position:relative;
+}
+.indexcard .head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:9px 16px;border-bottom:1.5px solid var(--red);
+  background:linear-gradient(to bottom,transparent,transparent);
+}
+.indexcard .cat{
+  font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--c);
+  display:flex;align-items:center;gap:7px;
+}
+.indexcard .cat::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c)}
+.yearbox{
+  font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:.08em;
+  border:1.5px dashed var(--ink-faint);border-radius:3px;padding:3px 10px;color:var(--ink-faint);
+}
+.yearbox.known{border-style:solid;border-color:var(--teal);color:var(--teal)}
+.indexcard .body{
+  position:relative;
+  padding:22px 24px 24px 42px;
+  min-height:104px;display:flex;align-items:center;
+  font-family:var(--slab);font-weight:600;
+  font-size:clamp(20px,3.2vw,27px);line-height:1.25;text-wrap:balance;
+}
+.indexcard .body::before{
+  content:"";position:absolute;left:24px;top:0;bottom:0;width:1.5px;
+  background:var(--red);opacity:.4;
+}
+.hunchline{
+  font-family:var(--mono);font-size:13px;color:var(--ochre);
+  padding:0 22px 16px;margin:-10px 0 0;
+}
+.prompt{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+
+/* ---------- the drawer rail ---------- */
+.railwrap{
+  border-top:2px solid var(--rule);border-bottom:2px solid var(--rule);
+  background:var(--paper-2);
+  padding:16px 0;margin:0 -18px;
+}
+.rail{
+  display:flex;align-items:stretch;gap:0;
+  overflow-x:auto;overflow-y:hidden;
+  padding:14px 18px 12px;
+  scroll-behavior:smooth;
+}
+.rail::-webkit-scrollbar{height:9px}
+.rail::-webkit-scrollbar-thumb{background:var(--card-edge);border-radius:5px}
+
+.slot{
+  flex:none;width:34px;align-self:stretch;
+  border:1.5px dashed var(--ink-faint);border-radius:4px;
+  margin:0 5px;background:transparent;color:var(--ink-faint);
+  font-family:var(--mono);font-size:17px;line-height:1;
+  display:grid;place-items:center;
+  transition:background .12s ease,border-color .12s ease,color .12s ease,width .12s ease;
+}
+.slot:hover,.slot.cursor{
+  background:var(--teal-wash);border-color:var(--teal);color:var(--teal);border-style:solid;width:46px;
+}
+.slot:disabled{opacity:.3;cursor:default}
+.slot:disabled:hover{background:transparent;border-color:var(--ink-faint);color:var(--ink-faint);border-style:dashed;width:34px}
+
+.filed{
+  flex:none;width:132px;
+  background:var(--card);border:1.5px solid var(--card-edge);border-radius:4px;
+  box-shadow:var(--shadow);
+  padding:9px 11px 11px;display:grid;gap:5px;align-content:start;
+  position:relative;
+}
+.filed .yr{
+  font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:.02em;color:var(--ink);
+  border-bottom:1.5px solid var(--c);padding-bottom:4px;
+}
+.filed .ev{
+  font-size:12.5px;line-height:1.32;color:var(--ink-soft);
+  display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;
+}
+.filed.justplaced{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal-wash),var(--shadow)}
+.filed.seed .yr{color:var(--ink-soft)}
+.filed.seed::after{
+  content:"SEED";position:absolute;top:-8px;right:8px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+  background:var(--paper-2);color:var(--ink-faint);padding:0 5px;
+}
+
+/* ---------- verdict ---------- */
+.verdict{
+  display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;
+  padding:18px 0 6px;
+}
+.stamp{
+  font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:.14em;
+  border:3px solid var(--sc);color:var(--sc);border-radius:5px;
+  padding:8px 14px;transform:rotate(-7deg);white-space:nowrap;
+  align-self:center;
+}
+.stamp.pop{animation:stampin .28s cubic-bezier(.2,1.5,.4,1)}
+@keyframes stampin{from{transform:rotate(-7deg) scale(1.9);opacity:0}to{transform:rotate(-7deg) scale(1);opacity:1}}
+.verdict .said{display:grid;gap:5px}
+.verdict .yearline{font-family:var(--slab);font-weight:700;font-size:clamp(19px,3vw,24px);line-height:1.2}
+.verdict .yearline em{font-style:normal;font-family:var(--mono);color:var(--teal)}
+.verdict .fact{font-size:15.5px;color:var(--ink-soft);max-width:66ch;margin:0}
+
+.actions{display:flex;gap:10px;flex-wrap:wrap;padding-top:12px;align-items:center}
+.actions .note{font-family:var(--mono);font-size:12px;color:var(--ink-faint)}
+
+/* ---------- party scoreboard ---------- */
+.scores{display:flex;gap:8px;flex-wrap:wrap;padding-top:18px;border-top:1.5px solid var(--rule);margin-top:20px}
+.pscore{
+  display:flex;align-items:baseline;gap:8px;
+  border:1.5px solid var(--card-edge);border-radius:3px;padding:6px 12px;background:var(--card);
+}
+.pscore.active{border-color:var(--c);box-shadow:inset 3px 0 0 var(--c)}
+.pscore .nm{font-family:var(--slab);font-weight:600;font-size:15px}
+.pscore .sc{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--c);font-variant-numeric:tabular-nums}
+.pscore .tk{font-family:var(--mono);font-size:11px;color:var(--ink-faint)}
+
+/* ---------- game over ---------- */
+.over{display:grid;gap:24px;padding-top:26px}
+.result{display:grid;gap:6px}
+.result h2{font-family:var(--slab);font-weight:700;font-size:clamp(28px,5.5vw,44px);margin:0;line-height:1.05;text-wrap:balance}
+.result .sub{color:var(--ink-soft);font-size:17px}
+.bigstats{display:flex;gap:26px;flex-wrap:wrap;padding:14px 0;border-top:2px solid var(--rule);border-bottom:2px solid var(--rule)}
+.recap{display:grid;gap:0}
+.recap .row{
+  display:grid;grid-template-columns:88px 1fr;gap:14px;
+  padding:11px 0;border-bottom:1px solid var(--rule);align-items:baseline;
+}
+.recap .row .yr{font-family:var(--mono);font-weight:700;font-size:14px;color:var(--ink);text-align:right}
+.recap .row.missed .yr{color:var(--red)}
+.recap .row .ev{font-family:var(--slab);font-weight:600;font-size:16px;line-height:1.3}
+.recap .row .fc{font-size:14.5px;color:var(--ink-soft);line-height:1.45;margin-top:2px}
+.recap .row .flag{
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--red);
+  border:1px solid var(--red);border-radius:2px;padding:0 5px;margin-left:8px;vertical-align:2px;
+}
+
+@media (max-width:520px){
+  .brand .tag{display:none}
+}
+@media (max-width:760px){
+  .howto,.modes{grid-template-columns:1fr}
+  .verdict{grid-template-columns:1fr;gap:12px}
+  .stamp{justify-self:start}
+  .recap .row{grid-template-columns:70px 1fr;gap:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition-duration:.01ms !important;animation-duration:.01ms !important}
+  .rail{scroll-behavior:auto}
+}
+</style>
+<style>
+.shelf-footer{
+  position:relative;z-index:1;
+  max-width:1080px;margin:0 auto;padding:28px 20px 44px;
+  font:400 13px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  letter-spacing:.04em;
+}
+.shelf-footer a{color:inherit;text-decoration:none;opacity:.6;border-bottom:1px solid currentColor;padding-bottom:2px}
+.shelf-footer a:hover,.shelf-footer a:focus-visible{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <span class="drawerpull" aria-hidden="true"><i></i></span>
+      <div>
+        <h1>The Year Drawer</h1>
+        <div class="tag">FILE EACH CARD WHERE IT BELONGS IN TIME</div>
+      </div>
+    </div>
+    <button class="themetoggle" id="themeBtn" aria-label="Switch colour theme">◐ THEME</button>
+  </header>
+
+  <!-- ============ HOME ============ -->
+  <section class="home" id="home">
+    <p class="lede">You're handed a card with something that happened — no date on it. The drawer already holds a few cards in order. <b>Slide yours into the right gap</b> and it stays filed. Get it wrong and it goes in the bin, along with whatever you were holding.</p>
+
+    <div class="howto">
+      <div class="step">
+        <span class="n">STEP ONE</span>
+        <h3>Read the card</h3>
+        <p>An event, an invention, a first — from 3500 BC to last year. The year is blanked out.</p>
+      </div>
+      <div class="step">
+        <span class="n">STEP TWO</span>
+        <h3>Pick a gap</h3>
+        <p>Click the space in the drawer where it belongs. Every card already filed is a clue.</p>
+      </div>
+      <div class="step">
+        <span class="n">STEP THREE</span>
+        <h3>Push or bank</h3>
+        <p>Each card in a row is worth more than the last — but one mistake wipes the run.</p>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="sect">Choose a mode</h2>
+      <div class="modes">
+        <button class="mode" id="modeSolo" aria-pressed="true">
+          <h3>Solo run</h3>
+          <p>Three lives, one drawer, no end. Keep filing until you've missed three. Your best run is remembered.</p>
+        </button>
+        <button class="mode" id="modeParty" aria-pressed="false">
+          <h3>Party · 2 to 4</h3>
+          <p>Pass one screen. Push your luck for a bigger pot or bank what you've got. First to the target wins.</p>
+        </button>
+      </div>
+    </div>
+
+    <div class="panel" id="partyPanel" hidden>
+      <div class="field">
+        <span class="kicker">Players</span>
+        <div class="roster" id="roster"></div>
+        <div><button class="chip" id="addPlayer">+ add player</button></div>
+      </div>
+      <div class="field">
+        <span class="kicker">Play to</span>
+        <div class="chips" id="targetChips">
+          <button class="chip" data-target="15">15 points</button>
+          <button class="chip" data-target="25" aria-pressed="true">25 points</button>
+          <button class="chip" data-target="40">40 points</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="field">
+        <span class="kicker">What's in the drawer</span>
+        <div class="chips" id="catChips"></div>
+      </div>
+      <div class="startrow">
+        <span class="deckn" id="deckn"></span>
+        <button class="btn btn--go" id="startBtn">Open the drawer</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLAY ============ -->
+  <section id="play" class="hidden">
+    <div class="status">
+      <div class="statusL">
+        <div class="turn" id="turnLabel"></div>
+        <div class="meta" id="metaRow"></div>
+      </div>
+      <button class="hunchbtn" id="hunchBtn">
+        <span>◈ HUNCH</span><span id="hunchCount"></span>
+      </button>
+    </div>
+
+    <div class="deal">
+      <article class="indexcard" id="theCard">
+        <div class="head">
+          <span class="cat" id="cardCat"></span>
+          <span class="yearbox" id="cardYear">— ? ? ? —</span>
+        </div>
+        <div class="body" id="cardBody"></div>
+        <p class="hunchline hidden" id="hunchLine"></p>
+      </article>
+      <span class="prompt" id="prompt">Click a gap in the drawer below</span>
+    </div>
+
+    <div class="railwrap">
+      <div class="rail" id="rail"></div>
+    </div>
+
+    <div class="verdict hidden" id="verdict">
+      <span class="stamp" id="stamp"></span>
+      <div class="said">
+        <div class="yearline" id="yearline"></div>
+        <p class="fact" id="factline"></p>
+      </div>
+    </div>
+
+    <div class="actions" id="actions"></div>
+
+    <div class="scores hidden" id="scores"></div>
+  </section>
+
+  <!-- ============ OVER ============ -->
+  <section id="over" class="hidden">
+    <div class="over">
+      <div class="result">
+        <span class="kicker" id="overKicker"></span>
+        <h2 id="overTitle"></h2>
+        <div class="sub" id="overSub"></div>
+      </div>
+      <div class="bigstats" id="overStats"></div>
+      <div>
+        <h2 class="sect">Everything you handled, in order</h2>
+        <div class="recap" id="recap"></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn--go" id="againBtn">Go again</button>
+        <button class="btn btn--quiet" id="homeBtn">Change setup</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+"use strict";
+
+/* =========================================================
+   THE DECK  — {e: event, y: year (negative = BC), f: fact,
+                c: category, a: 1 if the year is approximate}
+   ========================================================= */
+
+const CATS = {
+  hist: {label:"History & World", v:"--c-hist"},
+  sci:  {label:"Science & Invention", v:"--c-sci"},
+  cult: {label:"Culture & Everyday", v:"--c-cult"},
+  space:{label:"Space", v:"--c-space"},
+  sport:{label:"Sport", v:"--c-sport"}
+};
+
+const DECK = [
+  /* ---- deep past ---- */
+  {e:"The wheel comes into use in Mesopotamia",y:-3500,a:1,c:"sci",f:"It was a potter's wheel first. Putting one under a cart took roughly another three centuries."},
+  {e:"Writing is invented in Sumer",y:-3200,a:1,c:"sci",f:"The earliest cuneiform tablets are receipts — accounting, not poetry, gave us writing."},
+  {e:"The Great Pyramid of Giza is completed",y:-2560,a:1,c:"hist",f:"It stayed the tallest structure on Earth for about 3,800 years."},
+  {e:"The first Olympic Games are held at Olympia",y:-776,c:"sport",f:"The only event in the earliest games was a single foot race of about 190 metres."},
+  {e:"Rome is founded, by tradition",y:-753,c:"hist",f:"Romans dated their calendar from this year — 'AUC', from the founding of the city."},
+  {e:"Confucius is born",y:-551,c:"hist",f:"He never held high office for long; his students compiled the Analects after his death."},
+  {e:"The Athenians win the Battle of Marathon",y:-490,c:"hist",f:"The 26.2-mile race is named for the messenger's run to Athens — a story added centuries later."},
+  {e:"The Parthenon is completed in Athens",y:-438,c:"hist",f:"Its columns bulge slightly in the middle so they look perfectly straight from the ground."},
+  {e:"Alexander the Great dies at 32",y:-323,c:"hist",f:"He had conquered from Greece to the Indus and never lost a battle."},
+  {e:"Eratosthenes measures the Earth's circumference",y:-240,a:1,c:"sci",f:"He used shadows in two Egyptian cities and got within a few percent of the real figure."},
+  {e:"China is unified under the Qin and the Great Wall begun",y:-221,c:"hist",f:"The wall you can visit today is mostly Ming-era, built 1,700 years later."},
+  {e:"Julius Caesar is assassinated",y:-44,c:"hist",f:"His will left money to every Roman citizen, which did not help his assassins' popularity."},
+  {e:"Vesuvius buries Pompeii",y:79,c:"hist",f:"The ash preserved loaves of bread, election graffiti, and a dog still on its chain."},
+  {e:"The Colosseum opens in Rome",y:80,c:"hist",f:"It could be emptied of 50,000 people in minutes through 80 numbered exits."},
+  {e:"Paper is invented in China",y:105,a:1,c:"sci",f:"Credited to the court official Cai Lun. It took a thousand years to reach Europe."},
+  {e:"The western Roman Empire falls",y:476,c:"hist",f:"The last emperor was a teenager named Romulus Augustulus — 'little Augustus'."},
+  {e:"Chess emerges in India",y:600,a:1,c:"cult",f:"The original game, chaturanga, had elephants where bishops now stand."},
+  {e:"Muhammad and his followers migrate to Medina",y:622,c:"hist",f:"The Islamic calendar counts its years from this journey, the Hijra."},
+  {e:"Gunpowder is described by Chinese alchemists",y:850,a:1,c:"sci",f:"They were looking for an elixir of immortality and found the opposite."},
+  {e:"Charlemagne is crowned Emperor",y:800,c:"hist",f:"He ruled most of western Europe but reportedly never learned to write fluently."},
+  {e:"Leif Erikson reaches North America",y:1000,a:1,c:"hist",f:"A Norse settlement at L'Anse aux Meadows in Newfoundland proves the voyages happened."},
+  {e:"The Normans win the Battle of Hastings",y:1066,c:"hist",f:"It is why English has both 'cow' (Saxon farmer) and 'beef' (Norman diner)."},
+  {e:"Angkor Wat is built in Cambodia",y:1150,a:1,c:"hist",f:"It remains the largest religious monument on Earth by land area."},
+  {e:"King John seals Magna Carta",y:1215,c:"hist",f:"It was annulled by the Pope within ten weeks, then reissued and never quite went away."},
+  {e:"Genghis Khan dies",y:1227,c:"hist",f:"His empire was already the largest contiguous land empire in history."},
+  {e:"Marco Polo sets out for Asia",y:1271,c:"hist",f:"He was seventeen. He came back twenty-four years later and few believed him."},
+  {e:"Mechanical clocks appear in European towns",y:1300,a:1,c:"sci",f:"The earliest had no hands — they simply rang a bell, which is why we say 'o'clock'."},
+  {e:"The Black Death reaches Europe",y:1347,c:"hist",f:"It arrived on Genoese ships at Sicily and killed perhaps a third of the continent."},
+  {e:"Machu Picchu is built in the Andes",y:1450,a:1,c:"hist",f:"Its stones fit without mortar so tightly that earthquakes shake them and they settle back."},
+  {e:"Constantinople falls to the Ottomans",y:1453,c:"hist",f:"Cannon fire ended walls that had held for a thousand years."},
+  {e:"Gutenberg prints his Bible",y:1455,c:"sci",f:"Movable type existed in Asia already; his real invention was a workable metal-casting system."},
+  {e:"Columbus reaches the Americas",y:1492,c:"hist",f:"He died still insisting he had found a route to Asia."},
+  {e:"Martin Luther publishes the Ninety-five Theses",y:1517,c:"hist",f:"Printing turned a scholarly complaint into a continent-wide argument within months."},
+  {e:"Magellan's expedition completes the first circumnavigation",y:1522,c:"hist",f:"Magellan died en route; 18 of about 270 men made it home."},
+  {e:"Coffeehouses take hold in Ottoman Constantinople",y:1555,a:1,c:"cult",f:"They were nicknamed 'schools of the wise' — and were repeatedly banned for exactly that reason."},
+  {e:"Copernicus publishes his sun-centred model",y:1543,c:"sci",f:"He is said to have seen the printed book on the day he died."},
+  {e:"Shakespeare's Hamlet is first performed",y:1600,a:1,c:"cult",f:"At around 4,000 lines it is his longest play — rarely staged uncut."},
+  {e:"Don Quixote is published",y:1605,c:"cult",f:"Often called the first modern novel; it was a bestseller in Cervantes' own lifetime."},
+  {e:"Galileo turns a telescope on Jupiter",y:1610,c:"space",f:"Four moons circling something other than Earth quietly broke the old cosmos."},
+  {e:"The Mayflower lands at Plymouth",y:1620,c:"hist",f:"They were aiming for Virginia and missed by several hundred miles."},
+  {e:"The Taj Mahal is completed",y:1653,c:"hist",f:"Built as a tomb for one wife, Mumtaz Mahal, who died having their fourteenth child."},
+  {e:"The Great Fire of London",y:1666,c:"hist",f:"It destroyed 13,000 houses and, officially, killed six people."},
+  {e:"Newton publishes the Principia",y:1687,c:"sci",f:"Halley paid for the printing himself when the Royal Society ran out of money."},
+  {e:"Bach completes the Brandenburg Concertos",y:1721,c:"cult",f:"The margrave he sent them to appears never to have had them played."},
+  {e:"Franklin flies a kite in a thunderstorm",y:1752,c:"sci",f:"The point was to prove lightning is electricity. Two later imitators were killed trying it."},
+  {e:"The American Declaration of Independence",y:1776,c:"hist",f:"Most delegates signed in August, not on the fourth of July."},
+  {e:"The Bastille is stormed in Paris",y:1789,c:"hist",f:"There were only seven prisoners inside. The building was a symbol, not a problem."},
+  {e:"Jenner develops the smallpox vaccine",y:1796,c:"sci",f:"'Vaccine' comes from vacca, Latin for cow — he used cowpox."},
+  {e:"Volta builds the first battery",y:1800,c:"sci",f:"A stack of zinc and copper discs in brine. The volt is named after him."},
+  {e:"Waterloo ends Napoleon's return",y:1815,c:"hist",f:"He had been back in power for about a hundred days."},
+  {e:"Beethoven's Ninth Symphony premieres",y:1824,c:"cult",f:"He was too deaf to hear the applause and had to be turned around to see it."},
+  {e:"Stephenson's Rocket wins the Rainhill Trials",y:1829,c:"sci",f:"Top speed about 30 mph — fast enough to convince investors railways would work."},
+  {e:"Britain abolishes slavery across its empire",y:1833,c:"hist",f:"The government compensated slave owners, not the enslaved. The loan was only repaid in 2015."},
+  {e:"Photography is announced to the world",y:1839,c:"sci",f:"A daguerreotype needed several minutes of stillness, which is why nobody smiles."},
+  {e:"Ether anaesthesia is first used in surgery",y:1846,c:"sci",f:"Before this, speed was a surgeon's main skill. Amputations were timed in seconds."},
+  {e:"Gold is found at Sutter's Mill, California",y:1848,c:"hist",f:"San Francisco went from about 1,000 people to 25,000 in two years."},
+  {e:"Toilet paper is first sold commercially",y:1857,c:"cult",f:"Sold in flat sheets as a medicinal product. Rolls arrived twenty years later."},
+  {e:"Darwin publishes On the Origin of Species",y:1859,c:"sci",f:"The first print run of 1,250 copies sold out on the first day."},
+  {e:"The American Civil War begins",y:1861,c:"hist",f:"It killed more Americans than every other US war combined until roughly Vietnam."},
+  {e:"The Suez Canal opens",y:1869,c:"hist",f:"It cut the London-to-Bombay voyage by about 4,500 miles."},
+  {e:"Mendeleev publishes the periodic table",y:1869,c:"sci",f:"He left gaps for elements nobody had found, and predicted their properties. He was right."},
+  {e:"Blue jeans are patented",y:1873,c:"cult",f:"The patent was for the copper rivets, not the trousers."},
+  {e:"Bell patents the telephone",y:1876,c:"sci",f:"A rival filed a competing claim the same day. The lawsuits ran for years."},
+  {e:"Edison demonstrates a practical light bulb",y:1879,c:"sci",f:"Others had made bulbs; his lasted long enough to sell, and he built the grid to plug them into."},
+  {e:"Coca-Cola is invented in Atlanta",y:1886,c:"cult",f:"Sold first as a patent medicine at a pharmacy soda fountain, about nine drinks a day."},
+  {e:"Karl Benz builds the first true automobile",y:1886,c:"sci",f:"His wife Bertha took it on a 65-mile trip without telling him, and proved it worked."},
+  {e:"The Statue of Liberty is dedicated",y:1886,c:"hist",f:"It arrived from France in 350 pieces packed in 214 crates."},
+  {e:"The Eiffel Tower is completed",y:1889,c:"hist",f:"Built for a world's fair and meant to be dismantled after twenty years."},
+  {e:"Basketball is invented",y:1891,c:"sport",f:"James Naismith used peach baskets, and someone had to fetch the ball out after every score."},
+  {e:"The Lumière brothers hold the first paid film screening",y:1895,c:"cult",f:"Ten short films, about twenty minutes total, in a Paris basement."},
+  {e:"Röntgen discovers X-rays",y:1895,c:"sci",f:"The first X-ray image was of his wife's hand. She said, 'I have seen my death.'"},
+  {e:"The first modern Olympic Games are held in Athens",y:1896,c:"sport",f:"Fourteen nations, all-male, and the marathon was won by a Greek water carrier."},
+  {e:"Marconi sends a radio signal across the Atlantic",y:1901,c:"sci",f:"The message was the letter S in Morse code, three dots, received in Newfoundland."},
+  {e:"The Wright brothers fly at Kitty Hawk",y:1903,c:"sci",f:"The first flight lasted 12 seconds and covered less than the wingspan of a 747."},
+  {e:"Ford launches the Model T",y:1908,c:"cult",f:"It cost $850 at launch and under $300 by the 1920s as the assembly line matured."},
+  {e:"The Titanic sinks",y:1912,c:"hist",f:"She carried lifeboats for about half the people aboard — more than the law required."},
+  {e:"The first crossword puzzle is published",y:1913,c:"cult",f:"It ran in the New York World and was diamond-shaped."},
+  {e:"The modern zipper is patented",y:1913,c:"cult",f:"It was called the 'separable fastener'. The name 'zipper' came from a boot company."},
+  {e:"The first electric traffic light is installed in Cleveland",y:1914,c:"cult",f:"Red and green only. Amber arrived a decade later."},
+  {e:"The First World War begins",y:1914,c:"hist",f:"Most participants expected it home by Christmas."},
+  {e:"Einstein publishes general relativity",y:1915,c:"sci",f:"It predicted that gravity bends light — confirmed during an eclipse four years later."},
+  {e:"The Russian Revolution",y:1917,c:"hist",f:"Two revolutions in one year: one in March, one in November."},
+  {e:"The 1918 influenza pandemic begins",y:1918,c:"hist",f:"It killed more people than the war it followed, and it was not Spanish."},
+  {e:"American women win the vote",y:1920,c:"hist",f:"The 19th Amendment came down to one Tennessee legislator changing his mind after a letter from his mother."},
+  {e:"The Band-Aid is invented",y:1920,c:"cult",f:"A Johnson & Johnson employee made it for his wife, who kept cutting herself cooking."},
+  {e:"Fleming discovers penicillin",y:1928,c:"sci",f:"A contaminated petri dish he had left out over a holiday. It took another 14 years to mass-produce."},
+  {e:"Sliced bread goes on sale",y:1928,c:"cult",f:"Bakers thought it would go stale. It doubled bread sales instead."},
+  {e:"The Wall Street Crash",y:1929,c:"hist",f:"The market did not return to its 1929 peak until 1954."},
+  {e:"The first FIFA World Cup is played in Uruguay",y:1930,c:"sport",f:"Only thirteen teams entered; four European sides made the two-week boat trip."},
+  {e:"Monopoly is published by Parker Brothers",y:1935,c:"cult",f:"It was adapted from The Landlord's Game, designed to teach that landlords are bad."},
+  {e:"Jesse Owens wins four golds in Berlin",y:1936,c:"sport",f:"He was cheered by German crowds and snubbed at home for years afterwards."},
+  {e:"The Second World War begins",y:1939,c:"hist",f:"Britain and France declared war two days after Germany invaded Poland."},
+  {e:"The D-Day landings in Normandy",y:1944,c:"hist",f:"Around 156,000 troops crossed in one day, in the largest seaborne invasion ever mounted."},
+  {e:"An atomic bomb is dropped on Hiroshima",y:1945,c:"hist",f:"The device used less than a kilogram of uranium in the actual reaction."},
+  {e:"ENIAC, the first general-purpose electronic computer, is finished",y:1945,c:"sci",f:"It filled a room, weighed 30 tons, and was programmed by rewiring it by hand."},
+  {e:"The microwave oven is invented",y:1945,c:"cult",f:"An engineer noticed a chocolate bar melting in his pocket near a radar set."},
+  {e:"India gains independence",y:1947,c:"hist",f:"Partition displaced perhaps 15 million people in a matter of months."},
+  {e:"Jackie Robinson breaks baseball's colour barrier",y:1947,c:"sport",f:"He was voted Rookie of the Year while receiving death threats all season."},
+  {e:"The transistor is invented at Bell Labs",y:1947,c:"sci",f:"Every chip in your pocket is a descendant. Modern ones are a few atoms wide."},
+  {e:"The People's Republic of China is founded",y:1949,c:"hist",f:"Declared from the Gate of Heavenly Peace in Beijing."},
+  {e:"Everest is climbed for the first time",y:1953,c:"hist",f:"Hillary and Tenzing never publicly said which of them stepped on the summit first."},
+  {e:"The double helix structure of DNA is described",y:1953,c:"sci",f:"It rested on Rosalind Franklin's X-ray images, shown to Watson without her knowledge."},
+  {e:"Bannister runs a mile in under four minutes",y:1954,c:"sport",f:"The record was broken again 46 days later. The barrier was mostly in people's heads."},
+  {e:"The Salk polio vaccine is declared safe",y:1955,c:"sci",f:"Salk refused to patent it. Asked who owned it, he said, 'the people'."},
+  {e:"Velcro is patented",y:1955,c:"cult",f:"A Swiss engineer worked it out from burrs stuck to his dog after a walk."},
+  {e:"Ray Kroc opens his first McDonald's franchise",y:1955,c:"cult",f:"He was a milkshake-machine salesman who wondered why one shop needed eight of them."},
+  {e:"Sputnik becomes the first satellite in orbit",y:1957,c:"space",f:"It was a polished metal sphere the size of a beach ball, beeping on shortwave."},
+  {e:"Laika becomes the first animal to orbit Earth",y:1957,c:"space",f:"A stray from the streets of Moscow. There was never a plan to bring her back."},
+  {e:"Bubble wrap is invented",y:1957,c:"cult",f:"It was meant to be textured wallpaper. That did not sell."},
+  {e:"The Barbie doll goes on sale",y:1959,c:"cult",f:"Named after the inventor's daughter, Barbara. Ken, two years later, after her son."},
+  {e:"Yuri Gagarin becomes the first human in space",y:1961,c:"space",f:"One orbit, 108 minutes, and he ejected and parachuted down separately from the capsule."},
+  {e:"The Berlin Wall goes up",y:1961,c:"hist",f:"It went from barbed wire to concrete over a single weekend in August."},
+  {e:"The Cuban Missile Crisis",y:1962,c:"hist",f:"Thirteen days. A Soviet submarine officer's veto is widely credited with preventing a launch."},
+  {e:"Martin Luther King Jr. delivers 'I Have a Dream'",y:1963,c:"hist",f:"The most quoted section was improvised — Mahalia Jackson called out, 'Tell them about the dream!'"},
+  {e:"The Beatles appear on The Ed Sullivan Show",y:1964,c:"cult",f:"An estimated 73 million people watched, about 40 percent of the country."},
+  {e:"Muhammad Ali beats Sonny Liston for the title",y:1964,c:"sport",f:"He was a 7-to-1 underdog and announced his new name the next morning."},
+  {e:"Alexei Leonov makes the first spacewalk",y:1965,c:"space",f:"His suit ballooned so badly he had to bleed off air to fit back through the hatch."},
+  {e:"The first Super Bowl is played",y:1967,c:"sport",f:"It didn't sell out, and no complete broadcast tape survives."},
+  {e:"The first human heart transplant",y:1967,c:"sci",f:"Performed in Cape Town. The patient lived 18 days, and died of pneumonia."},
+  {e:"Apollo 11 lands on the Moon",y:1969,c:"space",f:"The guidance computer had less memory than a modern greetings card that plays a tune."},
+  {e:"Woodstock",y:1969,c:"cult",f:"They planned for 50,000 people. Around 400,000 came and the fences came down."},
+  {e:"The first email is sent",y:1971,c:"sci",f:"Ray Tomlinson chose the @ sign because it was the only preposition on the keyboard."},
+  {e:"The Magnavox Odyssey, the first home games console, ships",y:1972,c:"cult",f:"It had no sound and no score — you kept track on paper."},
+  {e:"Pioneer 10 launches toward Jupiter",y:1972,c:"space",f:"It carries a gold plaque showing two humans, in case anyone ever finds it."},
+  {e:"The first handheld mobile phone call is made",y:1973,c:"sci",f:"Motorola's Martin Cooper rang his rival at Bell Labs to tell him he'd done it."},
+  {e:"A barcode is scanned in a shop for the first time",y:1974,c:"cult",f:"A ten-pack of Wrigley's gum in Troy, Ohio. It's in the Smithsonian."},
+  {e:"Ernő Rubik invents the Cube",y:1974,c:"cult",f:"It took him a month to solve his own puzzle after building it."},
+  {e:"Viking 1 lands on Mars",y:1976,c:"space",f:"First successful Mars landing, and it kept working for six years."},
+  {e:"Star Wars opens in cinemas",y:1977,c:"cult",f:"Fox thought so little of it that they let Lucas keep the sequel and merchandising rights."},
+  {e:"Voyager 1 launches",y:1977,c:"space",f:"It launched after Voyager 2, overtook it, and is now the most distant human object."},
+  {e:"The Apple II goes on sale",y:1977,c:"sci",f:"A spreadsheet called VisiCalc is what made businesses buy it."},
+  {e:"MRI is first used to scan a human",y:1977,c:"sci",f:"The first full-body scan took nearly five hours."},
+  {e:"The Sony Walkman is launched",y:1979,c:"cult",f:"Sony's own sales team predicted it would flop because it could not record."},
+  {e:"Pac-Man is released",y:1980,c:"cult",f:"Designed deliberately to appeal to women, in an arcade market aimed at teenage boys."},
+  {e:"The 'Miracle on Ice' at Lake Placid",y:1980,c:"sport",f:"A US college team beat a Soviet side that had won the previous four Olympic golds."},
+  {e:"Post-it Notes go on national sale",y:1980,c:"cult",f:"Built from a glue that had failed at being strong, and sat unused for five years."},
+  {e:"The first Space Shuttle flies",y:1981,c:"space",f:"Columbia was the first crewed spacecraft ever launched without an uncrewed test first."},
+  {e:"MTV launches",y:1981,c:"cult",f:"The first video played was 'Video Killed the Radio Star'."},
+  {e:"Michael Jackson's Thriller is released",y:1982,c:"cult",f:"Still the best-selling album ever made, and it took 14-hour days over eight weeks."},
+  {e:"Super Mario Bros. is released",y:1985,c:"cult",f:"The clouds and the bushes are the same sprite in different colours, to save memory."},
+  {e:"The Challenger disaster",y:1986,c:"space",f:"A rubber O-ring, stiffened by an unusually cold Florida morning."},
+  {e:"The Berlin Wall falls",y:1989,c:"hist",f:"It opened partly because a spokesman misread a note at a press conference."},
+  {e:"The Simpsons premieres as a series",y:1989,c:"cult",f:"It began as 60-second shorts on a variety show two years earlier."},
+  {e:"The Hubble Space Telescope launches",y:1990,c:"space",f:"Its mirror was ground wrong by a fiftieth the width of a hair; astronauts fitted corrective optics."},
+  {e:"Nelson Mandela is released from prison",y:1990,c:"hist",f:"He had served 27 years. He became president four years later."},
+  {e:"The Soviet Union dissolves",y:1991,c:"hist",f:"Fifteen countries where there had been one, in the space of a few months."},
+  {e:"The World Wide Web is opened to the public",y:1991,c:"sci",f:"CERN put the underlying code into the public domain in 1993, free forever."},
+  {e:"Michael Jordan wins his first NBA title",y:1991,c:"sport",f:"He had been in the league seven years and was called a player who couldn't win."},
+  {e:"Jurassic Park is released",y:1993,c:"cult",f:"Only about six minutes of the film are computer-generated. The rest is animatronics."},
+  {e:"The Channel Tunnel opens",y:1994,c:"hist",f:"Two boring machines met beneath the sea and were off by about 36 centimetres."},
+  {e:"Dolly the sheep is cloned",y:1996,c:"sci",f:"She was named after Dolly Parton, because the cell came from a mammary gland."},
+  {e:"Hong Kong is returned to China",y:1997,c:"hist",f:"The lease that triggered it had been signed 99 years earlier, in 1898."},
+  {e:"Tiger Woods wins his first Masters",y:1997,c:"sport",f:"He was 21, and won by twelve strokes — still the tournament record."},
+  {e:"Google is founded",y:1998,c:"sci",f:"They tried to sell it for a million dollars in 1999. The buyer said no."},
+  {e:"The first module of the International Space Station launches",y:1998,c:"space",f:"It has been continuously occupied since November 2000."},
+  {e:"The emoji is created in Japan",y:1999,c:"cult",f:"Shigetaka Kurita drew the first 176 on a 12-by-12 pixel grid for a pager network."},
+  {e:"Wikipedia launches",y:2001,c:"cult",f:"It began as a throwaway side project to feed a peer-reviewed encyclopedia that never took off."},
+  {e:"Euro notes and coins enter circulation",y:2002,c:"hist",f:"The bridges on the notes are deliberately fictional, so no country could claim them."},
+  {e:"The Human Genome Project is completed",y:2003,c:"sci",f:"Thirteen years and about three billion base pairs. Sequencing a genome now costs a few hundred dollars."},
+  {e:"Spirit and Opportunity land on Mars",y:2004,c:"space",f:"Opportunity was designed for 90 days on the surface. It lasted almost fifteen years."},
+  {e:"Facebook is founded",y:2004,c:"cult",f:"For its first year you needed a university email address to join."},
+  {e:"YouTube is founded",y:2005,c:"cult",f:"The founders originally built it as a video dating site and nobody uploaded anything."},
+  {e:"Netflix begins streaming",y:2007,c:"cult",f:"At launch you got one hour of streaming per dollar of your DVD subscription."},
+  {e:"The first iPhone goes on sale",y:2007,c:"sci",f:"It had no App Store, no copy-and-paste, and no video recording."},
+  {e:"Usain Bolt runs 100m in 9.58 seconds",y:2009,c:"sport",f:"His top speed was about 27.8 mph, and he covered the distance in 41 strides."},
+  {e:"Minecraft is released in full",y:2011,c:"cult",f:"Made largely by one Swedish developer, and now the best-selling game ever."},
+  {e:"The Higgs boson is confirmed at CERN",y:2012,c:"sci",f:"It took a 27-kilometre ring and about half a century between prediction and proof."},
+  {e:"CRISPR is shown to work as a gene-editing tool",y:2012,c:"sci",f:"It was found in bacteria, which use it as an immune memory against viruses."},
+  {e:"Voyager 1 crosses into interstellar space",y:2012,c:"space",f:"It runs on plutonium and will fall silent sometime in the 2020s."},
+  {e:"New Horizons flies past Pluto",y:2015,c:"space",f:"Nine years in transit for a few hours of close-up data, sent home over 16 months."},
+  {e:"SpaceX lands an orbital rocket booster upright",y:2015,c:"space",f:"Reuse cut the cost per launch enough to change what missions are worth flying."},
+  {e:"TikTok launches internationally",y:2018,c:"cult",f:"It grew by absorbing Musical.ly and its existing users overnight."},
+  {e:"The first image of a black hole is released",y:2019,c:"space",f:"Eight radio telescopes on four continents acted as one Earth-sized dish."},
+  {e:"The first COVID-19 vaccines are authorised",y:2020,c:"sci",f:"Under a year from genome to approval; the previous record was about four years."},
+  {e:"The James Webb Space Telescope launches",y:2021,c:"space",f:"It unfolded through 344 single-point failures on the way out, and every one held."},
+  {e:"ChatGPT is released",y:2022,c:"sci",f:"It reached a hundred million users in two months, faster than any app before it."}
+];
+
+/* ============ helpers ============ */
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function yearText(card){
+  const abs = Math.abs(card.y);
+  const s = card.y < 0 ? abs + " BC" : String(abs);
+  return (card.a ? "c. " : "") + s;
+}
+function centuryHint(y){
+  if(y < 0){
+    const hi = Math.ceil(Math.abs(y) / 100) * 100;
+    return "Somewhere between " + hi + " BC and " + (hi - 99) + " BC.";
+  }
+  if(y < 100) return "Somewhere in the first hundred years AD.";
+  const lo = Math.floor(y / 100) * 100;
+  return "Somewhere between " + lo + " and " + (lo + 99) + ".";
+}
+function shuffle(a){
+  const o = a.slice();
+  for(let i = o.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [o[i], o[j]] = [o[j], o[i]];
+  }
+  return o;
+}
+function store(k, v){
+  try{ if(v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }
+  catch(e){ return null; }
+}
+
+const PCOLORS = ["#1C6F6B","#B4372B","#9E7415","#7A4A86"];
+const PCOLORS_DARK = ["#5CC3B9","#E97F71","#DFB55E","#C093CC"];
+function pcolor(i){
+  const dark = document.documentElement.getAttribute("data-theme") === "dark" ||
+    (!document.documentElement.getAttribute("data-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  return (dark ? PCOLORS_DARK : PCOLORS)[i];
+}
+
+/* ============ state ============ */
+const S = {
+  mode: "solo",
+  cats: new Set(Object.keys(CATS)),
+  target: 25,
+  players: [],
+  turn: 0,
+  draw: [],
+  line: [],          // filed cards, ascending by year
+  card: null,        // the card in hand
+  phase: "place",    // place | reveal | over
+  lives: 3,
+  filedCount: 0,
+  streak: 0,
+  tokens: 0,
+  pot: 0,
+  chain: 0,          // cards banked-in-progress this turn (party)
+  hunchUsed: false,
+  seen: [],          // {card, ok}
+  cursor: 0
+};
+
+/* ============ theme ============ */
+$("themeBtn").addEventListener("click", () => {
+  const cur = document.documentElement.getAttribute("data-theme");
+  const sysDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const next = cur ? (cur === "dark" ? "light" : "dark") : (sysDark ? "light" : "dark");
+  document.documentElement.setAttribute("data-theme", next);
+  store("yd-theme", next);
+  if(S.players.length) renderScores();
+});
+(function initTheme(){
+  const t = store("yd-theme");
+  if(t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+})();
+
+/* ============ home ============ */
+function buildCatChips(){
+  const box = $("catChips");
+  box.innerHTML = "";
+  Object.entries(CATS).forEach(([k, meta]) => {
+    const b = document.createElement("button");
+    b.className = "chip";
+    b.setAttribute("aria-pressed","true");
+    b.textContent = meta.label;
+    b.addEventListener("click", () => {
+      const on = b.getAttribute("aria-pressed") === "true";
+      if(on && S.cats.size === 1) return;
+      b.setAttribute("aria-pressed", String(!on));
+      on ? S.cats.delete(k) : S.cats.add(k);
+      updateDeckN();
+    });
+    box.appendChild(b);
+  });
+}
+function pool(){ return DECK.filter(c => S.cats.has(c.c)); }
+function updateDeckN(){
+  const n = pool().length;
+  $("deckn").innerHTML = "<b>" + n + "</b> cards in the drawer";
+  $("startBtn").disabled = n < 6;
+}
+
+let roster = ["", ""];
+function renderRoster(){
+  const box = $("roster");
+  box.innerHTML = "";
+  roster.forEach((nm, i) => {
+    const row = document.createElement("div");
+    row.className = "rosterrow";
+    row.innerHTML =
+      '<span class="dot" style="--c:' + pcolor(i) + '"></span>' +
+      '<input type="text" maxlength="14" placeholder="Player ' + (i+1) + '" aria-label="Player ' + (i+1) + ' name">' +
+      (roster.length > 2 ? '<button class="x" aria-label="Remove player ' + (i+1) + '">✕</button>' : '');
+    const inp = row.querySelector("input");
+    inp.value = nm;
+    inp.addEventListener("input", () => { roster[i] = inp.value; });
+    const x = row.querySelector(".x");
+    if(x) x.addEventListener("click", () => { roster.splice(i,1); renderRoster(); });
+    box.appendChild(row);
+  });
+  $("addPlayer").style.display = roster.length >= 4 ? "none" : "";
+}
+$("addPlayer").addEventListener("click", () => { if(roster.length < 4){ roster.push(""); renderRoster(); } });
+
+function setMode(m){
+  S.mode = m;
+  $("modeSolo").setAttribute("aria-pressed", String(m === "solo"));
+  $("modeParty").setAttribute("aria-pressed", String(m === "party"));
+  $("partyPanel").hidden = m !== "party";
+}
+$("modeSolo").addEventListener("click", () => setMode("solo"));
+$("modeParty").addEventListener("click", () => setMode("party"));
+
+$("targetChips").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-target]");
+  if(!b) return;
+  document.querySelectorAll("[data-target]").forEach(x => x.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true");
+  S.target = Number(b.dataset.target);
+});
+
+/* ============ start ============ */
+$("startBtn").addEventListener("click", start);
+
+function start(){
+  S.draw = shuffle(pool());
+  S.seen = [];
+  S.filedCount = 0;
+  S.streak = 0;
+  S.lives = 3;
+  S.turn = 0;
+  S.bestAtStart = Number(store("yd-best") || 0);
+  S.cashedOut = false;
+
+  if(S.mode === "party"){
+    S.players = roster.map((nm, i) => ({
+      name: (nm.trim() || ("Player " + (i+1))).slice(0,14),
+      score: 0, tokens: 2, idx: i
+    }));
+  } else {
+    S.players = [{ name:"You", score:0, tokens:2, idx:0 }];
+  }
+  S.tokens = S.players[0].tokens;
+
+  $("home").classList.add("hidden");
+  $("over").classList.add("hidden");
+  $("play").classList.remove("hidden");
+  $("scores").classList.toggle("hidden", S.mode !== "party");
+
+  beginTurn(true);
+}
+
+function nextFromDraw(){
+  if(!S.draw.length) S.draw = shuffle(pool());
+  return Object.assign({}, S.draw.pop());   // clone: never mutate the deck
+}
+
+/* A turn: party = fresh drawer each turn. Solo = one long drawer. */
+function beginTurn(first){
+  S.pot = 0;
+  S.chain = 0;
+  if(S.mode === "party" || first){
+    // two anchor cards, so the opening placement is reasoning rather than a coin flip
+    const a = nextFromDraw();
+    let b = nextFromDraw(), guard = 0;
+    while((b.e === a.e || b.y === a.y) && guard++ < 40) b = nextFromDraw();
+    S.line = [a, b].sort((x, y) => x.y - y.y);
+    S.line.forEach(c => c.seed = true);
+  }
+  dealCard();
+}
+
+function dealCard(){
+  S.card = nextFromDraw();
+  // never deal a card already sitting in the drawer
+  let guard = 0;
+  while(S.line.some(c => c.e === S.card.e) && guard++ < 60) S.card = nextFromDraw();
+  S.phase = "place";
+  S.hunchUsed = false;
+  S.cursor = 0;
+  S.cursorActive = false;
+  renderAll();
+}
+
+/* ============ render ============ */
+function renderAll(){
+  renderStatus();
+  renderCard();
+  renderRail();
+  renderVerdict();
+  renderActions();
+  renderScores();
+}
+
+function renderStatus(){
+  const p = S.players[S.turn];
+  if(S.mode === "party"){
+    $("turnLabel").innerHTML =
+      '<span class="dot" style="--c:' + pcolor(p.idx) + '"></span>' + esc(p.name) + "'s turn";
+    $("metaRow").innerHTML =
+      metric("Pot", S.pot, true) +
+      metric("In a row", S.chain) +
+      metric("Banked", p.score) +
+      metric("Target", S.target);
+  } else {
+    $("turnLabel").innerHTML = "Solo run";
+    const best = Number(store("yd-best") || 0);
+    $("metaRow").innerHTML =
+      metric("Filed", S.filedCount) +
+      metric("Streak", S.streak) +
+      metric("Best", best) +
+      '<div class="metric"><span class="k">Lives</span><span class="lives">' +
+        [0,1,2].map(i => '<span class="' + (i < S.lives ? "" : "spent") + '"></span>').join("") +
+      '</span></div>';
+  }
+  const tk = S.players[S.turn].tokens;
+  $("hunchCount").textContent = "× " + tk;
+  $("hunchBtn").disabled = tk < 1 || S.hunchUsed || S.phase !== "place";
+}
+function metric(k, v, pot){
+  return '<div class="metric"><span class="k">' + k + '</span><span class="v' + (pot ? " pot" : "") + '">' + v + '</span></div>';
+}
+
+function renderCard(){
+  const c = S.card;
+  const col = "var(" + CATS[c.c].v + ")";
+  $("cardCat").style.setProperty("--c", col);
+  $("cardCat").textContent = CATS[c.c].label;
+  $("cardBody").textContent = c.e;
+  const yb = $("cardYear");
+  if(S.phase === "reveal"){
+    yb.textContent = yearText(c);
+    yb.classList.add("known");
+  } else {
+    yb.textContent = "— ? ? ? —";
+    yb.classList.remove("known");
+  }
+  $("hunchLine").classList.toggle("hidden", !S.hunchUsed);
+  if(S.hunchUsed) $("hunchLine").textContent = "◈ " + centuryHint(c.y);
+  $("prompt").textContent = S.phase === "place"
+    ? "Click a gap in the drawer below"
+    : "";
+  $("prompt").classList.toggle("hidden", S.phase !== "place");
+}
+
+function renderRail(){
+  const rail = $("rail");
+  rail.innerHTML = "";
+  const n = S.line.length;
+  for(let i = 0; i <= n; i++){
+    const slot = document.createElement("button");
+    slot.className = "slot";
+    slot.textContent = "+";
+    slot.disabled = S.phase !== "place";
+    const before = i > 0 ? S.line[i-1] : null;
+    const after  = i < n ? S.line[i] : null;
+    slot.setAttribute("aria-label",
+      before && after ? "File between " + before.e + " and " + after.e :
+      after ? "File before " + after.e : "File after " + before.e);
+    slot.addEventListener("click", () => place(i));
+    rail.appendChild(slot);
+
+    if(i < n){
+      const c = S.line[i];
+      const d = document.createElement("div");
+      d.className = "filed" + (c.seed ? " seed" : "") + (c.just ? " justplaced" : "");
+      d.style.setProperty("--c", "var(" + CATS[c.c].v + ")");
+      d.innerHTML = '<div class="yr">' + yearText(c) + '</div><div class="ev">' + esc(c.e) + '</div>';
+      rail.appendChild(d);
+    }
+  }
+}
+
+function renderVerdict(){
+  const v = $("verdict");
+  if(S.phase !== "reveal"){ v.classList.add("hidden"); return; }
+  v.classList.remove("hidden");
+  const ok = S.lastOk;
+  const st = $("stamp");
+  st.style.setProperty("--sc", ok ? "var(--teal)" : "var(--red)");
+  st.textContent = ok ? "FILED" : "MISFILED";
+  st.classList.remove("pop"); void st.offsetWidth; st.classList.add("pop");
+  $("yearline").innerHTML = esc(S.card.e) + " &mdash; <em>" + yearText(S.card) + "</em>";
+  $("factline").textContent = S.card.f;
+}
+
+function renderActions(){
+  const box = $("actions");
+  box.innerHTML = "";
+  if(S.phase !== "reveal") return;
+
+  const add = (label, cls, fn) => {
+    const b = document.createElement("button");
+    b.className = "btn " + cls;
+    b.innerHTML = label;
+    b.addEventListener("click", fn);
+    box.appendChild(b);
+  };
+
+  if(S.mode === "solo"){
+    if(S.lives <= 0){
+      add("See how you did", "btn--go", gameOver);
+    } else {
+      add("Next card", "btn--go", dealCard);
+      if(S.filedCount > 0){
+        add("Cash out with " + S.filedCount, "btn--quiet", () => { S.cashedOut = true; gameOver(); });
+        const n = document.createElement("span");
+        n.className = "note";
+        n.textContent = "Walk away and the run is yours to keep.";
+        box.appendChild(n);
+      }
+    }
+    return;
+  }
+
+  // party
+  if(!S.lastOk){
+    add("Pass the screen", "btn--go", endTurn);
+    const n = document.createElement("span");
+    n.className = "note";
+    n.textContent = "Pot lost.";
+    box.appendChild(n);
+    return;
+  }
+  const nextWorth = S.chain + 1;
+  add("Push &mdash; next card is worth " + nextWorth, "btn--go", dealCard);
+  add("Bank " + S.pot, "btn--bank", bank);
+  const n = document.createElement("span");
+  n.className = "note";
+  n.textContent = "Miss and the " + S.pot + " goes back in the drawer.";
+  box.appendChild(n);
+}
+
+function renderScores(){
+  if(S.mode !== "party"){ $("scores").classList.add("hidden"); return; }
+  $("scores").classList.remove("hidden");
+  $("scores").innerHTML = S.players.map((p,i) => (
+    '<div class="pscore' + (i === S.turn ? " active" : "") + '" style="--c:' + pcolor(p.idx) + '">' +
+      '<span class="nm">' + esc(p.name) + '</span>' +
+      '<span class="sc">' + p.score + '</span>' +
+      '<span class="tk">◈' + p.tokens + '</span>' +
+    '</div>'
+  )).join("");
+}
+
+/* ============ placing ============ */
+function place(i){
+  if(S.phase !== "place") return;
+  const c = S.card;
+  const before = i > 0 ? S.line[i-1] : null;
+  const after  = i < S.line.length ? S.line[i] : null;
+  const ok = (!before || c.y >= before.y) && (!after || c.y <= after.y);
+
+  S.lastOk = ok;
+  S.phase = "reveal";
+  S.seen.push({ card: c, ok });
+
+  S.line.forEach(x => x.just = false);
+
+  if(ok){
+    c.just = true;
+    S.line.splice(i, 0, c);
+    S.filedCount++;
+    S.streak++;
+    if(S.mode === "party"){
+      S.chain++;
+      S.pot += S.chain;
+    } else {
+      if(S.streak > 0 && S.streak % 6 === 0 && S.players[0].tokens < 5){
+        S.players[0].tokens++;
+      }
+      const best = Number(store("yd-best") || 0);
+      if(S.filedCount > best) store("yd-best", String(S.filedCount));
+    }
+  } else {
+    S.streak = 0;
+    if(S.mode === "solo"){
+      S.lives--;
+    } else {
+      S.pot = 0;
+      S.chain = 0;
+    }
+  }
+
+  renderAll();
+  if(ok){
+    const el = $("rail").children[i * 2 + 1];
+    if(el && el.scrollIntoView) el.scrollIntoView({ block:"nearest", inline:"center" });
+  }
+  if(S.mode === "solo" && S.lives <= 0){
+    // leave the verdict up; the action button ends the run
+  }
+}
+
+/* ============ hunch ============ */
+$("hunchBtn").addEventListener("click", () => {
+  const p = S.players[S.turn];
+  if(p.tokens < 1 || S.hunchUsed || S.phase !== "place") return;
+  p.tokens--;
+  S.hunchUsed = true;
+  renderStatus(); renderCard(); renderScores();
+});
+
+/* ============ party turn flow ============ */
+function bank(){
+  const p = S.players[S.turn];
+  p.score += S.pot;
+  S.pot = 0;
+  if(p.score >= S.target){ gameOver(); return; }
+  endTurn();
+}
+function endTurn(){
+  S.turn = (S.turn + 1) % S.players.length;
+  beginTurn(false);
+}
+
+/* ============ game over ============ */
+function gameOver(){
+  S.phase = "over";
+  $("play").classList.add("hidden");
+  $("over").classList.remove("hidden");
+
+  const right = S.seen.filter(s => s.ok).length;
+  const acc = S.seen.length ? Math.round((right / S.seen.length) * 100) : 0;
+
+  if(S.mode === "solo"){
+    const prior = Number(S.bestAtStart || 0);
+    const best = Math.max(prior, S.filedCount);
+    $("overKicker").textContent = S.cashedOut
+      ? "CASHED OUT WITH " + S.lives + (S.lives === 1 ? " LIFE LEFT" : " LIVES LEFT")
+      : "OUT OF LIVES";
+    $("overTitle").textContent = S.filedCount + (S.filedCount === 1 ? " card filed" : " cards filed");
+    $("overSub").textContent = (S.filedCount > prior)
+      ? (prior === 0 ? "A first run on the board." : "A new best — you beat " + prior + ".")
+      : "Your best is " + prior + ". Close the gap.";
+    $("overStats").innerHTML =
+      metric("Filed", S.filedCount) + metric("Accuracy", acc + "%") +
+      metric("Cards seen", S.seen.length) + metric("Best ever", best);
+  } else {
+    const top = Math.max(...S.players.map(p => p.score));
+    const winners = S.players.filter(p => p.score === top);
+    $("overKicker").textContent = "GAME OVER";
+    $("overTitle").textContent = winners.length > 1
+      ? winners.map(w => w.name).join(" & ") + " tie it"
+      : winners[0].name + " wins";
+    $("overSub").textContent = S.players
+      .slice().sort((a,b) => b.score - a.score)
+      .map(p => p.name + " " + p.score).join("  ·  ");
+    $("overStats").innerHTML =
+      metric("Top score", top) + metric("Cards played", S.seen.length) +
+      metric("Group accuracy", acc + "%");
+  }
+
+  // one row per event; flag it missed if it was ever misfiled
+  const byEvent = new Map();
+  S.seen.forEach(s => {
+    const prev = byEvent.get(s.card.e);
+    if(prev) prev.ok = prev.ok && s.ok;
+    else byEvent.set(s.card.e, { card: s.card, ok: s.ok });
+  });
+  const rows = Array.from(byEvent.values()).sort((a,b) => a.card.y - b.card.y);
+  $("recap").innerHTML = rows.map(s => (
+    '<div class="row' + (s.ok ? "" : " missed") + '">' +
+      '<div class="yr">' + yearText(s.card) + '</div>' +
+      '<div>' +
+        '<div class="ev">' + esc(s.card.e) +
+          (s.ok ? "" : '<span class="flag">MISSED</span>') + '</div>' +
+        '<div class="fc">' + esc(s.card.f) + '</div>' +
+      '</div>' +
+    '</div>'
+  )).join("");
+
+  window.scrollTo({ top:0, behavior:"smooth" });
+}
+
+$("againBtn").addEventListener("click", start);
+$("homeBtn").addEventListener("click", () => {
+  $("over").classList.add("hidden");
+  $("play").classList.add("hidden");
+  $("home").classList.remove("hidden");
+  window.scrollTo({ top:0, behavior:"smooth" });
+});
+
+/* ============ keyboard ============ */
+document.addEventListener("keydown", (e) => {
+  if($("play").classList.contains("hidden")) return;
+  if(e.target.tagName === "INPUT") return;
+  const slots = Array.from($("rail").querySelectorAll(".slot"));
+
+  if(S.phase === "place" && (e.key === "ArrowRight" || e.key === "ArrowLeft")){
+    e.preventDefault();
+    if(S.cursorActive) S.cursor += e.key === "ArrowRight" ? 1 : -1;
+    S.cursorActive = true;
+    S.cursor = Math.max(0, Math.min(slots.length - 1, S.cursor));
+    slots.forEach((s,i) => s.classList.toggle("cursor", i === S.cursor));
+    slots[S.cursor].scrollIntoView({ block:"nearest", inline:"center" });
+  } else if(S.phase === "place" && (e.key === "Enter" || e.key === " ")){
+    e.preventDefault();
+    if(S.cursorActive) place(S.cursor);
+  } else if(S.phase === "place" && (e.key === "h" || e.key === "H")){
+    $("hunchBtn").click();
+  } else if(S.phase === "reveal" && (e.key === "Enter" || e.key === " ")){
+    e.preventDefault();
+    const first = $("actions").querySelector("button");
+    if(first) first.click();
+  } else if(S.phase === "reveal" && (e.key === "b" || e.key === "B")){
+    const bankBtn = Array.from($("actions").querySelectorAll("button")).find(b => b.textContent.startsWith("Bank"));
+    if(bankBtn) bankBtn.click();
+  }
+});
+
+/* ============ boot ============ */
+buildCatChips();
+renderRoster();
+updateDeckN();
+setMode("solo");
+</script>
+<footer class="shelf-footer">
+  <a href="index.html">&larr; The Game Shelf</a>
+</footer>
+</body>
+</html>
