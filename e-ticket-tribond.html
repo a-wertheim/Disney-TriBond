@@ -1,3 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Three Disney things share exactly one connection. A three-player party game graded like the old A-through-E coupon books.">
+<meta name="theme-color" content="#0E1A33" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1A33" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon-tribond.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="site.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:title" content="E-Ticket TriBond">
+<meta property="og:description" content="Three Disney things share exactly one connection. A three-player party game graded like the old A-through-E coupon books.">
+<meta property="og:image" content="assets/og-e-ticket-tribond.png">
+<meta name="twitter:card" content="summary_large_image">
 <title>E-Ticket TriBond</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -387,7 +404,18 @@ button:focus-visible,input:focus-visible{
   *{transition-duration:.01ms !important;animation-duration:.01ms !important}
 }
 </style>
-
+<style>
+.shelf-footer{
+  position:relative;z-index:1;
+  max-width:1080px;margin:0 auto;padding:28px 20px 44px;
+  font:400 13px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  letter-spacing:.04em;
+}
+.shelf-footer a{color:inherit;text-decoration:none;opacity:.6;border-bottom:1px solid currentColor;padding-bottom:2px}
+.shelf-footer a:hover,.shelf-footer a:focus-visible{opacity:1}
+</style>
+</head>
+<body>
 <div class="wrap">
 
   <header class="masthead">
@@ -931,3 +959,8 @@ document.addEventListener("keydown", (e) => {
 buildCatChips();
 updateDeckCount();
 </script>
+<footer class="shelf-footer">
+  <a href="index.html">&larr; The Game Shelf</a>
+</footer>
+</body>
+</html>

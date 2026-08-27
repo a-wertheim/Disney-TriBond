@@ -1,3 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Slot undated events into a timeline you build as you go. Solo runs with three lives and a cash-out, or 2 to 4 player press-your-luck.">
+<meta name="theme-color" content="#E9E6D8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161D1A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon-year-drawer.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="site.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Year Drawer">
+<meta property="og:description" content="Slot undated events into a timeline you build as you go. Solo runs with three lives and a cash-out, or 2 to 4 player press-your-luck.">
+<meta property="og:image" content="assets/og-the-year-drawer.png">
+<meta name="twitter:card" content="summary_large_image">
 <title>The Year Drawer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -386,7 +403,18 @@ h2.sect{font-family:var(--slab);font-weight:600;font-size:19px;margin:0 0 10px}
   .rail{scroll-behavior:auto}
 }
 </style>
-
+<style>
+.shelf-footer{
+  position:relative;z-index:1;
+  max-width:1080px;margin:0 auto;padding:28px 20px 44px;
+  font:400 13px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  letter-spacing:.04em;
+}
+.shelf-footer a{color:inherit;text-decoration:none;opacity:.6;border-bottom:1px solid currentColor;padding-bottom:2px}
+.shelf-footer a:hover,.shelf-footer a:focus-visible{opacity:1}
+</style>
+</head>
+<body>
 <div class="wrap">
 
   <header class="top">
@@ -1259,3 +1287,8 @@ renderRoster();
 updateDeckN();
 setMode("solo");
 </script>
+<footer class="shelf-footer">
+  <a href="index.html">&larr; The Game Shelf</a>
+</footer>
+</body>
+</html>

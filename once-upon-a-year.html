@@ -1,3 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="558 moments from a century of Disney, shuffled. Put them back in order - solo with three wishes, or 2 to 4 player press-your-luck.">
+<meta name="theme-color" content="#EFEBFC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1B1440" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon-once-upon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="site.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Once Upon a Year">
+<meta property="og:description" content="558 moments from a century of Disney, shuffled. Put them back in order - solo with three wishes, or 2 to 4 player press-your-luck.">
+<meta property="og:image" content="assets/og-once-upon-a-year.png">
+<meta name="twitter:card" content="summary_large_image">
 <title>Once Upon a Year</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -359,7 +376,18 @@ h2.sect{font-family:var(--display);font-weight:400;font-size:21px;margin:0 0 12p
   .rail{scroll-behavior:auto}
 }
 </style>
-
+<style>
+.shelf-footer{
+  position:relative;z-index:1;
+  max-width:1080px;margin:0 auto;padding:28px 20px 44px;
+  font:400 13px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  letter-spacing:.04em;
+}
+.shelf-footer a{color:inherit;text-decoration:none;opacity:.6;border-bottom:1px solid currentColor;padding-bottom:2px}
+.shelf-footer a:hover,.shelf-footer a:focus-visible{opacity:1}
+</style>
+</head>
+<body>
 <div class="sky" id="sky" aria-hidden="true"></div>
 
 <div class="wrap">
@@ -1507,3 +1535,8 @@ document.addEventListener("keydown", (e) => {
 
 buildCatChips(); renderRoster(); updateDeckN(); setMode("solo");
 </script>
+<footer class="shelf-footer">
+  <a href="index.html">&larr; The Game Shelf</a>
+</footer>
+</body>
+</html>
