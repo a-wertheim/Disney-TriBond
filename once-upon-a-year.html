@@ -247,8 +247,18 @@ h2.sect{font-family:var(--display);font-weight:400;font-size:21px;margin:0 0 12p
 .deal{display:grid;gap:16px;justify-items:center;padding:6px 0 22px}
 .plate{
   width:min(600px,100%);position:relative;
-  background:var(--card);border:1px solid var(--edge);border-radius:22px;
-  box-shadow:var(--glow);overflow:hidden;
+  background:var(--card);border:1px solid var(--edge);border-radius:26px;
+  box-shadow:0 0 0 6px var(--gold-wash), var(--glow);
+  overflow:hidden;
+  animation:turnpage .4s cubic-bezier(.25,1.2,.4,1), driftplate 7s ease-in-out .4s infinite;
+}
+@keyframes turnpage{
+  from{transform:translateY(14px) scale(.97) rotate(.8deg);opacity:0}
+  to{transform:none;opacity:1}
+}
+@keyframes driftplate{
+  0%,100%{transform:translateY(0) rotate(-.15deg)}
+  50%{transform:translateY(-5px) rotate(.15deg)}
 }
 .plate .head{
   display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -269,7 +279,7 @@ h2.sect{font-family:var(--display);font-weight:400;font-size:21px;margin:0 0 12p
   font-family:var(--display);font-weight:400;
   font-size:clamp(20px,3.1vw,28px);line-height:1.3;text-wrap:balance;
 }
-.plate .corner{position:absolute;width:34px;height:34px;opacity:.5;pointer-events:none;color:var(--gold)}
+.plate .corner{position:absolute;width:38px;height:38px;opacity:.75;pointer-events:none;color:var(--gold)}
 .plate .corner.tl{left:6px;top:44px}
 .plate .corner.br{right:6px;bottom:6px;transform:rotate(180deg)}
 .dustline{font-family:var(--body);font-size:14.5px;color:var(--gold);padding:0 26px 20px;margin:-14px 0 0}
@@ -308,7 +318,15 @@ h2.sect{font-family:var(--display);font-weight:400;font-size:21px;margin:0 0 12p
   font-size:12.5px;line-height:1.35;color:var(--ink-soft);
   display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;
 }
-.page.justplaced{border-color:var(--gold);box-shadow:0 0 30px -8px var(--gold),var(--glow)}
+.page{transition:transform .16s ease}
+.page:nth-child(4n+2){transform:rotate(-1deg)}
+.page:nth-child(4n+4){transform:rotate(1.1deg)}
+.page:hover{transform:rotate(0) translateY(-4px)}
+.page.justplaced{
+  border-color:var(--gold);box-shadow:0 0 30px -8px var(--gold),var(--glow);
+  animation:pagepop .4s cubic-bezier(.25,1.4,.4,1);
+}
+@keyframes pagepop{from{transform:translateY(-16px) scale(.9);opacity:.3}to{transform:none;opacity:1}}
 .page.seed::after{
   content:"✦";position:absolute;top:-9px;right:11px;font-size:13px;color:var(--gold);
   background:var(--night-2);padding:0 5px;line-height:1.4;
@@ -1320,6 +1338,10 @@ function renderCard(){
   $("dustLine").classList.toggle("hidden", !S.dustUsed);
   if(S.dustUsed) $("dustLine").textContent = "✦ " + decadeHint(c.y);
   $("prompt").classList.toggle("hidden", S.phase !== "place");
+  if(S.phase === "place"){
+    const el = $("thePlate");
+    el.style.animation = "none"; void el.offsetWidth; el.style.animation = "";
+  }
 }
 
 function renderRail(){

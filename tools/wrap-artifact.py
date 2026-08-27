@@ -43,6 +43,13 @@ META = {
                 "with three lives and a cash-out, or 2 to 4 player press-your-luck.",
         "light": "#E9E6D8", "dark": "#161D1A",
     },
+    "letter-blitz.html": {
+        "icon": "assets/favicon-letter-blitz.svg",
+        "og": "assets/og-letter-blitz.png",
+        "desc": "Roll a letter, race the clock down a sheet of categories, then score "
+                "the answers nobody else thought of. A party game for 2 to 8 players.",
+        "light": "#EAF3EE", "dark": "#14201C",
+    },
     "e-ticket-tribond.html": {
         "icon": "assets/favicon-tribond.svg",
         "og": "assets/og-e-ticket-tribond.png",

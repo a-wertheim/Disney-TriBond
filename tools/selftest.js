@@ -24,7 +24,8 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.png': 'image/png', '.svg'
 
 // the short links declared in netlify.toml
 const REDIRECTS = { '/disney': '/once-upon-a-year.html', '/timeline': '/the-year-drawer.html',
-  '/tribond': '/e-ticket-tribond.html', '/games': '/' };
+  '/tribond': '/e-ticket-tribond.html', '/blitz': '/letter-blitz.html',
+  '/letters': '/letter-blitz.html', '/games': '/' };
 
 const server = http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split('?')[0]);
@@ -47,7 +48,7 @@ const server = http.createServer((req, res) => {
   res.end(fs.readFileSync(f));
 });
 
-const PAGES = ['', 'once-upon-a-year', 'the-year-drawer', 'e-ticket-tribond', '404.html'];
+const PAGES = ['', 'once-upon-a-year', 'letter-blitz', 'the-year-drawer', 'e-ticket-tribond', '404.html'];
 
 (async () => {
   await new Promise(r => server.listen(PORT, r));
@@ -122,11 +123,13 @@ const PAGES = ['', 'once-upon-a-year', 'the-year-drawer', 'e-ticket-tribond', '4
   }
 
   console.log('\n== gameplay');
-  for (const [page, cardSel] of [['once-upon-a-year', '#cardBody'], ['the-year-drawer', '#cardBody'], ['e-ticket-tribond', '#clues']]) {
+  for (const [page, cardSel] of [['once-upon-a-year', '#cardBody'], ['the-year-drawer', '#cardBody'],
+                                 ['e-ticket-tribond', '#clues'], ['letter-blitz', '#cats']]) {
     const p = await b.newPage({ viewport: { width: 1280, height: 900 } });
     const errs = []; p.on('pageerror', e => errs.push(e.message));
     await p.goto(BASE + page); await p.waitForTimeout(400);
     await p.click('#startBtn'); await p.waitForTimeout(300);
+    if (page === 'letter-blitz') { await p.click('#rollBtn'); await p.waitForTimeout(500); await p.click('#goBtn'); await p.waitForTimeout(400); }
     const txt = (await p.textContent(cardSel) || '').trim().replace(/\s+/g, ' ');
     console.log('  ' + page + ': "' + txt.slice(0, 44) + '..." ' + (errs.length ? 'ERRORS ' + errs : 'no errors'));
     if (!txt) bad(page + ' dealt an empty card');
@@ -135,7 +138,7 @@ const PAGES = ['', 'once-upon-a-year', 'the-year-drawer', 'e-ticket-tribond', '4
   }
 
   console.log('\n== mobile (390px)');
-  for (const page of PAGES.slice(0, 4)) {
+  for (const page of PAGES.slice(0, 5)) {
     const p = await b.newPage({ viewport: { width: 390, height: 844 } });
     await p.goto(BASE + page); await p.waitForTimeout(400);
     const ov = await p.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);

@@ -1,6 +1,6 @@
 # The Game Shelf
 
-Three party games that run entirely in a browser tab. No build step, no
+Four party games that run entirely in a browser tab. No build step, no
 framework, no server, no dependencies — each game is a single self-contained
 HTML file with its own CSS, JavaScript and card deck inside it.
 
@@ -8,6 +8,7 @@ HTML file with its own CSS, JavaScript and card deck inside it.
 |---|---|---|---|
 | [Once Upon a Year](once-upon-a-year.html) | Put a century of Disney back in chronological order | 1–4 | 558 |
 | [The Year Drawer](the-year-drawer.html) | The same game across history, science, culture, space and sport | 1–4 | 176 |
+| [Letter Blitz](letter-blitz.html) | One letter, a sheet of categories, ninety seconds | 2–8 | 232 categories |
 | [E-Ticket TriBond](e-ticket-tribond.html) | Three Disney things, one hidden connection | 3 | 83 |
 
 ---
@@ -49,9 +50,10 @@ what it fills in. Every push to your default branch redeploys.
 ## What's in here
 
 ```
-index.html                 the shelf — links to the three games
+index.html                 the shelf — links to the four games
 once-upon-a-year.html      \
-the-year-drawer.html        }  one self-contained game each
+letter-blitz.html           |  one self-contained game each
+the-year-drawer.html        |
 e-ticket-tribond.html      /
 404.html                   Netlify serves this automatically for missing pages
 netlify.toml               publish dir, short links, cache and security headers
@@ -73,11 +75,12 @@ Every link and asset path is **relative**, so the site works unchanged at a
 
 ### Short links
 
-`netlify.toml` sets up three, so you can say one out loud across a room:
+`netlify.toml` sets up a few, so you can say one out loud across a room:
 
 | Type this | Get this |
 |---|---|
 | `/disney` | Once Upon a Year |
+| `/blitz` or `/letters` | Letter Blitz |
 | `/timeline` | The Year Drawer |
 | `/tribond` | E-Ticket TriBond |
 
@@ -148,6 +151,10 @@ E-Ticket TriBond's deck uses different fields: `c` is the array of three clues,
 `a` is the answer, `h` is the hint, `n` is the note, and `t` is the ticket grade
 (`1` = A-ticket, `2` = C-ticket, `3` = E-ticket).
 
+Letter Blitz is simpler still — its `CATS` array is a flat list of category
+strings. Add a line, and it joins the shuffle. The playable letters are in
+`LETTERS` on the next line if you ever want to put J, Q or Z back in.
+
 ### Renaming the site
 
 "The Game Shelf" appears in `index.html` (the `<h1>`, the `<title>` and the
@@ -172,7 +179,7 @@ python3 tools/wrap-artifact.py ~/Downloads/once-upon-a-year.html
 ```
 
 It writes to this folder using the input filename and fills in that game's
-metadata automatically when the name matches one of the three. It refuses to run
+metadata automatically when the name matches one of the four. It refuses to run
 on a file that is already a complete document, so it is safe to re-run.
 
 ---
@@ -195,8 +202,9 @@ changing a title: `node tools/make-images.js`.
 ## Privacy
 
 There is no server, no database, no analytics and no third-party script. The
-only thing stored is your solo best score, written to your own browser's
-`localStorage` and never transmitted. The one external request any page makes is
+only things stored are your solo best score in the timeline games and your
+player names in Letter Blitz, both written to your own browser's `localStorage`
+and never transmitted. The one external request any page makes is
 to Google Fonts for the typefaces; every font declaration has a real fallback
 stack, so the games work correctly offline and if that request is blocked.
 
@@ -205,5 +213,6 @@ stack, so the games work correctly offline and if that request is blocked.
 The card decks are original text written for these games. Disney, Pixar, Marvel,
 Star Wars and the attraction and film names are trademarks of their respective
 owners, referred to here descriptively. Nothing here is affiliated with or
-endorsed by The Walt Disney Company. TriBond is a trademark of its owner;
-"E-Ticket TriBond" is a homemade variant, not a licensed product.
+endorsed by The Walt Disney Company. TriBond and Scattergories are trademarks
+of their respective owners; "E-Ticket TriBond" and "Letter Blitz" are homemade
+variants, not licensed products.

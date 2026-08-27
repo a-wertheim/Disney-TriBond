@@ -250,8 +250,15 @@ h2.sect{font-family:var(--slab);font-weight:600;font-size:19px;margin:0 0 10px}
 .indexcard{
   width:min(560px,100%);
   background:var(--card);border:1.5px solid var(--card-edge);border-radius:4px;
-  box-shadow:var(--shadow);
+  /* a card pulled off a stack, not laid down by a machine */
+  box-shadow:3px 3px 0 var(--card-edge), 7px 7px 0 var(--paper-2), var(--shadow);
   padding:0;overflow:hidden;position:relative;
+  transform:rotate(-.6deg);
+  animation:pullcard .32s cubic-bezier(.25,1.25,.4,1);
+}
+@keyframes pullcard{
+  from{transform:rotate(1.8deg) translateY(-18px);opacity:0}
+  to{transform:rotate(-.6deg) translateY(0);opacity:1}
 }
 .indexcard .head{
   display:flex;align-items:center;justify-content:space-between;gap:10px;
@@ -316,6 +323,7 @@ h2.sect{font-family:var(--slab);font-weight:600;font-size:19px;margin:0 0 10px}
 
 .filed{
   flex:none;width:132px;
+  transition:transform .14s ease;
   background:var(--card);border:1.5px solid var(--card-edge);border-radius:4px;
   box-shadow:var(--shadow);
   padding:9px 11px 11px;display:grid;gap:5px;align-content:start;
@@ -329,7 +337,14 @@ h2.sect{font-family:var(--slab);font-weight:600;font-size:19px;margin:0 0 10px}
   font-size:12.5px;line-height:1.32;color:var(--ink-soft);
   display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;
 }
-.filed.justplaced{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal-wash),var(--shadow)}
+.filed:nth-child(4n+2){transform:rotate(-.7deg)}
+.filed:nth-child(4n+4){transform:rotate(.8deg)}
+.filed:hover{transform:rotate(0) translateY(-3px)}
+.filed.justplaced{
+  border-color:var(--teal);box-shadow:0 0 0 2px var(--teal-wash),var(--shadow);
+  animation:slotin .34s cubic-bezier(.25,1.3,.4,1);
+}
+@keyframes slotin{from{transform:translateY(-14px) scale(.94);opacity:.3}to{transform:none;opacity:1}}
 .filed.seed .yr{color:var(--ink-soft)}
 .filed.seed::after{
   content:"SEED";position:absolute;top:-8px;right:8px;
@@ -1012,6 +1027,10 @@ function renderCard(){
   $("prompt").textContent = S.phase === "place"
     ? "Click a gap in the drawer below"
     : "";
+  if(S.phase === "place"){
+    const el = $("theCard");
+    el.style.animation = "none"; void el.offsetWidth; el.style.animation = "";
+  }
   $("prompt").classList.toggle("hidden", S.phase !== "place");
 }
 

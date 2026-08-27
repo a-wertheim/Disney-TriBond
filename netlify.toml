@@ -13,7 +13,7 @@
 
 # ---------------------------------------------------------------------------
 # Short links, so you can say one out loud across a room
-#   yoursite.com/disney    yoursite.com/timeline    yoursite.com/tribond
+#   /disney   /timeline   /tribond   /blitz
 # ---------------------------------------------------------------------------
 
 [[redirects]]
@@ -29,6 +29,16 @@
 [[redirects]]
   from = "/tribond"
   to = "/e-ticket-tribond.html"
+  status = 301
+
+[[redirects]]
+  from = "/blitz"
+  to = "/letter-blitz.html"
+  status = 301
+
+[[redirects]]
+  from = "/letters"
+  to = "/letter-blitz.html"
   status = 301
 
 [[redirects]]

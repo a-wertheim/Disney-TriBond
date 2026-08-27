@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>The Game Shelf</title>
-<meta name="description" content="Three browser games you can play around one screen: a Disney riddle game, a general-knowledge timeline game, and a Disney timeline game. No install, no accounts.">
+<meta name="description" content="Four browser games you can play around one screen: two timeline games, a Disney riddle game, and a category race. No install, no accounts.">
 <meta name="theme-color" content="#EDEDF2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#131318" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -13,7 +13,7 @@
 <link rel="manifest" href="site.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The Game Shelf">
-<meta property="og:description" content="Three browser games you can play around one screen. No install, no accounts.">
+<meta property="og:description" content="Four browser games you can play around one screen. No install, no accounts.">
 <meta property="og:image" content="assets/og-index.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,6 +31,7 @@
   --hue-tribond:#B8391A;
   --hue-drawer:#186360;
   --hue-once:#5F3894;
+  --hue-blitz:#B0521A;
   --shadow:0 1px 2px rgba(22,22,29,.05), 0 14px 32px -22px rgba(22,22,29,.5);
   --serif:"Instrument Serif","Georgia",serif;
   --sans:"Public Sans","Helvetica Neue",Arial,sans-serif;
@@ -48,6 +49,7 @@
     --hue-tribond:#F0714A;
     --hue-drawer:#5CC3B9;
     --hue-once:#C39CF0;
+    --hue-blitz:#F0A45C;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 16px 36px -24px rgba(0,0,0,.9);
   }
 }
@@ -62,6 +64,7 @@
   --hue-tribond:#F0714A;
   --hue-drawer:#5CC3B9;
   --hue-once:#C39CF0;
+  --hue-blitz:#F0A45C;
   --shadow:0 1px 2px rgba(0,0,0,.4), 0 16px 36px -24px rgba(0,0,0,.9);
 }
 
@@ -94,14 +97,25 @@ h1 em{font-style:italic;color:var(--ink-soft)}
 .shelf{display:grid;gap:18px;padding:36px 0 0}
 .game{
   display:grid;grid-template-columns:78px 1fr;gap:22px;align-items:start;
-  background:var(--surface);border:1px solid var(--line);border-radius:14px;
-  padding:24px 26px 26px;box-shadow:var(--shadow);
+  background:var(--surface);border:2.5px solid var(--ink);border-radius:16px;
+  padding:24px 26px 26px;
+  box-shadow:6px 6px 0 var(--hue);
   position:relative;overflow:hidden;
-  transition:transform .14s ease, border-color .14s ease;
+  transform:rotate(var(--lean));
+  transition:transform .16s cubic-bezier(.3,1.4,.5,1), box-shadow .16s ease;
 }
-.game::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--hue)}
-.game:hover{transform:translateY(-2px);border-color:var(--hue)}
-.game .glyph{width:78px;height:78px;color:var(--hue)}
+.game::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--hue)}
+.game:nth-child(odd){--lean:-.45deg}
+.game:nth-child(even){--lean:.45deg}
+.game:hover{transform:rotate(0) translate(-3px,-3px);box-shadow:10px 10px 0 var(--hue)}
+.game:active{transform:rotate(0) translate(2px,2px);box-shadow:3px 3px 0 var(--hue)}
+.game .glyph{
+  width:78px;height:78px;color:var(--hue);
+  border:2.5px solid var(--ink);border-radius:14px;padding:8px;
+  background:var(--bg);transform:rotate(calc(var(--lean) * -2.4));
+  transition:transform .16s ease;
+}
+.game:hover .glyph{transform:rotate(calc(var(--lean) * 2))}
 .game h2{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.05;margin:0 0 8px;letter-spacing:-.005em}
 .game h2 a{color:inherit;text-decoration:none}
 .game h2 a::after{content:"";position:absolute;inset:0}
@@ -121,6 +135,7 @@ h1 em{font-style:italic;color:var(--ink-soft)}
 .tribond{--hue:var(--hue-tribond)}
 .drawer{--hue:var(--hue-drawer)}
 .once{--hue:var(--hue-once)}
+.blitz{--hue:var(--hue-blitz)}
 
 /* ---------- notes ---------- */
 .notes{
@@ -149,7 +164,7 @@ footer{
 <div class="wrap">
 
   <header class="masthead">
-    <p class="eyebrow">Three games · one screen · no install</p>
+    <p class="eyebrow">Four games · one screen · no install</p>
     <h1>The Game <em>Shelf</em></h1>
     <p class="lede">Party games that run in a browser tab. Open one on a laptop or cast it to the television, hand the room a single screen, and play. <b>Nothing to download, no accounts, no scores leaving your device.</b></p>
   </header>
@@ -166,6 +181,21 @@ footer{
         <h2><a href="once-upon-a-year.html">Once Upon a Year</a></h2>
         <p class="pitch">A century of Disney, shuffled. You get one thing that happened — a film, a ride, a ship, a deal — with the year hidden, and you slot it into the timeline you are building. Push your luck for a bigger pot or stop while you are ahead.</p>
         <p class="facts"><span>1–4 players</span><span>558 cards</span><span>1893 – 2025</span><span>~10 min a run</span></p>
+        <span class="play">Play</span>
+      </div>
+    </article>
+
+
+    <article class="game blitz">
+      <svg class="glyph" viewBox="0 0 78 78" aria-hidden="true">
+        <rect x="10" y="10" width="58" height="58" rx="10" fill="none" stroke="currentColor" stroke-width="2.6"/>
+        <text x="39" y="52" text-anchor="middle" font-family="Georgia, serif" font-size="38" font-weight="700" fill="currentColor">B</text>
+        <circle cx="58" cy="59" r="3.2" fill="currentColor"/>
+      </svg>
+      <div>
+        <h2><a href="letter-blitz.html">Letter Blitz</a></h2>
+        <p class="pitch">One letter, a sheet of categories and ninety seconds. Everybody scribbles at once, then you read them out &mdash; and an answer only counts if nobody else wrote it. All you need beyond the screen is a pen each.</p>
+        <p class="facts"><span>2–8 players</span><span>232 categories</span><span>pen and paper</span><span>~15 min</span></p>
         <span class="play">Play</span>
       </div>
     </article>
@@ -212,7 +242,7 @@ footer{
 
   <footer>
     <span>Built for playing in the same room.</span>
-    <span>Hosted on GitHub Pages</span>
+    <span>Hosted on Netlify</span>
   </footer>
 
 </div>

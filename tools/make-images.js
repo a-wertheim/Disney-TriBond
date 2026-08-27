@@ -29,6 +29,11 @@ const ticket = (c, bg) => `<svg viewBox="0 0 78 78" width="150" height="150">
   <line x1="21" y1="39" x2="57" y2="39" stroke="${c}" stroke-width="3.4" stroke-linecap="round"/>
   <line x1="21" y1="48" x2="43" y2="48" stroke="${c}" stroke-width="3.4" stroke-linecap="round"/></svg>`;
 
+const tile = (bg, ink) => `<svg viewBox="0 0 78 78" width="150" height="150">
+  <rect x="6" y="6" width="66" height="66" rx="14" fill="${bg}" stroke="${ink}" stroke-width="4"/>
+  <text x="39" y="56" text-anchor="middle" font-family="${SERIF}" font-size="46" font-weight="700" fill="${ink}">B</text>
+  <circle cx="58" cy="58" r="4" fill="${ink}"/></svg>`;
+
 function card({ bg, glyph, kicker, kickerColor, title, titleColor, accent, sub, facts, rule }) {
   return `<!doctype html><html><head><meta charset="utf-8"><style>
   *{box-sizing:border-box;margin:0}
@@ -65,6 +70,13 @@ const CARDS = {
     sub: 'File each card where it belongs in time.',
     facts: ['176 CARDS', '3500 BC - 2022', '1-4 PLAYERS'],
   }),
+  'og-letter-blitz.png': card({
+    bg: '#E7F1EB', glyph: tile('#EE9F2C', '#1D2A25'),
+    kicker: 'A category race', kickerColor: '#55635C',
+    title: 'Letter <em>Blitz</em>', titleColor: '#1D2A25', accent: '#DE4636', rule: 'rgba(29,42,37,.25)',
+    sub: 'One letter. Ninety seconds. No repeats.',
+    facts: ['232 CATEGORIES', 'PEN AND PAPER', '2-8 PLAYERS'],
+  }),
   'og-e-ticket-tribond.png': card({
     bg: '#0E1A33', glyph: ticket('#F4EAD6', '#0E1A33'),
     kicker: 'A riddle game', kickerColor: 'rgba(244,234,214,.6)',
@@ -81,14 +93,15 @@ body{width:1200px;height:630px;background:#131318;color:#F0F0F5;overflow:hidden}
 .k{font-family:${MONO};font-size:20px;letter-spacing:.22em;text-transform:uppercase;color:#7A7A88}
 h1{font-family:${SERIF};font-size:112px;line-height:.98;letter-spacing:-.02em;font-weight:400;margin-top:24px}
 h1 em{font-style:italic;color:#A6A6B4}
-.row{display:flex;gap:26px;border-top:2px solid #2C2C38;padding-top:34px}
+.row{display:flex;gap:20px;border-top:2px solid #2C2C38;padding-top:34px}
 .g{flex:1;border-left:4px solid var(--c);padding-left:20px}
-.g .n{font-family:${SERIF};font-size:31px;color:#F0F0F5;line-height:1.15}
-.g .m{font-family:${MONO};font-size:17px;letter-spacing:.06em;color:var(--c);margin-top:10px}
+.g .n{font-family:${SERIF};font-size:26px;color:#F0F0F5;line-height:1.15}
+.g .m{font-family:${MONO};font-size:15px;letter-spacing:.06em;color:var(--c);margin-top:10px}
 </style></head><body><div class="pad">
-<div><div class="k">Three games / one screen / no install</div><h1>The Game <em>Shelf</em></h1></div>
+<div><div class="k">Four games / one screen / no install</div><h1>The Game <em>Shelf</em></h1></div>
 <div class="row">
   <div class="g" style="--c:#C39CF0"><div class="n">Once Upon a Year</div><div class="m">558 CARDS</div></div>
+  <div class="g" style="--c:#F0A45C"><div class="n">Letter Blitz</div><div class="m">232 CATEGORIES</div></div>
   <div class="g" style="--c:#5CC3B9"><div class="n">The Year Drawer</div><div class="m">176 CARDS</div></div>
   <div class="g" style="--c:#F0714A"><div class="n">E-Ticket TriBond</div><div class="m">83 CARDS</div></div>
 </div></div></body></html>`;

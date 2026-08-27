@@ -1,7 +1,7 @@
 {
   "name": "The Game Shelf",
   "short_name": "Game Shelf",
-  "description": "Three browser games you can play around one screen.",
+  "description": "Four browser games you can play around one screen.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
