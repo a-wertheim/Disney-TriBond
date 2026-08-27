@@ -1,0 +1,1509 @@
+<title>Once Upon a Year</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Nunito:wght@400;600;700&family=Josefin+Sans:wght@300;400;600&display=swap">
+
+<style>
+/* ============ tokens: twilight is the base ============ */
+:root{
+  --night:#1B1440;
+  --night-2:#141034;
+  --card:#271F5C;
+  --card-2:#2F2770;
+  --edge:#4B4096;
+  --ink:#F6F0FF;
+  --ink-soft:#B8AFDE;
+  --ink-faint:#8078B0;
+  --rule:rgba(246,240,255,.16);
+  --gold:#F5C24C;
+  --on-gold:#1B1440;
+  --gold-wash:rgba(245,194,76,.14);
+  --rose:#F27FA9;
+  --rose-wash:rgba(242,127,169,.14);
+  --aqua:#67DBD2;
+  --starfield:1;
+  --glow:0 0 0 1px rgba(245,194,76,.14), 0 18px 44px -22px rgba(0,0,0,.85);
+  --c-wda:#F5C24C;  --c-pix:#67DBD2;  --c-film:#F27FA9;
+  --c-tv:#8FB8FF;   --c-park:#93DD84; --c-sea:#63C8F2;
+  --c-corp:#C3C8DE; --c-saga:#FF9A66; --c-stage:#D98CFF;
+  --display:"Yeseva One","Georgia",serif;
+  --body:"Nunito","Helvetica Neue",Arial,sans-serif;
+  --deco:"Josefin Sans","Futura","Century Gothic",sans-serif;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --night:#EFEBFC;
+    --night-2:#E4DEF8;
+    --card:#FFFFFF;
+    --card-2:#F8F5FF;
+    --edge:#D7CDF2;
+    --ink:#291F55;
+    --ink-soft:#5C5192;
+    --ink-faint:#8E85BC;
+    --rule:rgba(41,31,85,.15);
+    --gold:#A87209;
+    --on-gold:#FFFFFF;
+    --gold-wash:rgba(168,114,9,.10);
+    --rose:#B93F71;
+    --rose-wash:rgba(185,63,113,.10);
+    --aqua:#0F7A74;
+    --starfield:0;
+    --glow:0 1px 0 rgba(41,31,85,.06), 0 14px 34px -22px rgba(41,31,85,.5);
+    --c-wda:#8E6208;  --c-pix:#0F7A74;  --c-film:#B03C6D;
+    --c-tv:#33569F;   --c-park:#3B7530; --c-sea:#116A95;
+    --c-corp:#4E5977; --c-saga:#9E4C16; --c-stage:#71339E;
+  }
+}
+:root[data-theme="light"]{
+  --night:#EFEBFC;
+  --night-2:#E4DEF8;
+  --card:#FFFFFF;
+  --card-2:#F8F5FF;
+  --edge:#D7CDF2;
+  --ink:#291F55;
+  --ink-soft:#5C5192;
+  --ink-faint:#8E85BC;
+  --rule:rgba(41,31,85,.15);
+  --gold:#A87209;
+  --on-gold:#FFFFFF;
+  --gold-wash:rgba(168,114,9,.10);
+  --rose:#B93F71;
+  --rose-wash:rgba(185,63,113,.10);
+  --aqua:#0F7A74;
+  --starfield:0;
+  --glow:0 1px 0 rgba(41,31,85,.06), 0 14px 34px -22px rgba(41,31,85,.5);
+  --c-wda:#8E6208;  --c-pix:#0F7A74;  --c-film:#B03C6D;
+  --c-tv:#33569F;   --c-park:#3B7530; --c-sea:#116A95;
+  --c-corp:#4E5977; --c-saga:#9E4C16; --c-stage:#71339E;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--night);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px 72px;position:relative;z-index:1}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.hidden{display:none !important}
+[hidden]{display:none !important}
+
+/* ============ starfield band ============ */
+.sky{
+  position:absolute;inset:0 0 auto 0;height:340px;overflow:hidden;pointer-events:none;
+  opacity:var(--starfield);z-index:0;
+}
+.sky i{
+  position:absolute;display:block;border-radius:50%;background:var(--gold);
+  animation:twinkle 5.5s ease-in-out infinite;
+}
+@keyframes twinkle{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:.85;transform:scale(1)}}
+
+/* ============ masthead ============ */
+.top{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  padding:26px 0 16px;border-bottom:1px solid var(--rule);
+}
+.brand{display:flex;align-items:center;gap:14px}
+.brand svg{flex:none}
+.brand h1{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(26px,4.4vw,40px);line-height:1;margin:0;letter-spacing:.005em;
+}
+.brand h1 em{font-style:normal;color:var(--gold)}
+.brand .tag{
+  font-family:var(--deco);font-weight:400;font-size:12.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-soft);margin-top:6px;
+}
+.themebtn{
+  font-family:var(--deco);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--rule);border-radius:20px;padding:7px 14px;color:var(--ink-soft);
+}
+.themebtn:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ============ shared ============ */
+.kicker{
+  font-family:var(--deco);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);
+}
+h2.sect{font-family:var(--display);font-weight:400;font-size:21px;margin:0 0 12px}
+
+.btn{
+  font-family:var(--body);font-weight:700;font-size:15px;
+  padding:12px 24px;border-radius:24px;border:1px solid transparent;
+  background:var(--card-2);color:var(--ink);
+  transition:transform .12s ease, background .14s ease, color .14s ease, box-shadow .14s ease;
+}
+.btn:hover{background:var(--gold);color:var(--on-gold);box-shadow:0 0 22px -6px var(--gold)}
+.btn:active{transform:translateY(1px)}
+.btn--go{background:var(--gold);color:var(--on-gold)}
+.btn--go:hover{background:var(--ink);color:var(--night);box-shadow:none}
+.btn--bank{background:transparent;border-color:var(--aqua);color:var(--aqua)}
+.btn--bank:hover{background:var(--aqua);color:#062522;box-shadow:none}
+.btn--quiet{background:transparent;border-color:var(--rule);color:var(--ink-soft)}
+.btn--quiet:hover{background:transparent;border-color:var(--ink-soft);color:var(--ink);box-shadow:none}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn:disabled:hover{background:var(--card-2);color:var(--ink);box-shadow:none}
+
+.chip{
+  font-family:var(--deco);font-size:12.5px;letter-spacing:.08em;
+  padding:8px 14px;border:1px solid var(--rule);border-radius:20px;
+  color:var(--ink-soft);transition:all .14s ease;
+}
+.chip:hover{border-color:var(--ink-soft);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--on-gold);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+
+/* ============ home ============ */
+.home{display:grid;gap:30px;padding-top:30px}
+.lede{max-width:58ch;margin:0;font-size:18px;color:var(--ink-soft)}
+.lede b{color:var(--ink);font-weight:700}
+.lede .spark{color:var(--gold)}
+
+.howto{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.step{
+  background:var(--card);border:1px solid var(--edge);border-radius:18px;
+  padding:18px 20px 20px;display:grid;gap:6px;box-shadow:var(--glow);
+}
+.step .n{font-family:var(--deco);font-size:11px;letter-spacing:.18em;color:var(--gold)}
+.step h3{font-family:var(--display);font-weight:400;font-size:18px;margin:0}
+.step p{margin:0;font-size:14.5px;color:var(--ink-soft);line-height:1.55}
+
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mode{
+  text-align:left;background:var(--card);border:1px solid var(--edge);border-radius:18px;
+  padding:18px 22px 20px;display:grid;gap:6px;box-shadow:var(--glow);
+  transition:border-color .14s ease, transform .12s ease;
+}
+.mode:hover{border-color:var(--gold);transform:translateY(-2px)}
+.mode[aria-pressed="true"]{border-color:var(--gold);background:var(--card-2);box-shadow:0 0 34px -14px var(--gold),var(--glow)}
+.mode h3{font-family:var(--display);font-weight:400;font-size:21px;margin:0}
+.mode h3 span{color:var(--gold)}
+.mode p{margin:0;font-size:14.5px;color:var(--ink-soft);line-height:1.55}
+
+.panel{
+  background:var(--card);border:1px solid var(--edge);border-radius:18px;
+  padding:20px 22px;display:grid;gap:18px;box-shadow:var(--glow);
+}
+.field{display:grid;gap:9px}
+.roster{display:grid;gap:10px}
+.rrow{display:flex;gap:10px;align-items:center}
+.rrow .dot{width:12px;height:12px;border-radius:50%;flex:none;background:var(--c);box-shadow:0 0 10px -1px var(--c)}
+.rrow input{
+  flex:1;background:transparent;border:0;border-bottom:1px solid var(--rule);
+  color:var(--ink);font-family:var(--display);font-size:18px;padding:6px 2px;
+}
+.rrow input::placeholder{color:var(--ink-faint);font-family:var(--body);font-size:16px}
+.rrow input:focus{outline:none;border-bottom-color:var(--gold)}
+.rrow .x{color:var(--ink-faint);padding:3px 8px;border-radius:50%}
+.rrow .x:hover{color:var(--rose);background:var(--rose-wash)}
+
+.startrow{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.deckn{font-family:var(--deco);font-size:13px;letter-spacing:.06em;color:var(--ink-soft)}
+.deckn b{color:var(--gold);font-weight:600}
+
+/* ============ play: status ============ */
+.status{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:16px 0}
+.statusL{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.turn{font-family:var(--display);font-size:20px;display:flex;align-items:center;gap:10px}
+.turn .dot{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 12px -1px var(--c)}
+.meta{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.metric{display:flex;flex-direction:column;line-height:1.2}
+.metric .k{font-family:var(--deco);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+.metric .v{font-family:var(--display);font-size:21px;font-variant-numeric:tabular-nums}
+.metric .v.pot{color:var(--gold)}
+.wishes{display:flex;gap:5px;padding-top:4px;font-size:17px;line-height:1;color:var(--gold)}
+.wishes span.spent{color:var(--ink-faint);opacity:.5}
+
+.dustbtn{
+  display:flex;align-items:center;gap:9px;
+  font-family:var(--deco);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--gold);color:var(--gold);border-radius:20px;padding:9px 16px;
+}
+.dustbtn:hover:not(:disabled){background:var(--gold-wash);box-shadow:0 0 18px -6px var(--gold)}
+.dustbtn:disabled{opacity:.3;cursor:not-allowed}
+
+/* ============ the plate ============ */
+.deal{display:grid;gap:16px;justify-items:center;padding:6px 0 22px}
+.plate{
+  width:min(600px,100%);position:relative;
+  background:var(--card);border:1px solid var(--edge);border-radius:22px;
+  box-shadow:var(--glow);overflow:hidden;
+}
+.plate .head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:12px 20px;border-bottom:1px solid var(--rule);
+}
+.plate .cat{
+  font-family:var(--deco);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--c);
+  display:flex;align-items:center;gap:8px;
+}
+.plate .cat::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 8px -1px var(--c)}
+.yearbox{
+  font-family:var(--deco);font-weight:600;font-size:15px;letter-spacing:.18em;
+  border:1px solid var(--rule);border-radius:14px;padding:4px 14px;color:var(--ink-faint);
+}
+.yearbox.known{border-color:var(--gold);color:var(--gold);box-shadow:0 0 18px -8px var(--gold)}
+.plate .body{
+  padding:26px 26px 28px;min-height:118px;display:flex;align-items:center;
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(20px,3.1vw,28px);line-height:1.3;text-wrap:balance;
+}
+.plate .corner{position:absolute;width:34px;height:34px;opacity:.5;pointer-events:none;color:var(--gold)}
+.plate .corner.tl{left:6px;top:44px}
+.plate .corner.br{right:6px;bottom:6px;transform:rotate(180deg)}
+.dustline{font-family:var(--body);font-size:14.5px;color:var(--gold);padding:0 26px 20px;margin:-14px 0 0}
+.prompt{font-family:var(--deco);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+
+/* ============ the storybook rail ============ */
+.railwrap{position:relative;padding:20px 0;margin:0 -18px;background:var(--night-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.rail{display:flex;align-items:stretch;overflow-x:auto;overflow-y:hidden;padding:16px 18px 14px;scroll-behavior:smooth}
+.rail::-webkit-scrollbar{height:8px}
+.rail::-webkit-scrollbar-thumb{background:var(--edge);border-radius:4px}
+
+.slot{
+  flex:none;width:38px;align-self:stretch;margin:0 6px;
+  border:1px dashed var(--ink-faint);border-radius:14px;
+  color:var(--ink-faint);font-size:15px;line-height:1;
+  display:grid;place-items:center;
+  transition:all .14s ease;
+}
+.slot:hover,.slot.cursor{
+  border-style:solid;border-color:var(--gold);color:var(--gold);
+  background:var(--gold-wash);width:52px;box-shadow:0 0 22px -8px var(--gold);
+}
+.slot:disabled{opacity:.25;cursor:default}
+.slot:disabled:hover{border-style:dashed;border-color:var(--ink-faint);color:var(--ink-faint);background:transparent;width:38px;box-shadow:none}
+
+.page{
+  flex:none;width:140px;position:relative;
+  background:var(--card);border:1px solid var(--edge);border-radius:14px;
+  padding:11px 13px 13px;display:grid;gap:6px;align-content:start;box-shadow:var(--glow);
+}
+.page .yr{
+  font-family:var(--deco);font-weight:600;font-size:16px;letter-spacing:.06em;color:var(--ink);
+  border-bottom:1px solid var(--c);padding-bottom:5px;
+}
+.page .ev{
+  font-size:12.5px;line-height:1.35;color:var(--ink-soft);
+  display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;
+}
+.page.justplaced{border-color:var(--gold);box-shadow:0 0 30px -8px var(--gold),var(--glow)}
+.page.seed::after{
+  content:"✦";position:absolute;top:-9px;right:11px;font-size:13px;color:var(--gold);
+  background:var(--night-2);padding:0 5px;line-height:1.4;
+}
+
+/* ============ verdict ============ */
+.verdict{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;padding:22px 0 4px;position:relative}
+.ribbon{
+  font-family:var(--deco);font-weight:600;font-size:13.5px;letter-spacing:.2em;text-transform:uppercase;
+  border:1px solid var(--sc);color:var(--sc);border-radius:22px;padding:10px 18px;white-space:nowrap;
+  align-self:center;box-shadow:0 0 26px -10px var(--sc);
+}
+.ribbon.pop{animation:ribbonin .38s cubic-bezier(.2,1.4,.4,1)}
+@keyframes ribbonin{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.sparks{position:absolute;left:56px;top:26px;pointer-events:none}
+.sparks b{position:absolute;font-size:14px;color:var(--gold);opacity:0;animation:fly .9s ease-out forwards}
+@keyframes fly{0%{opacity:1;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.1)}}
+.said{display:grid;gap:7px}
+.yearline{font-family:var(--display);font-size:clamp(19px,3vw,25px);line-height:1.25;text-wrap:balance}
+.yearline em{font-style:normal;color:var(--gold)}
+.fact{font-size:15.5px;color:var(--ink-soft);max-width:66ch;margin:0}
+
+.actions{display:flex;gap:11px;flex-wrap:wrap;align-items:center;padding-top:16px}
+.actions .note{font-family:var(--deco);font-size:12.5px;letter-spacing:.05em;color:var(--ink-faint)}
+
+/* ============ party scoreboard ============ */
+.scores{display:flex;gap:9px;flex-wrap:wrap;padding-top:20px;border-top:1px solid var(--rule);margin-top:22px}
+.pscore{
+  display:flex;align-items:baseline;gap:9px;
+  border:1px solid var(--edge);border-radius:20px;padding:7px 15px;background:var(--card);
+}
+.pscore.active{border-color:var(--c);box-shadow:0 0 20px -8px var(--c)}
+.pscore .nm{font-family:var(--display);font-size:15px}
+.pscore .sc{font-family:var(--deco);font-weight:600;font-size:15px;color:var(--c);font-variant-numeric:tabular-nums}
+.pscore .tk{font-size:11px;color:var(--ink-faint)}
+
+/* ============ over ============ */
+.over{display:grid;gap:26px;padding-top:30px}
+.result{display:grid;gap:8px}
+.result h2{font-family:var(--display);font-weight:400;font-size:clamp(30px,6vw,52px);margin:0;line-height:1.08;text-wrap:balance}
+.result h2 em{font-style:normal;color:var(--gold)}
+.result .sub{color:var(--ink-soft);font-size:17px}
+.bigstats{display:flex;gap:28px;flex-wrap:wrap;padding:16px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.recap{display:grid}
+.recap .row{display:grid;grid-template-columns:74px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.recap .row .yr{font-family:var(--deco);font-weight:600;font-size:15px;color:var(--gold);text-align:right;font-variant-numeric:tabular-nums}
+.recap .row.missed .yr{color:var(--rose)}
+.recap .row .ev{font-family:var(--display);font-size:16px;line-height:1.35}
+.recap .row .fc{font-size:14.5px;color:var(--ink-soft);line-height:1.5;margin-top:3px}
+.recap .row .flag{
+  font-family:var(--deco);font-size:10px;letter-spacing:.14em;color:var(--rose);
+  border:1px solid var(--rose);border-radius:10px;padding:1px 8px;margin-left:10px;vertical-align:2px;
+}
+
+@media (max-width:760px){
+  .howto,.modes{grid-template-columns:1fr}
+  .verdict{grid-template-columns:1fr;gap:14px}
+  .ribbon{justify-self:start}
+  .sparks{display:none}
+  .recap .row{grid-template-columns:64px 1fr;gap:11px}
+}
+@media (max-width:480px){ .brand .tag{display:none} }
+@media (prefers-reduced-motion:reduce){
+  *{transition-duration:.01ms !important;animation:none !important}
+  .rail{scroll-behavior:auto}
+}
+</style>
+
+<div class="sky" id="sky" aria-hidden="true"></div>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <svg width="42" height="42" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 3 L23.2 14.4 L34.5 12.2 L26.4 20 L34.5 27.8 L23.2 25.6 L20 37 L16.8 25.6 L5.5 27.8 L13.6 20 L5.5 12.2 L16.8 14.4 Z"
+              fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" style="color:var(--gold)"/>
+        <circle cx="20" cy="20" r="3" fill="var(--gold)"/>
+      </svg>
+      <div>
+        <h1>Once Upon <em>a Year</em></h1>
+        <div class="tag">Put the Disney century back in order</div>
+      </div>
+    </div>
+    <button class="themebtn" id="themeBtn" aria-label="Switch between twilight and daylight">☾ Twilight</button>
+  </header>
+
+  <!-- ============ HOME ============ -->
+  <section class="home" id="home">
+    <p class="lede">A hundred years of Disney, shuffled. You are handed one thing that happened <span class="spark">✦</span> a film, a ride, a ship, a deal <span class="spark">✦</span> with the year hidden. <b>Slide it into the right place in the story</b> and it stays. Guess wrong and it goes back in the vault.</p>
+
+    <div class="howto">
+      <div class="step">
+        <span class="n">FIRST</span>
+        <h3>Read the plate</h3>
+        <p>From the Laugh-O-Gram days to last year's releases. No date on the card.</p>
+      </div>
+      <div class="step">
+        <span class="n">THEN</span>
+        <h3>Find its place</h3>
+        <p>Click the gap where it belongs. Everything already placed is a clue.</p>
+      </div>
+      <div class="step">
+        <span class="n">FINALLY</span>
+        <h3>Push, or stop</h3>
+        <p>Each card in a row is worth more than the last. One slip loses the lot.</p>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="sect">Choose a mode</h2>
+      <div class="modes">
+        <button class="mode" id="modeSolo" aria-pressed="true">
+          <h3>Solo <span>✦</span> three wishes</h3>
+          <p>Keep going as long as you can. Three wrong guesses ends it, but you may stop and keep your run at any point.</p>
+        </button>
+        <button class="mode" id="modeParty" aria-pressed="false">
+          <h3>Party <span>✦</span> two to four</h3>
+          <p>Pass one screen around. Push your luck for a bigger pot or bank it and hand over. First to the target wins.</p>
+        </button>
+      </div>
+    </div>
+
+    <div class="panel" id="partyPanel" hidden>
+      <div class="field">
+        <span class="kicker">Players</span>
+        <div class="roster" id="roster"></div>
+        <div><button class="chip" id="addPlayer">✦ add player</button></div>
+      </div>
+      <div class="field">
+        <span class="kicker">Play to</span>
+        <div class="chips" id="targetChips">
+          <button class="chip" data-target="15">15 points</button>
+          <button class="chip" data-target="25" aria-pressed="true">25 points</button>
+          <button class="chip" data-target="40">40 points</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="field">
+        <span class="kicker">What's in the story</span>
+        <div class="chips" id="catChips"></div>
+      </div>
+      <div class="startrow">
+        <span class="deckn" id="deckn"></span>
+        <button class="btn btn--go" id="startBtn">Open the book</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLAY ============ -->
+  <section id="play" class="hidden">
+    <div class="status">
+      <div class="statusL">
+        <div class="turn" id="turnLabel"></div>
+        <div class="meta" id="metaRow"></div>
+      </div>
+      <button class="dustbtn" id="dustBtn"><span>✦ Pixie dust</span><span id="dustCount"></span></button>
+    </div>
+
+    <div class="deal">
+      <article class="plate" id="thePlate">
+        <svg class="corner tl" viewBox="0 0 40 40" aria-hidden="true"><path d="M2 38 C2 18 18 2 38 2" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="32" r="1.6" fill="currentColor"/></svg>
+        <svg class="corner br" viewBox="0 0 40 40" aria-hidden="true"><path d="M2 38 C2 18 18 2 38 2" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="32" r="1.6" fill="currentColor"/></svg>
+        <div class="head">
+          <span class="cat" id="cardCat"></span>
+          <span class="yearbox" id="cardYear">· · · ·</span>
+        </div>
+        <div class="body" id="cardBody"></div>
+        <p class="dustline hidden" id="dustLine"></p>
+      </article>
+      <span class="prompt" id="prompt">Click a gap in the story below</span>
+    </div>
+
+    <div class="railwrap"><div class="rail" id="rail"></div></div>
+
+    <div class="verdict hidden" id="verdict">
+      <span class="ribbon" id="ribbon"></span>
+      <span class="sparks" id="sparks" aria-hidden="true"></span>
+      <div class="said">
+        <div class="yearline" id="yearline"></div>
+        <p class="fact" id="factline"></p>
+      </div>
+    </div>
+
+    <div class="actions" id="actions"></div>
+    <div class="scores hidden" id="scores"></div>
+  </section>
+
+  <!-- ============ OVER ============ -->
+  <section id="over" class="hidden">
+    <div class="over">
+      <div class="result">
+        <span class="kicker" id="overKicker"></span>
+        <h2 id="overTitle"></h2>
+        <div class="sub" id="overSub"></div>
+      </div>
+      <div class="bigstats" id="overStats"></div>
+      <div>
+        <h2 class="sect">Everything you handled, in order</h2>
+        <div class="recap" id="recap"></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn--go" id="againBtn">Again</button>
+        <button class="btn btn--quiet" id="homeBtn">Change setup</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+"use strict";
+
+const CATS = {
+  wda:  {label:"Disney Animation", v:"--c-wda"},
+  pix:  {label:"Pixar", v:"--c-pix"},
+  film: {label:"Live Action", v:"--c-film"},
+  tv:   {label:"Television &amp; Disney+", v:"--c-tv"},
+  park: {label:"The Parks", v:"--c-park"},
+  sea:  {label:"Cruise Line", v:"--c-sea"},
+  saga: {label:"Marvel &amp; Star Wars", v:"--c-saga"},
+  stage:{label:"Stage &amp; Awards", v:"--c-stage"},
+  corp: {label:"The Company", v:"--c-corp"}
+};
+
+const DECK = [
+{e:"Mickey Mouse stars in his first cartoon, Plane Crazy",y:1928,c:"wda",f:"The silent test screening left distributors cold, and the short was reissued with a soundtrack the following year."},
+{e:"Steamboat Willie premieres at the Colony Theatre",y:1928,c:"wda",f:"Walt Disney supplied Mickey's squeaks himself, and the post-synchronized score made the cartoon a sensation."},
+{e:"The Skeleton Dance launches the Silly Symphonies",y:1929,c:"wda",f:"Ub Iwerks animated four skeletons in a graveyard for a series built around music rather than a star character."},
+{e:"Pluto debuts as a bloodhound in The Chain Gang",y:1930,c:"wda",f:"He chased escaped convict Mickey Mouse and went unnamed on screen before settling in as Mickey's pet dog."},
+{e:"Goofy makes his first appearance in Mickey's Revue",y:1932,c:"wda",f:"He was an audience member called Dippy Dawg whose laugh, supplied by Pinto Colvig, got him promoted to a regular."},
+{e:"Flowers and Trees is made in three-strip Technicolor",y:1932,c:"wda",f:"Disney scrapped a half-finished black and white version and won the first Academy Award given for an animated short."},
+{e:"The Three Little Pigs opens in theaters",y:1933,c:"wda",f:"Who's Afraid of the Big Bad Wolf became a Depression anthem, and the short stayed in theaters for months."},
+{e:"Donald Duck makes his debut in The Wise Little Hen",y:1934,c:"wda",f:"Clarence Nash won the part after Walt heard him recite Mary Had a Little Lamb in his strangled duck voice."},
+{e:"Mickey Mouse appears in color for the first time",y:1935,c:"wda",f:"The Band Concert put Mickey in red shorts and had him conduct the William Tell Overture straight through a tornado."},
+{e:"Snow White and the Seven Dwarfs is released",y:1937,c:"wda",f:"The industry called it Disney's Folly; it became the highest-grossing film made to that point."},
+{e:"The Old Mill tries out the new multiplane camera",y:1937,c:"wda",f:"The Silly Symphony had no dialogue and no real plot, serving as a laboratory for effects used in the features."},
+{e:"Disney's multiplane camera is built and put to work",y:1937,c:"wda",f:"The tower stood about fourteen feet tall and held stacked panes of painted glass so shots could move with real depth."},
+{e:"Pinocchio is released in theaters",y:1940,c:"wda",f:"It lost money at first because the war had closed European markets, but it won the studio two competitive Oscars."},
+{e:"Fantasia is released in theaters",y:1940,c:"wda",f:"The Fantasound system needed dozens of speakers and its own engineers, so only a handful of theaters could play it."},
+{e:"The animation studio moves to its Burbank lot",y:1940,c:"wda",f:"Profits from Snow White paid for a campus designed around animators, with north light in every drawing room."},
+{e:"Dumbo is released in theaters",y:1941,c:"wda",f:"Made cheaply to recover earlier losses, it runs only 64 minutes and turned the studio's best profit of the decade."},
+{e:"Disney animators walk out on strike",y:1941,c:"wda",f:"The walkout lasted weeks, ended with a federal mediator, and sent many strikers off to shape the rival studio UPA."},
+{e:"Bambi is released in theaters",y:1942,c:"wda",f:"Fawns and other young animals were kept at the studio so artists could study how they actually moved."},
+{e:"Saludos Amigos is released in the United States",y:1943,c:"wda",f:"It grew out of a goodwill tour of South America that the State Department paid Walt Disney to take."},
+{e:"Der Fuehrer's Face casts Donald Duck in a nightmare",y:1943,c:"wda",f:"The anti-Nazi short won an Academy Award, and the Spike Jones novelty song attached to it became a hit record."},
+{e:"Chip and Dale first appear in the short Private Pluto",y:1943,c:"wda",f:"The chipmunks were unnamed and identical here, later told apart by a black nose and two buck teeth."},
+{e:"The Three Caballeros is released in the United States",y:1945,c:"wda",f:"It put live-action Latin American stars and animated characters in the same frame, an effect few films had tried."},
+{e:"Make Mine Music is released in theaters",y:1946,c:"wda",f:"Ten musical segments filled out a feature the war-drained studio could not afford to build as one story."},
+{e:"Fun and Fancy Free is released in theaters",y:1947,c:"wda",f:"Its Mickey and the Beanstalk half carried one of Walt Disney's last turns voicing Mickey before a sound man took over."},
+{e:"Melody Time is released in theaters",y:1948,c:"wda",f:"Seven segments ran from Johnny Appleseed to Pecos Bill, with the Andrews Sisters and Roy Rogers guesting."},
+{e:"The Adventures of Ichabod and Mr Toad is released",y:1949,c:"wda",f:"Bing Crosby narrated the Sleepy Hollow half and Basil Rathbone the Wind in the Willows half."},
+{e:"Cinderella is released in theaters",y:1950,c:"wda",f:"The studio was nearly broke, and this hit paid for the run of features and the theme park that followed."},
+{e:"Alice in Wonderland is released in theaters",y:1951,c:"wda",f:"Critics called it disrespectful to Lewis Carroll, and it found its audience only decades later on television."},
+{e:"Peter Pan is released in theaters",y:1953,c:"wda",f:"It was the last Disney feature handled by RKO before the studio began distributing its own films."},
+{e:"Lady and the Tramp is released in theaters",y:1955,c:"wda",f:"It was the first animated feature in CinemaScope, and artists had to rethink staging for the much wider frame."},
+{e:"Sleeping Beauty is released in theaters",y:1959,c:"wda",f:"Eyvind Earle's gothic tapestry backgrounds took so long that the film cost more than any Disney feature before it."},
+{e:"One Hundred and One Dalmatians is released",y:1961,c:"wda",f:"Xerography copied drawings straight onto cels, which saved the studio money and left the sketch lines showing."},
+{e:"The Sword in the Stone is released in theaters",y:1963,c:"wda",f:"Three different boys voiced Wart because the first actor's voice broke partway through production."},
+{e:"The Jungle Book is released in theaters",y:1967,c:"wda",f:"It was the last animated feature Walt Disney personally supervised, and he died before it reached theaters."},
+{e:"The Aristocats is released in theaters",y:1970,c:"wda",f:"It was the first animated feature completed after Walt Disney's death, from a project he had approved himself."},
+{e:"Robin Hood is released in theaters",y:1973,c:"wda",f:"Tight budgets meant animation was traced from earlier films, including a dance lifted out of Snow White."},
+{e:"The Many Adventures of Winnie the Pooh is released",y:1977,c:"wda",f:"Three earlier featurettes were stitched together, with characters climbing across the pages of the storybook."},
+{e:"The Rescuers is released in theaters",y:1977,c:"wda",f:"Eva Gabor and Bob Newhart voiced the mice, and this became the first Disney cartoon feature to get a theatrical sequel."},
+{e:"The Fox and the Hound is released in theaters",y:1981,c:"wda",f:"It marked the handover from Walt's Nine Old Men to a young crew that included Tim Burton and Brad Bird."},
+{e:"The Black Cauldron is released in theaters",y:1985,c:"wda",f:"The first PG-rated Disney animated feature lost so much money that the studio came close to shutting animation down."},
+{e:"The Great Mouse Detective is released in theaters",y:1986,c:"wda",f:"The clockwork gears inside Big Ben were computer generated, an early test of digital tools at the studio."},
+{e:"Oliver and Company is released in theaters",y:1988,c:"wda",f:"Billy Joel voiced a streetwise dog in a Dickens tale moved to New York, with computer-drawn taxis and trains."},
+{e:"The Little Mermaid is released in theaters",y:1989,c:"wda",f:"Howard Ashman and Alan Menken wrote the songs like a Broadway score, starting the studio's musical revival."},
+{e:"The Rescuers Down Under is released in theaters",y:1990,c:"wda",f:"It was the first feature made without a single painted cel, colored and composited entirely on computers."},
+{e:"Disney adopts the CAPS digital ink and paint system",y:1990,c:"wda",f:"Built jointly with Pixar, it let artists color and composite drawings on computers instead of on sheets of celluloid."},
+{e:"Beauty and the Beast is released in theaters",y:1991,c:"wda",f:"It became the first animated film ever nominated for the Academy Award for best picture."},
+{e:"Aladdin is released in theaters",y:1992,c:"wda",f:"Robin Williams improvised for hours, and animators built the Genie's shape-shifting around whatever he said."},
+{e:"The Lion King is released in theaters",y:1994,c:"wda",f:"Staff treated it as the lesser project next to Pocahontas, and it became the top-grossing hand-drawn film ever made."},
+{e:"Pocahontas is released in theaters",y:1995,c:"wda",f:"It was the studio's first feature built around a historical figure, and its liberties with the record drew protest."},
+{e:"The Hunchback of Notre Dame is released",y:1996,c:"wda",f:"Crowd software generated thousands of individually moving Parisians for the Feast of Fools sequence."},
+{e:"Hercules is released in theaters",y:1997,c:"wda",f:"British cartoonist Gerald Scarfe designed the characters, giving the film angles unlike any Disney feature before."},
+{e:"Mulan is released in theaters",y:1998,c:"wda",f:"Most of it was animated at the Florida studio, where theme park guests watched the artists through glass."},
+{e:"Tarzan is released in theaters",y:1999,c:"wda",f:"Deep Canvas software built painted backgrounds in three dimensions so the camera could swing through them."},
+{e:"The sequel to Fantasia opens in giant-screen theaters",y:2000,c:"wda",f:"Roy E. Disney spent a decade reviving his uncle's plan to keep replacing segments with new ones."},
+{e:"Dinosaur is released in theaters",y:2000,c:"wda",f:"Computer-animated creatures were placed into photographed real landscapes, at a cost few films had matched."},
+{e:"The Emperor's New Groove is released in theaters",y:2000,c:"wda",f:"It began as an epic called Kingdom of the Sun and was rebuilt as a buddy comedy after years of trouble."},
+{e:"Atlantis: The Lost Empire is released in theaters",y:2001,c:"wda",f:"Comic artist Mike Mignola shaped the look, and the film was written with no songs on purpose."},
+{e:"Lilo and Stitch is released in theaters",y:2002,c:"wda",f:"Watercolor backgrounds returned for the first time since Dumbo, and director Chris Sanders voiced Stitch himself."},
+{e:"Treasure Planet is released in theaters",y:2002,c:"wda",f:"Designers followed a seventy-thirty rule, mixing classic illustration with science fiction hardware."},
+{e:"Brother Bear is released in theaters",y:2003,c:"wda",f:"The picture widens partway through, when a hunter becomes a bear and the world turns richer in color."},
+{e:"Home on the Range is released in theaters",y:2004,c:"wda",f:"It was the last hand-drawn Disney feature before the studio switched to computers, a break that lasted five years."},
+{e:"The Florida animation studio closes its doors",y:2004,c:"wda",f:"Orlando theme park guests had spent years watching artists work on films like Mulan through observation windows."},
+{e:"Chicken Little is released in theaters",y:2005,c:"wda",f:"It was the studio's first fully computer-animated feature, made while Disney weighed buying Pixar outright."},
+{e:"John Lasseter becomes chief creative officer",y:2006,c:"wda",f:"He shelved troubled projects, brought back hand-drawn animation, and imported Pixar's story trust habit."},
+{e:"Meet the Robinsons is released in theaters",y:2007,c:"wda",f:"John Lasseter arrived partway through and ordered a rewrite that changed roughly sixty percent of the film."},
+{e:"Bolt is released in theaters",y:2008,c:"wda",f:"Artists studied painters such as Edward Hopper to give computer animation a softer, more illustrated look."},
+{e:"The Princess and the Frog is released in theaters",y:2009,c:"wda",f:"Hand-drawn animation returned for one film, and Tiana became the studio's first Black princess."},
+{e:"Tangled is released in theaters",y:2010,c:"wda",f:"Rapunzel's seventy feet of hair required its own software, and the film became one of the costliest ever animated."},
+{e:"Winnie the Pooh is released in theaters",y:2011,c:"wda",f:"This hand-drawn feature opened opposite the final Harry Potter film and remains the studio's most recent one."},
+{e:"Wreck-It Ralph is released in theaters",y:2012,c:"wda",f:"Nintendo, Sega and Capcom lent real game characters, so Bowser and Sonic turn up beside invented ones."},
+{e:"Paperman blends hand-drawn line with computer models",y:2012,c:"wda",f:"Disney wrote new software so artists could draw over CG figures, and the black and white short won an Academy Award."},
+{e:"Frozen is released in theaters",y:2013,c:"wda",f:"The Snow Queen had defeated the studio for decades until writers made the two women sisters instead of enemies."},
+{e:"Get a Horse puts Mickey Mouse back in black and white",y:2013,c:"wda",f:"Archived Walt Disney recordings voiced Mickey as he burst out of the old screen into color and computer animation."},
+{e:"Big Hero 6 is released in theaters",y:2014,c:"wda",f:"It came from an obscure Marvel comic, the first Marvel property Disney Animation adapted after the buyout."},
+{e:"Feast tells a love story through a dog's dinner bowl",y:2014,c:"wda",f:"The Academy Award winning short reused the drawing-over-CG technique developed for Paperman."},
+{e:"Zootopia is released in theaters",y:2016,c:"wda",f:"A new grooming tool grew fur strand by strand, giving some characters more than two million individual hairs."},
+{e:"Moana is released in theaters",y:2016,c:"wda",f:"Filmmakers assembled an Oceanic Story Trust of Pacific Islander scholars to vet the film as it was built."},
+{e:"Ralph Breaks the Internet is released",y:2018,c:"wda",f:"Fourteen Disney princesses share a scene for the first time, most voiced by their original actors."},
+{e:"Jennifer Lee is named chief creative officer",y:2018,c:"wda",f:"The Frozen director became the first woman to lead the creative side of Disney Animation."},
+{e:"Frozen II is released in theaters",y:2019,c:"wda",f:"The autumn setting demanded new software for falling leaves, wind currents and a horse made of water."},
+{e:"Raya and the Last Dragon is released in theaters",y:2021,c:"wda",f:"The crew finished it from home during the pandemic, shipping workstations out to hundreds of artists."},
+{e:"Encanto is released in theaters",y:2021,c:"wda",f:"Lin-Manuel Miranda wrote eight songs, and We Don't Talk About Bruno topped the singles chart as Let It Go never did."},
+{e:"Strange World is released in theaters",y:2022,c:"wda",f:"Old pulp adventure magazines shaped its look, and it gave the studio its first openly gay teenage lead."},
+{e:"Wish is released in theaters",y:2023,c:"wda",f:"Made for the company's hundredth anniversary, it laid watercolor storybook textures over computer animation."},
+{e:"Moana 2 is released in theaters",y:2024,c:"wda",f:"It was developed as a streaming series before Disney reworked the material into a theatrical feature."},
+{e:"Zootopia 2 is released in theaters",y:2025,c:"wda",f:"The sequel arrived nine years after the original and opened to one of the largest animated debuts on record."},
+{e:"George Lucas hires Ed Catmull to start a computer unit",y:1979,c:"pix",f:"The Lucasfilm group was meant to build digital editing and film scanning tools, with animation only a side ambition."},
+{e:"Steve Jobs buys the graphics group and names it Pixar",y:1986,c:"pix",f:"He paid five million dollars for the division and put five million more in, expecting to sell hardware."},
+{e:"The Pixar Image Computer goes on sale",y:1986,c:"pix",f:"It cost about 135,000 dollars, sold fewer than 300 units, and found its steadiest customers in hospitals."},
+{e:"Luxo Jr gives Pixar its hopping desk lamp",y:1986,c:"pix",f:"John Lasseter's short was the first computer-animated film nominated for an Academy Award, and the lamp became the logo."},
+{e:"Tin Toy is finished on a shoestring budget",y:1988,c:"pix",f:"It was the first computer-animated film to win the Academy Award for animated short, and it pointed toward Toy Story."},
+{e:"Pixar publishes the RenderMan interface specification",y:1988,c:"pix",f:"The rendering standard later put images on screen for Jurassic Park and Titanic and earned technical Academy Awards."},
+{e:"Toy Story is released in theaters",y:1995,c:"pix",f:"Woody came off as such a bully in early reels that Disney halted production for months while the script was fixed."},
+{e:"Pixar goes public days after its first feature opens",y:1995,c:"pix",f:"The stock more than doubled on the opening day of trading and made Steve Jobs a billionaire on paper."},
+{e:"A Bug's Life is released in theaters",y:1998,c:"pix",f:"The crew built a blade-of-grass camera rig to learn what the world looks like from an insect's eye level."},
+{e:"Toy Story 2 is released in theaters",y:1999,c:"pix",f:"Begun as a cheap direct-to-video sequel, it was thrown out and remade for theaters in about nine months."},
+{e:"Pixar moves into its Emeryville campus",y:2000,c:"pix",f:"Steve Jobs put the restrooms off a central atrium so staff from different departments would keep running into each other."},
+{e:"Monsters, Inc. is released in theaters",y:2001,c:"pix",f:"Sulley's coat carried more than two million hairs, each simulated as he moved."},
+{e:"For the Birds plays ahead of Monsters, Inc.",y:2001,c:"pix",f:"The short about squabbling birds on a telephone wire won the Academy Award for animated short."},
+{e:"Finding Nemo is released in theaters",y:2003,c:"pix",f:"Artists took scuba lessons, then pulled back from realism so audiences could still read the fish as characters."},
+{e:"The Incredibles is released in theaters",y:2004,c:"pix",f:"Brad Bird brought the idea in from outside Pixar, and its human characters pushed the studio's software to its limits."},
+{e:"Cars is released in theaters",y:2006,c:"pix",f:"The crew drove Route 66 twice for research, and the merchandise went on to outsell the ticket receipts many times over."},
+{e:"Ratatouille is released in theaters",y:2007,c:"pix",f:"Chef Thomas Keller invented the layered version of the dish that the food critic eats at the climax."},
+{e:"WALL-E is released in theaters",y:2008,c:"pix",f:"Ben Burtt built the robot's voice out of sound effects, having done the same for R2-D2 three decades earlier."},
+{e:"Up is released in theaters",y:2009,c:"pix",f:"It opened the Cannes film festival, the first animated film ever given that slot."},
+{e:"Toy Story 3 is released in theaters",y:2010,c:"pix",f:"It was the first animated film to pass a billion dollars at the worldwide box office."},
+{e:"Cars 2 is released in theaters",y:2011,c:"pix",f:"The spy plot sent the cars to Tokyo and Europe, and it became the first Pixar feature critics broadly panned."},
+{e:"Brave is released in theaters",y:2012,c:"pix",f:"Merida's curls needed a new simulation system, and the studio rewrote its core animation software for the film."},
+{e:"Monsters University is released in theaters",y:2013,c:"pix",f:"Pixar's first prequel sends Mike and Sulley to college, where they are told they are not scary enough."},
+{e:"Inside Out is released in theaters",y:2015,c:"pix",f:"Psychologists advised the crew, who cut a long list of human emotions down to five characters."},
+{e:"The Good Dinosaur is released in theaters",y:2015,c:"pix",f:"Its landscapes were built from real terrain survey data, setting cartoon characters against near-photographic scenery."},
+{e:"Finding Dory is released in theaters",y:2016,c:"pix",f:"Ellen DeGeneres had campaigned publicly for a sequel for years before Pixar agreed to make one."},
+{e:"Piper follows a sandpiper chick learning to feed",y:2016,c:"pix",f:"The Academy Award winning short rendered its beach grain by grain and simulated sea foam bubble by bubble."},
+{e:"Cars 3 is released in theaters",y:2017,c:"pix",f:"Lightning McQueen is written as an aging athlete outrun by newer rivals, a deliberate turn from the previous sequel."},
+{e:"Coco is released in theaters",y:2017,c:"pix",f:"After years of research trips to Mexico, it became the highest-grossing film in Mexican box office history."},
+{e:"Incredibles 2 is released in theaters",y:2018,c:"pix",f:"The story picks up seconds after the first film ends, though fourteen years had passed for the audience."},
+{e:"Bao imagines a dumpling that comes to life",y:2018,c:"pix",f:"Domee Shi became the first woman to direct a Pixar short, and it won the Academy Award."},
+{e:"Ed Catmull retires from the studio he co-founded",y:2018,c:"pix",f:"His stated goal since graduate school had been to make the first feature film animated entirely by computer."},
+{e:"Toy Story 4 is released in theaters",y:2019,c:"pix",f:"Bo Peep returned as a lead after being written out, and Forky was built from a spork and pipe cleaners."},
+{e:"Onward is released in theaters",y:2020,c:"pix",f:"Its theatrical run was cut short by pandemic closures, and Disney pushed it to streaming within weeks."},
+{e:"Soul is released in theaters and on streaming",y:2020,c:"pix",f:"It skipped cinemas in much of the world and premiered on Disney Plus on Christmas Day."},
+{e:"Luca is released to streaming audiences",y:2021,c:"pix",f:"Enrico Casarosa set it on the Italian Riviera of his own boyhood, and it went straight to Disney Plus."},
+{e:"Turning Red is released to streaming audiences",y:2022,c:"pix",f:"Domee Shi became the first woman to direct a Pixar feature on her own, drawing on her Toronto girlhood."},
+{e:"Lightyear is released in theaters",y:2022,c:"pix",f:"It was pitched as the in-universe movie that the Toy Story action figure had supposedly been based on."},
+{e:"Elemental is released in theaters",y:2023,c:"pix",f:"It opened badly and then climbed for weeks, finishing as one of the largest box office recoveries Pixar has had."},
+{e:"Inside Out 2 is released in theaters",y:2024,c:"pix",f:"Anxiety takes over the control room, and the film became the highest-grossing animated release made to that point."},
+{e:"Elio is released in theaters",y:2025,c:"pix",f:"A boy is mistaken for the ambassador of Earth by aliens, in a film that struggled to find an audience."},
+{e:"Treasure Island is released as Disney's first live-action feature",y:1950,c:"film",f:"Disney shot it in Britain to spend studio earnings that postwar currency rules would not let him take home."},
+{e:"The Disneyland anthology series premieres on ABC",y:1954,c:"tv",f:"Walt funded his park by promising ABC a weekly show, making television and theme park sell each other."},
+{e:"20,000 Leagues Under the Sea is released",y:1954,c:"film",f:"The giant squid fight was scrapped and reshot at night during a staged storm because the first version looked fake."},
+{e:"The Mickey Mouse Club premieres on ABC",y:1955,c:"tv",f:"An hour of children's programming every weekday afternoon was a gamble, and it made Annette Funicello a national name."},
+{e:"Old Yeller is released in theaters",y:1957,c:"film",f:"Spike, the dog cast in the title role, was adopted from an animal shelter in Van Nuys."},
+{e:"Zorro premieres as a weekly series on ABC",y:1957,c:"tv",f:"Guy Williams trained with fencing master Fred Cavens and did most of his own blade work."},
+{e:"The Shaggy Dog is released",y:1959,c:"film",f:"Walt first pitched the idea as a television story before reworking it into the studio's first live-action comedy."},
+{e:"Swiss Family Robinson is released",y:1960,c:"film",f:"The treehouse was built in a real banyan on Tobago and later inspired a walkthrough attraction at Disneyland."},
+{e:"Pollyanna is released in theaters",y:1960,c:"film",f:"Hayley Mills received a special miniature Academy Award for the year's most outstanding juvenile performance."},
+{e:"The Absent-Minded Professor is released",y:1961,c:"film",f:"The flying Model T was a model flown on wires, and the effects work earned an Academy Award nomination."},
+{e:"The Parent Trap is released with Hayley Mills",y:1961,c:"film",f:"Split screen and a body double named Susan Henning let one actress play both twins in the same shot."},
+{e:"Walt Disney's Wonderful World of Color premieres",y:1961,c:"tv",f:"Disney moved the anthology from ABC to NBC because RCA wanted programming that would sell color television sets."},
+{e:"Mary Poppins is released in theaters",y:1964,c:"film",f:"Julie Andrews won the Academy Award for best actress in her first film role, after being passed over for My Fair Lady."},
+{e:"That Darn Cat is released",y:1965,c:"film",f:"The Siamese star, a cat named Syn, won a PATSY award, the animal performer's equivalent of an Oscar."},
+{e:"The Love Bug is released and introduces Herbie",y:1968,c:"film",f:"The Volkswagen was picked because crew members kept walking up to pet it while the cars were being auditioned."},
+{e:"Bedknobs and Broomsticks is released",y:1971,c:"film",f:"Angela Lansbury took the lead after Julie Andrews declined, and the film won an Academy Award for visual effects."},
+{e:"Escape to Witch Mountain is released",y:1975,c:"film",f:"It came from an Alexander Key novel about telepathic orphans and became one of Disney's most revived properties."},
+{e:"Freaky Friday is released with Jodie Foster",y:1976,c:"film",f:"Mary Rodgers, daughter of composer Richard Rodgers, wrote the novel and adapted her own book for the screen."},
+{e:"Pete's Dragon is released",y:1977,c:"film",f:"Elliott was hand-drawn by a team including Don Bluth and matched to the live sets frame by frame."},
+{e:"ESPN launches as an all-sports cable channel",y:1979,c:"tv",f:"It began with slow-pitch softball and college sports, long before Disney bought a controlling stake."},
+{e:"The Black Hole is released",y:1979,c:"film",f:"It was the first Disney film rated PG and opened with what was then the longest computer-generated sequence ever shot."},
+{e:"Tron is released in theaters",y:1982,c:"film",f:"The Academy refused to consider it for a visual effects award because using computers was seen as cheating."},
+{e:"The Disney Channel launches",y:1983,c:"tv",f:"It started as a premium pay channel bought separately from basic cable, and it signed off overnight for years."},
+{e:"Splash is released as the first Touchstone film",y:1984,c:"film",f:"Disney invented the Touchstone label so a comedy with brief nudity would not carry the family brand."},
+{e:"The Golden Girls premieres on NBC",y:1985,c:"tv",f:"It was made by Disney's Touchstone Television, which is why the series now streams on Disney's own service."},
+{e:"Flight of the Navigator is released",y:1986,c:"film",f:"Paul Reubens voiced the alien ship's computer under the pseudonym Paul Mall."},
+{e:"DuckTales premieres in daily syndication",y:1987,c:"tv",f:"Scrooge McDuck and the money bin came from Carl Barks' comics, and the show's success led to the Disney Afternoon block."},
+{e:"Who Framed Roger Rabbit is released",y:1988,c:"film",f:"Steven Spielberg's involvement is how Warner Bros agreed to let Bugs Bunny and Daffy Duck share the screen."},
+{e:"Honey I Shrunk the Kids is released",y:1989,c:"film",f:"The oversized backyard filled a soundstage, with blades of grass built more than twenty feet tall."},
+{e:"Dead Poets Society is released",y:1989,c:"film",f:"Tom Schulman won the original screenplay Oscar for it, and Disney released it under the Touchstone label."},
+{e:"Chip n Dale Rescue Rangers premieres",y:1989,c:"tv",f:"The chipmunks had spent decades as near-silent foils for Donald Duck before being recast as detectives."},
+{e:"The Simpsons premieres as a half-hour series",y:1989,c:"tv",f:"It began at Fox as a rival to Disney and only became a Disney property through the 20th Century Fox purchase."},
+{e:"Pretty Woman is released by Touchstone",y:1990,c:"film",f:"The script began as a bleak drama called 3000 in which the couple parts at the end."},
+{e:"TaleSpin premieres in syndication",y:1990,c:"tv",f:"It recast Baloo from The Jungle Book as a cargo pilot in a world of seaplanes and air pirates."},
+{e:"The Rocketeer is released",y:1991,c:"film",f:"Director Joe Johnston fought to keep the finned art deco helmet exactly as drawn in Dave Stevens' comics."},
+{e:"Darkwing Duck premieres in syndication",y:1991,c:"tv",f:"Darkwing shared a universe with DuckTales and borrowed Launchpad McQuack as his sidekick."},
+{e:"Home Improvement premieres on ABC",y:1991,c:"tv",f:"Tim Allen's stand-up routine about men and power tools was reshaped into a sitcom by Disney's television arm."},
+{e:"Sister Act is released with Whoopi Goldberg",y:1992,c:"film",f:"The part was written for Bette Midler, who turned it down fearing her fans would reject her in a habit."},
+{e:"The Mighty Ducks is released",y:1992,c:"film",f:"Disney liked it enough to buy an NHL expansion franchise and name the team after the movie."},
+{e:"Goof Troop premieres with Goofy as a father",y:1992,c:"tv",f:"The show introduced Max Goof, who went on to carry two theatrical features of his own."},
+{e:"Hocus Pocus is released in theaters",y:1993,c:"film",f:"It flopped in its summer run and became a Halloween ritual only through years of television reruns."},
+{e:"Cool Runnings is released",y:1993,c:"film",f:"The real Jamaican bobsled team crashed at the Calgary Olympics and carried their sled across the finish line."},
+{e:"The Nightmare Before Christmas is released",y:1993,c:"film",f:"Disney put it out under Touchstone, worried the stop-motion film was too macabre for the family label."},
+{e:"Boy Meets World premieres on ABC",y:1993,c:"tv",f:"It ran seven seasons on the TGIF lineup and was revived much later as Girl Meets World."},
+{e:"Angels in the Outfield is released",y:1994,c:"film",f:"The baseball fantasy remake features early roles for Joseph Gordon-Levitt and Matthew McConaughey."},
+{e:"The Santa Clause is released",y:1994,c:"film",f:"In the original script Scott startles Santa off the roof with a rifle, softened for the family audience."},
+{e:"Gargoyles premieres in the Disney Afternoon",y:1994,c:"tv",f:"Its voice cast was stocked with Star Trek actors and its storytelling was far darker than its timeslot neighbors."},
+{e:"Mr Holland's Opus is released",y:1995,c:"film",f:"Richard Dreyfuss learned enough conducting to be convincing, and the film was shot in and around Portland, Oregon."},
+{e:"101 Dalmatians is released in live action",y:1996,c:"film",f:"Production cycled through roughly 230 puppies because they outgrew their scenes within weeks."},
+{e:"George of the Jungle is released",y:1997,c:"film",f:"It adapted a Jay Ward cartoon and kept the narrator who argues out loud with the characters."},
+{e:"Flubber is released with Robin Williams",y:1997,c:"film",f:"The remake of The Absent-Minded Professor gave the green goo a personality through computer animation."},
+{e:"Recess premieres on ABC's Saturday morning block",y:1997,c:"tv",f:"Creators Paul Germain and Joe Ansolabehere built the playground as a miniature society with its own king and laws."},
+{e:"Toon Disney launches as an all-cartoon channel",y:1998,c:"tv",f:"It went on the air on the fifteenth anniversary of the Disney Channel, to the hour."},
+{e:"Armageddon is released in theaters",y:1998,c:"film",f:"NASA reportedly screens it for trainees and asks them to count the scientific errors."},
+{e:"The Parent Trap remake is released",y:1998,c:"film",f:"Lindsay Lohan learned a British accent for one twin, and Natasha Richardson played the mother."},
+{e:"Brink premieres as a Disney Channel movie",y:1998,c:"tv",f:"The inline skating film helped turn the Disney Channel Original Movie into appointment viewing for kids."},
+{e:"Halloweentown premieres on the Disney Channel",y:1998,c:"tv",f:"Debbie Reynolds played the witch grandmother, and the town square set became an annual October fixture."},
+{e:"Zenon Girl of the 21st Century premieres",y:1999,c:"tv",f:"It was adapted from a picture book by Marilyn Sadler and Roger Bollen and produced two sequels."},
+{e:"Smart House premieres on the Disney Channel",y:1999,c:"tv",f:"The house computer was called PAT, and the story anticipated smart speakers by well over a decade."},
+{e:"Johnny Tsunami premieres on the Disney Channel",y:1999,c:"tv",f:"The premise moved a Hawaiian surfer to Vermont and made him learn to snowboard."},
+{e:"The Sixth Sense is released",y:1999,c:"film",f:"Disney handed production to Spyglass and kept only a distribution fee, missing most of the profits."},
+{e:"Even Stevens premieres on the Disney Channel",y:2000,c:"tv",f:"It gave Shia LaBeouf his first regular role and won him a Daytime Emmy."},
+{e:"Remember the Titans is released",y:2000,c:"film",f:"The real T C Williams team went undefeated, though the film invented much of the on-field drama."},
+{e:"The Princess Diaries is released",y:2001,c:"film",f:"It gave Anne Hathaway her first leading role and brought Julie Andrews back to a Disney film."},
+{e:"Pearl Harbor is released in theaters",y:2001,c:"film",f:"Michael Bay staged the attack with decommissioned ships in Pearl Harbor itself, with Navy cooperation."},
+{e:"Lizzie McGuire premieres on the Disney Channel",y:2001,c:"tv",f:"An animated cartoon Lizzie voiced the heroine's inner thoughts, and it became the show's signature device."},
+{e:"The Luck of the Irish premieres on the Disney Channel",y:2001,c:"tv",f:"The plot hangs on a lucky gold coin and a boy discovering his leprechaun heritage."},
+{e:"The Rookie is released with Dennis Quaid",y:2002,c:"film",f:"Jim Morris really did reach the major leagues at thirty five after years teaching high school science."},
+{e:"Kim Possible premieres on the Disney Channel",y:2002,c:"tv",f:"Bob Schooley and Mark McCorkle pitched it in an elevator as a cheerleader who saves the world."},
+{e:"Cadet Kelly premieres on the Disney Channel",y:2002,c:"tv",f:"Hilary Duff's military school comedy became the channel's highest rated original movie to that point."},
+{e:"Pirates of the Caribbean: The Curse of the Black Pearl is released",y:2003,c:"film",f:"Executives feared Johnny Depp's slurring performance would sink the film until audiences embraced it."},
+{e:"The Freaky Friday remake is released",y:2003,c:"film",f:"Jodie Foster was offered the mother's role in the remake and declined, and it went to Jamie Lee Curtis."},
+{e:"That's So Raven premieres on the Disney Channel",y:2003,c:"tv",f:"It was the first Disney Channel series allowed past 65 episodes, breaking the network's old ceiling."},
+{e:"Miracle is released about the US Olympic hockey team",y:2004,c:"film",f:"The players were cast for skating ability first, so most of the team were real hockey players learning to act."},
+{e:"National Treasure is released",y:2004,c:"film",f:"The Declaration of Independence scenes used replicas, since the original never leaves its sealed case."},
+{e:"Lost premieres on ABC with a plane crash pilot",y:2004,c:"tv",f:"ABC chief Lloyd Braun pushed the idea of a scripted Survivor, and the pilot was among the priciest ever made."},
+{e:"The Chronicles of Narnia: The Lion, the Witch and the Wardrobe is released",y:2005,c:"film",f:"Disney partnered with Walden Media to film C S Lewis after decades of stalled attempts by others."},
+{e:"Grey's Anatomy premieres on ABC",y:2005,c:"tv",f:"Shonda Rhimes named it after a medical textbook, and it became the longest running drama in ABC history."},
+{e:"The Suite Life of Zack and Cody premieres",y:2005,c:"tv",f:"The Sprouse twins had already shared the role of a single baby in Big Daddy."},
+{e:"Pirates of the Caribbean: Dead Man's Chest is released",y:2006,c:"film",f:"The tentacled face of Davy Jones was a landmark in digital character work and won the visual effects Oscar."},
+{e:"High School Musical premieres on the Disney Channel",y:2006,c:"tv",f:"Its soundtrack was the best selling album in the United States that year, outselling every rock and pop release."},
+{e:"Hannah Montana premieres on the Disney Channel",y:2006,c:"tv",f:"Miley Cyrus first auditioned for the best friend part and was told she was too young and too small for the lead."},
+{e:"Pirates of the Caribbean: At World's End is released",y:2007,c:"film",f:"Keith Richards, whose manner inspired Jack Sparrow, turned up in a cameo as the pirate's father."},
+{e:"Enchanted is released in theaters",y:2007,c:"film",f:"The fairy tale prologue was hand drawn in traditional animation while the rest was shot on New York streets."},
+{e:"Phineas and Ferb premieres on the Disney Channel",y:2007,c:"tv",f:"A preview episode aired after High School Musical 2, months before the regular run began."},
+{e:"Wizards of Waverly Place premieres",y:2007,c:"tv",f:"Selena Gomez had already guest starred on Hannah Montana before winning the role of Alex Russo."},
+{e:"Bedtime Stories is released with Adam Sandler",y:2008,c:"film",f:"Bugsy the bug-eyed guinea pig was a real animal given enormous computer generated eyes."},
+{e:"Camp Rock premieres on the Disney Channel",y:2008,c:"tv",f:"The Jonas Brothers costarred and the premiere pulled close to nine million viewers."},
+{e:"Hulu launches to the public as a streaming site",y:2008,c:"tv",f:"It began as a joint venture of News Corporation and NBC Universal, long before Disney took full control."},
+{e:"Disney XD launches in place of Toon Disney",y:2009,c:"tv",f:"The channel was pitched at boys, though its biggest hits ended up drawing a much broader audience."},
+{e:"Modern Family premieres on ABC",y:2009,c:"tv",f:"The mockumentary format let the cast improvise asides, and the show won the comedy Emmy five years running."},
+{e:"Alice in Wonderland is released in live action",y:2010,c:"film",f:"It passed a billion dollars worldwide and convinced Disney that live-action remakes were a business."},
+{e:"Good Luck Charlie premieres on the Disney Channel",y:2010,c:"tv",f:"Every episode closed with a video diary addressed to the baby sister of the title."},
+{e:"Pirates of the Caribbean: On Stranger Tides is released",y:2011,c:"film",f:"Disney bought the title and the Blackbeard premise from a Tim Powers novel."},
+{e:"The Muppets is released in theaters",y:2011,c:"film",f:"Jason Segel cowrote the script as a lifelong fan and pushed Disney to use the characters it had bought."},
+{e:"Once Upon a Time premieres on ABC",y:2011,c:"tv",f:"Two Lost writers created it, and Disney ownership let them borrow characters from the animated features."},
+{e:"John Carter is released in theaters",y:2012,c:"film",f:"Disney took a write-down of roughly two hundred million dollars, among the largest losses in film history."},
+{e:"Disney Junior launches as a full cable channel",y:2012,c:"tv",f:"The preschool network took over the slot held by SOAPnet, which Disney shut down to make room."},
+{e:"Gravity Falls premieres on the Disney Channel",y:2012,c:"tv",f:"Alex Hirsch based the twins on himself and his sister and hid a cipher in every set of closing credits."},
+{e:"Oz the Great and Powerful is released",y:2013,c:"film",f:"Warner Bros owns the look of the older MGM film, so Disney had to avoid its ruby slippers and its shade of green."},
+{e:"Saving Mr Banks is released",y:2013,c:"film",f:"Real tapes of P L Travers arguing with the Sherman brothers survive and play over the closing credits."},
+{e:"Maleficent is released with Angelina Jolie",y:2014,c:"film",f:"Jolie's cheekbones were prosthetic, and her own young daughter played the child Aurora."},
+{e:"Million Dollar Arm is released",y:2014,c:"film",f:"The reality contest it depicts really did send two Indian javelin throwers to a major league tryout."},
+{e:"Into the Woods is released",y:2014,c:"film",f:"Stephen Sondheim agreed to the film only once Disney promised to keep the darker second half of the story."},
+{e:"McFarland USA is released",y:2015,c:"film",f:"The cross country runners it follows were sons of farm workers who trained around their picking shifts."},
+{e:"Cinderella is released in live action",y:2015,c:"film",f:"The glass slipper was crystal made by Swarovski and far too rigid for Lily James to actually wear."},
+{e:"Descendants premieres on the Disney Channel",y:2015,c:"tv",f:"Kenny Ortega, who directed High School Musical, returned to stage the children of Disney villains."},
+{e:"Star vs the Forces of Evil premieres",y:2015,c:"tv",f:"Daron Nefcy became the first woman to create a series for Disney Television Animation."},
+{e:"The Jungle Book is released in live action",y:2016,c:"film",f:"Almost everything except the boy was computer generated, and the whole film was shot in a Los Angeles warehouse."},
+{e:"The Pete's Dragon remake is released",y:2016,c:"film",f:"David Lowery rebuilt the musical as a quiet drama shot in New Zealand, keeping none of the original songs."},
+{e:"Queen of Katwe is released",y:2016,c:"film",f:"Mira Nair filmed in the Ugandan settlement where the chess champion Phiona Mutesi actually grew up."},
+{e:"Beauty and the Beast is released in live action",y:2017,c:"film",f:"Emma Watson asked that Belle be given a trade as an inventor rather than only a love of books."},
+{e:"Pirates of the Caribbean: Dead Men Tell No Tales is released",y:2017,c:"film",f:"A digitally de-aged Johnny Depp appears as a young Jack Sparrow in a flashback."},
+{e:"Zombies premieres as a Disney Channel movie",y:2018,c:"tv",f:"The cheerleader and zombie musical was shot in Toronto and grew into a run of sequels."},
+{e:"Mary Poppins Returns is released",y:2018,c:"film",f:"Dick Van Dyke came back in a new role and danced on top of a desk while in his nineties."},
+{e:"Dumbo is released as a live-action remake",y:2019,c:"film",f:"Tim Burton cut the crow characters from the animated version, which had drawn criticism for decades."},
+{e:"Aladdin is released as a live-action film",y:2019,c:"film",f:"Will Smith rebuilt the Genie around hip hop rather than trying to copy Robin Williams' impressions."},
+{e:"The Lion King is released as a remake",y:2019,c:"film",f:"Every frame is computer generated, though the crew used virtual reality rigs to shoot it like live action."},
+{e:"Amphibia premieres on the Disney Channel",y:2019,c:"tv",f:"Matt Braly drew the setting from childhood summers spent visiting family in Thailand."},
+{e:"Bluey premieres on Disney Junior in the United States",y:2019,c:"tv",f:"The series was already a phenomenon in Australia before Disney picked up the rights for the rest of the world."},
+{e:"Disney+ launches as a streaming service",y:2019,c:"tv",f:"Ten million people signed up on the first day, and the crush broke parts of the service."},
+{e:"The Owl House premieres on the Disney Channel",y:2020,c:"tv",f:"Dana Terrace's series gave a Disney animated show its first bisexual lead character."},
+{e:"Mulan is released as a live-action film",y:2020,c:"film",f:"With cinemas closed by the pandemic, Disney charged thirty dollars for early access on its streaming service."},
+{e:"Cruella is released with Emma Stone",y:2021,c:"film",f:"Costume designer Jenny Beavan won an Academy Award for outfits built partly from salvaged and vintage cloth."},
+{e:"Jungle Cruise is released",y:2021,c:"film",f:"The film grew out of a theme park boat ride and kept the skipper's deliberately terrible puns."},
+{e:"Only Murders in the Building premieres on Hulu",y:2021,c:"tv",f:"Steve Martin cocreated the series and wrote it with Martin Short in mind from the beginning."},
+{e:"The Bear premieres on Hulu and FX",y:2022,c:"tv",f:"Actors trained in working Chicago kitchens, and the show went on to win the Emmy for outstanding comedy series."},
+{e:"The Little Mermaid is released in live action",y:2023,c:"film",f:"Alan Menken returned to write new songs with Lin-Manuel Miranda for the expanded story."},
+{e:"Haunted Mansion is released in theaters",y:2023,c:"film",f:"It was the second attempt to film the ride, after an earlier version starring Eddie Murphy."},
+{e:"Snow White is released in live action",y:2025,c:"film",f:"Disney reworked the seven dwarfs as computer generated characters after criticism from actors with dwarfism."},
+{e:"Disneyland opens in Anaheim",y:1955,c:"park",f:"The live television broadcast of opening day was a shambles of broken rides and counterfeit tickets."},
+{e:"Sleeping Beauty Castle becomes Disneyland's centerpiece",y:1955,c:"park",f:"It stands only seventy seven feet tall, made to look bigger by shrinking the stonework toward the top."},
+{e:"The Jungle Cruise opens at Disneyland",y:1955,c:"park",f:"Walt originally wanted live animals until he was told they would sleep through most of the day."},
+{e:"Autopia opens at Disneyland",y:1955,c:"park",f:"It was built to teach children about the freeways then being carved across Southern California."},
+{e:"Peter Pan's Flight opens at Disneyland",y:1955,c:"park",f:"It is one of a handful of opening day attractions still operating in the park today."},
+{e:"Dumbo the Flying Elephant opens at Disneyland",y:1955,c:"park",f:"The original plan had Timothy Mouse holding the elephants aloft, dropped when the rig proved unworkable."},
+{e:"The Mad Tea Party opens at Disneyland",y:1955,c:"park",f:"Only some of the cups spin at full speed, a fact riders have been arguing about for decades."},
+{e:"The Disneyland Railroad circles the new park",y:1955,c:"park",f:"Walt's love of scale model trains, and a backyard railroad at his own house, led directly to the park."},
+{e:"The Disneyland Hotel opens across from the park",y:1955,c:"park",f:"Walt had no money left to build it, so his friend Jack Wrather put it up and owned it for decades."},
+{e:"The Storybook Land Canal Boats open at Disneyland",y:1956,c:"park",f:"The miniature houses are built at roughly one inch to the foot, with real dwarf plants for landscaping."},
+{e:"The Skyway carries buckets over Disneyland",y:1956,c:"park",f:"It ran through a hole cut in the Matterhorn once the mountain was built around it."},
+{e:"The Sleeping Beauty Castle walkthrough opens",y:1957,c:"park",f:"Diorama scenes tell the story inside the castle, and the attraction closed and returned more than once."},
+{e:"The Matterhorn Bobsleds open at Disneyland",y:1959,c:"park",f:"They were the world's first tubular steel roller coaster, the design that made modern coasters possible."},
+{e:"The Disneyland Monorail begins running",y:1959,c:"park",f:"It was the first daily operating monorail in the Western Hemisphere and was sold as a transit demonstration."},
+{e:"The Submarine Voyage opens at Disneyland",y:1959,c:"park",f:"Its eight submarines briefly gave Disney one of the largest submarine fleets in the world."},
+{e:"The Swiss Family Treehouse opens at Disneyland",y:1962,c:"park",f:"Its concrete and steel trunk carries hundreds of thousands of vinyl leaves, each attached by hand."},
+{e:"The Enchanted Tiki Room opens at Disneyland",y:1963,c:"park",f:"It was the first attraction to use Audio-Animatronics, and it began life as a planned restaurant."},
+{e:"Great Moments with Mr Lincoln debuts at the World's Fair",y:1964,c:"park",f:"The figure could make dozens of separate movements, and its hydraulics sometimes threw it around the stage."},
+{e:"it's a small world debuts at the New York World's Fair",y:1964,c:"park",f:"It was built for UNICEF in under a year, and the song was written to survive endless repetition."},
+{e:"Disneyland marks its Tencennial",y:1965,c:"park",f:"By the tenth birthday the park had drawn nearly fifty million visitors, with the fifty millionth arriving that August."},
+{e:"New Orleans Square opens at Disneyland",y:1966,c:"park",f:"The land cost more than the United States paid for the entire Louisiana Purchase, as Walt joked at the dedication."},
+{e:"it's a small world reopens at Disneyland",y:1966,c:"park",f:"Mary Blair's facade of white towers and gold trim was designed to read as every skyline at once."},
+{e:"Pirates of the Caribbean opens at Disneyland",y:1967,c:"park",f:"It was the last attraction Walt Disney personally supervised, and he died before it opened."},
+{e:"Adventure Thru Inner Space opens at Disneyland",y:1967,c:"park",f:"Riders were shrunk into a snowflake, in the first attraction to use the Omnimover ride system."},
+{e:"Club 33 opens quietly above New Orleans Square",y:1967,c:"park",f:"Walt planned it as a place to entertain corporate sponsors and never lived to dine there."},
+{e:"The Haunted Mansion opens at Disneyland",y:1969,c:"park",f:"The exterior stood finished and empty for years while designers argued over whether it should be funny or scary."},
+{e:"Walt Disney World's Magic Kingdom opens",y:1971,c:"park",f:"The park sits on a second storey, with a network of service tunnels running underneath at ground level."},
+{e:"The Contemporary Resort opens at Walt Disney World",y:1971,c:"park",f:"Its rooms were built as finished modules and slid into the A-frame steel skeleton like drawers."},
+{e:"The Polynesian Village Resort opens in Florida",y:1971,c:"park",f:"Its lobby was planted as an indoor rainforest, watered by a system built into the ceiling."},
+{e:"Fort Wilderness opens at Walt Disney World",y:1971,c:"park",f:"It remains the only campground on Disney property, with sites for tents and recreational vehicles."},
+{e:"Cinderella Castle is completed in Florida",y:1971,c:"park",f:"At 189 feet it stays just under the height that would have required aircraft warning lights."},
+{e:"Country Bear Jamboree opens at Magic Kingdom",y:1971,c:"park",f:"Walt commissioned it for a ski resort he was planning in California that was never built."},
+{e:"20,000 Leagues Under the Sea opens at Magic Kingdom",y:1971,c:"park",f:"Its lagoon held about eleven and a half million gallons, and the ride was retired after two decades of breakdowns."},
+{e:"Bear Country opens at Disneyland",y:1972,c:"park",f:"The land was renamed Critter Country years later when Splash Mountain arrived."},
+{e:"The Main Street Electrical Parade debuts",y:1972,c:"park",f:"Half a million bulbs were wired to floats, and the soundtrack was adapted from an old synthesizer record."},
+{e:"Treasure Island opens in the Seven Seas Lagoon",y:1974,c:"park",f:"Later renamed Discovery Island, it operated as a zoological park and closed at the end of the nineties."},
+{e:"Space Mountain opens at Magic Kingdom",y:1975,c:"park",f:"It came first in Florida because Disneyland had no room for it until land was cleared."},
+{e:"The Carousel of Progress moves to Walt Disney World",y:1975,c:"park",f:"Its theatre rotates around a fixed set of stages, which is why the audience moves instead of the scenery."},
+{e:"River Country opens as Disney's first water park",y:1976,c:"park",f:"It drew water straight from Bay Lake and closed for good after the turn of the century."},
+{e:"Space Mountain opens at Disneyland",y:1977,c:"park",f:"The California version runs a single track, while the Florida original runs two."},
+{e:"Big Thunder Mountain Railroad opens at Disneyland",y:1979,c:"park",f:"Real antique mining equipment was bought at auction and scattered through the queue and the rockwork."},
+{e:"Big Thunder Mountain Railroad opens in Florida",y:1980,c:"park",f:"Its rockwork was modelled on the hoodoos of Bryce Canyon and Monument Valley."},
+{e:"Epcot opens at Walt Disney World",y:1982,c:"park",f:"Walt had sketched it as a working city of the future; the company built a permanent world's fair instead."},
+{e:"Spaceship Earth becomes the symbol of Epcot",y:1982,c:"park",f:"The geodesic sphere channels rainwater into a gap at its base, so it never drips on the crowd below."},
+{e:"World of Motion opens at Epcot",y:1982,c:"park",f:"General Motors sponsored a comic history of transport that later gave way to Test Track."},
+{e:"The American Adventure opens at Epcot",y:1982,c:"park",f:"Its Audio-Animatronic stage machinery weighs well over a hundred tons and rides on a track beneath the theatre."},
+{e:"Tokyo Disneyland opens",y:1983,c:"park",f:"It was the first Disney park outside the United States, and Disney licensed it rather than owning it."},
+{e:"Journey Into Imagination opens at Epcot",y:1983,c:"park",f:"Figment the dragon was created for the ride and became a park mascot with no film behind him."},
+{e:"Horizons opens at Epcot",y:1983,c:"park",f:"Riders chose their own ending from three futures, an interactive twist unusual for its day."},
+{e:"The Living Seas opens at Epcot",y:1986,c:"park",f:"Its saltwater tank was for years the largest in the world, holding nearly six million gallons."},
+{e:"Star Tours opens at Disneyland",y:1987,c:"park",f:"It used flight simulator technology and marked the first Star Wars presence in a Disney park."},
+{e:"The Norway pavilion opens at Epcot",y:1988,c:"park",f:"Norwegian companies and the government helped fund it, and its stave church is a working exhibit space."},
+{e:"Maelstrom opens in the Norway pavilion",y:1988,c:"park",f:"Boats ran backwards down a drop past trolls before the ride was replaced by Frozen Ever After."},
+{e:"The Grand Floridian opens at Walt Disney World",y:1988,c:"park",f:"Its red roof and white lattice were modelled on Victorian beach hotels along the Florida coast."},
+{e:"Disney-MGM Studios opens in Florida",y:1989,c:"park",f:"It opened as a working production lot, and films and television shows were really made there for years."},
+{e:"The Great Movie Ride opens in Florida",y:1989,c:"park",f:"Its facade is a full scale recreation of Grauman's Chinese Theatre, built with Grauman's permission."},
+{e:"Splash Mountain opens at Disneyland",y:1989,c:"park",f:"It reused Audio-Animatronic animals salvaged from the closed America Sings attraction."},
+{e:"Typhoon Lagoon opens at Walt Disney World",y:1989,c:"park",f:"The backstory is a hurricane that dropped a shrimp boat on top of a mountain, where it still sits."},
+{e:"Pleasure Island opens as a nightclub district",y:1989,c:"park",f:"It threw a New Year's Eve party every single night, complete with a countdown and fireworks."},
+{e:"SpectroMagic replaces the Electrical Parade in Florida",y:1991,c:"park",f:"It used fibre optics and holographic film to get colours the older bulb-lit floats could not manage."},
+{e:"The Disney Vacation Club sells its first memberships",y:1991,c:"park",f:"Disney's timeshare programme began at a single Florida resort and now spans more than a dozen."},
+{e:"Euro Disneyland opens outside Paris",y:1992,c:"park",f:"French critics called it a cultural Chernobyl, and it lost money heavily in its first years."},
+{e:"Splash Mountain opens at Magic Kingdom",y:1992,c:"park",f:"The Florida version drops fifty feet, a little shorter than the fifty two and a half foot plunge in California."},
+{e:"Fantasmic debuts at Disneyland",y:1992,c:"park",f:"Films are projected onto curtains of water sprayed up from the Rivers of America."},
+{e:"Mickey's Toontown opens at Disneyland",y:1993,c:"park",f:"Nearly every prop is a working gag, a design brief borrowed straight from Who Framed Roger Rabbit."},
+{e:"The Twilight Zone Tower of Terror opens in Florida",y:1994,c:"park",f:"The lift cabin is pulled downward faster than gravity, which is why loose objects float."},
+{e:"Roger Rabbit's Car Toon Spin opens at Disneyland",y:1994,c:"park",f:"Riders steer their own spin with a wheel, a rare piece of guest control in a dark ride."},
+{e:"Disney's Wilderness Lodge opens in Florida",y:1994,c:"park",f:"Its lobby was modelled on the Old Faithful Inn at Yellowstone, down to the eighty foot chimney."},
+{e:"The Indiana Jones Adventure opens at Disneyland",y:1995,c:"park",f:"Its enhanced motion vehicles run a programme that shuffles the sequence so no two rides feel identical."},
+{e:"Blizzard Beach opens at Walt Disney World",y:1995,c:"park",f:"The premise is a failed ski resort melting in the Florida sun, with slides where the runs would be."},
+{e:"Walt Disney World marks its 25th anniversary",y:1996,c:"park",f:"Cinderella Castle was dressed as a giant pink birthday cake for the occasion, to mixed reviews."},
+{e:"Disney's Animal Kingdom opens in Florida",y:1998,c:"park",f:"At more than 500 acres it is the largest Disney theme park anywhere in the world."},
+{e:"Kilimanjaro Safaris opens at Animal Kingdom",y:1998,c:"park",f:"The savanna is shaped with hidden ditches and moats so the animals stay apart without visible fences."},
+{e:"Mr Toad's Wild Ride closes at Magic Kingdom",y:1998,c:"park",f:"Fans held a protest ride-a-thon, and the space became a Winnie the Pooh attraction."},
+{e:"FastPass is introduced at Disney parks",y:1999,c:"park",f:"The free paper ticket system was invented to stop the queue itself from being the main memory of a visit."},
+{e:"Test Track opens at Epcot",y:1999,c:"park",f:"It is the longest and fastest ride Disney has built, topping out around sixty five miles an hour."},
+{e:"Rock n Roller Coaster opens in Florida",y:1999,c:"park",f:"It launches from zero to about fifty seven miles an hour in under three seconds."},
+{e:"Horizons closes at Epcot",y:1999,c:"park",f:"Structural problems sealed its fate, and the pavilion was demolished to make room for Mission SPACE."},
+{e:"IllumiNations Reflections of Earth debuts at Epcot",y:1999,c:"park",f:"A rotating globe covered in video panels floated on the lagoon and ran for exactly twenty years to the day."},
+{e:"Tokyo DisneySea opens",y:2001,c:"park",f:"Built around a working harbour and a volcano, it is widely called the most beautiful theme park ever built."},
+{e:"Disney California Adventure opens in Anaheim",y:2001,c:"park",f:"It opened to a cool reception and was rebuilt over the following decade at greater cost than it took to build."},
+{e:"Soarin Over California opens at Disney California Adventure",y:2001,c:"park",f:"The ride system was worked out with an erector set and a bicycle wheel in the designer's garage."},
+{e:"Grizzly River Run opens in Anaheim",y:2001,c:"park",f:"The rapids run past a bear-shaped peak carved to look like the state's flag."},
+{e:"Downtown Disney opens beside Disneyland",y:2001,c:"park",f:"It filled a car park, and the shops and restaurants require no admission ticket."},
+{e:"The Grand Californian Hotel opens in Anaheim",y:2001,c:"park",f:"It is built in the Arts and Crafts style and has its own private entrance into the park."},
+{e:"Disney's Animal Kingdom Lodge opens",y:2001,c:"park",f:"Rooms look out on savannas stocked with giraffes, zebras and more than thirty other species."},
+{e:"Walt Disney Studios Park opens in Paris",y:2002,c:"park",f:"The second Paris gate opened small and has been under near-continuous expansion ever since."},
+{e:"Mission SPACE opens at Epcot",y:2003,c:"park",f:"A centrifuge spins riders to simulate launch forces, and a gentler non-spinning version was added later."},
+{e:"Wishes replaces the older Magic Kingdom fireworks",y:2003,c:"park",f:"The show was scored around the Blue Fairy narrating Pinocchio's wish and ran for fourteen years."},
+{e:"Buzz Lightyear Astro Blasters opens at Disneyland",y:2005,c:"park",f:"Riders shoot laser targets for points, and the vehicles let them spin to aim."},
+{e:"Hong Kong Disneyland opens",y:2005,c:"park",f:"The Hong Kong government put up most of the money and owns the majority of the resort."},
+{e:"Disneyland celebrates its 50th anniversary",y:2005,c:"park",f:"Golden vehicles and a Cinderella Castle makeover in Florida marked the Happiest Homecoming on Earth."},
+{e:"Soarin opens at Epcot",y:2005,c:"park",f:"The Florida version opened four years after the California original and used the same film for a decade."},
+{e:"Expedition Everest opens at Animal Kingdom",y:2006,c:"park",f:"Imagineers made research trips to Nepal and brought back roughly two thousand handmade artefacts."},
+{e:"The Tower of Terror opens at Tokyo DisneySea",y:2006,c:"park",f:"The Tokyo version dropped the Twilight Zone licence and invented its own explorer and cursed idol."},
+{e:"Finding Nemo Submarine Voyage opens at Disneyland",y:2007,c:"park",f:"It brought back the submarine fleet that had sat idle for nine years."},
+{e:"Toy Story Midway Mania opens in Florida",y:2008,c:"park",f:"Riders wear 3D glasses and pull a string to fire at virtual targets in a string of carnival games."},
+{e:"World of Color debuts at Disney California Adventure",y:2010,c:"park",f:"Roughly twelve hundred fountains form a screen of water more than the width of a football pitch."},
+{e:"Aulani opens on the island of Oahu",y:2011,c:"park",f:"Disney's Hawaii resort has no theme park attached and was designed around Hawaiian art and storytelling."},
+{e:"Cars Land opens at Disney California Adventure",y:2012,c:"park",f:"The Cadillac Range peaks are sculpted in the shape of tailfins from mid-century Cadillacs."},
+{e:"Radiator Springs Racers opens in Anaheim",y:2012,c:"park",f:"It uses the ride system built for Test Track and became the most expensive attraction Disney had built."},
+{e:"Disney's Art of Animation Resort opens",y:2012,c:"park",f:"Courtyards are built around Finding Nemo, Cars, The Lion King and The Little Mermaid at enormous scale."},
+{e:"MagicBands arrive at Walt Disney World",y:2013,c:"park",f:"The wristband held a room key, a ticket and a payment method, part of a billion dollar system."},
+{e:"Mystic Manor opens at Hong Kong Disneyland",y:2013,c:"park",f:"Built as an original story because Hong Kong culture does not treat haunted houses as entertainment."},
+{e:"Maelstrom closes at Epcot",y:2014,c:"park",f:"Fans queued for hours on the final day for a ride many had ignored for years."},
+{e:"Ratatouille The Adventure opens in Paris",y:2014,c:"park",f:"Trackless vehicles shrink guests to rat size and run through an oversized kitchen."},
+{e:"Disney Springs replaces Downtown Disney in Florida",y:2015,c:"park",f:"The rebuild invented a fictional Florida town that grew up around a natural spring."},
+{e:"Shanghai Disney Resort opens",y:2016,c:"park",f:"Its Enchanted Storybook Castle is the largest Disney castle and belongs to no single princess."},
+{e:"TRON Lightcycle Power Run opens in Shanghai",y:2016,c:"park",f:"Riders straddle the motorbike-style vehicles, which was new for a Disney coaster."},
+{e:"Frozen Ever After opens in the Norway pavilion",y:2016,c:"park",f:"The old Maelstrom boats were kept and refitted, so the ride still runs backwards down a drop."},
+{e:"Pandora The World of Avatar opens at Animal Kingdom",y:2017,c:"park",f:"The floating mountains hang from hidden steel supports, and the plants glow after dark."},
+{e:"Flight of Passage opens at Animal Kingdom",y:2017,c:"park",f:"Riders lean forward onto a banshee-shaped seat that breathes underneath them as they fly."},
+{e:"Happily Ever After debuts at Magic Kingdom",y:2017,c:"park",f:"Projection mapping turned Cinderella Castle itself into the largest screen in the show."},
+{e:"Guardians of the Galaxy Mission BREAKOUT opens in Anaheim",y:2017,c:"park",f:"The Tower of Terror was rebuilt around a new story, and the ride randomises which song plays."},
+{e:"Toy Story Land opens in Florida",y:2018,c:"park",f:"Guests are shrunk to toy size in Andy's back garden, with everything scaled up around them."},
+{e:"Slinky Dog Dash opens in Florida",y:2018,c:"park",f:"The coaster is presented as something Andy built himself from a Mattel Dash and Dodge play kit."},
+{e:"Star Wars Galaxy's Edge opens at Disneyland",y:2019,c:"park",f:"The land is set on Batuu, an invented planet, so it would not be locked to any one film's timeline."},
+{e:"Star Wars Rise of the Resistance opens in Florida",y:2019,c:"park",f:"It combines a simulator, a trackless dark ride and a drop tower into a single continuous experience."},
+{e:"The Disney Skyliner begins carrying guests",y:2019,c:"park",f:"The gondolas have no air conditioning and instead rely on vents that work only while the cabin is moving."},
+{e:"Disney's Riviera Resort opens in Florida",y:2019,c:"park",f:"It was designed around the European Riviera that Walt and Lillian Disney travelled through."},
+{e:"Mickey and Minnie's Runaway Railway opens in Florida",y:2020,c:"park",f:"It was the first ride ever built around Mickey Mouse in the parks' first sixty five years."},
+{e:"Rise of the Resistance opens at Disneyland",y:2020,c:"park",f:"Demand was so high that Disney distributed access by a virtual queue that often filled within seconds."},
+{e:"The Castle of Magical Dreams opens in Hong Kong",y:2020,c:"park",f:"The old Sleeping Beauty Castle was rebuilt to honour thirteen different Disney heroines at once."},
+{e:"Avengers Campus opens at Disney California Adventure",y:2021,c:"park",f:"A Spider-Man stunt robot is flung above the rooftops, thrown by a system Disney calls the Stuntronic."},
+{e:"Web Slingers A Spider-Man Adventure opens in Anaheim",y:2021,c:"park",f:"Riders sling webs with their bare hands, tracked by cameras rather than a handheld blaster."},
+{e:"Remy's Ratatouille Adventure opens at Epcot",y:2021,c:"park",f:"It is a copy of the Paris ride, brought over after years of guest demand."},
+{e:"Walt Disney World marks its 50th anniversary",y:2021,c:"park",f:"Cinderella Castle was given gold bunting and the resort ran an eighteen month celebration."},
+{e:"Genie+ replaces FastPass+ in Florida",y:2021,c:"park",f:"Skipping the queue stopped being free, which remains among the most argued-about changes Disney has made."},
+{e:"Harmonious debuts at Epcot",y:2021,c:"park",f:"Its floating barges were the largest ever built for a Disney show and drew complaints for cluttering the lagoon."},
+{e:"Guardians of the Galaxy Cosmic Rewind opens at Epcot",y:2022,c:"park",f:"The cars rotate to face the action, and it is one of the longest indoor coasters in the world."},
+{e:"Avengers Campus opens at Disneyland Paris",y:2022,c:"park",f:"It replaced a backlot area with a Stark Industries campus and a Spider-Man ride."},
+{e:"TRON Lightcycle Run opens at Magic Kingdom",y:2023,c:"park",f:"The Florida version arrived seven years after Shanghai's and needed its own canopy for the weather."},
+{e:"Splash Mountain closes at Magic Kingdom",y:2023,c:"park",f:"Disney announced the retheme years earlier, citing the racial history of Song of the South."},
+{e:"Zootopia land opens at Shanghai Disneyland",y:2023,c:"park",f:"It is the first Zootopia land anywhere and includes a trackless ride through the animal city."},
+{e:"Mickey and Minnie's Runaway Railway opens at Disneyland",y:2023,c:"park",f:"It anchors the rebuilt Mickey's Toontown inside a new show building called the El CapiTOON Theater."},
+{e:"Luminous debuts at Epcot",y:2023,c:"park",f:"The nighttime show leans on the lagoon's fountains and a live orchestral score rather than floating screens."},
+{e:"Fantasy Springs opens at Tokyo DisneySea",y:2024,c:"park",f:"The expansion added lands based on Frozen, Tangled and Peter Pan and cost about 2.1 billion dollars."},
+{e:"Tiana's Bayou Adventure opens at Magic Kingdom",y:2024,c:"park",f:"Disney worked with New Orleans musicians and folklorists to build a story set after the events of the film."},
+{e:"Roy O Disney is born in Chicago",y:1893,c:"corp",f:"The elder brother handled the money for fifty years and let Walt keep the spotlight."},
+{e:"Walt Disney is born in Chicago",y:1901,c:"corp",f:"The family moved to a Missouri farm four years later, and he drew that countryside for the rest of his life."},
+{e:"Walt founds Laugh-O-Gram Films in Kansas City",y:1922,c:"corp",f:"The little studio made fractured fairy tales and went broke inside a year, leaving him almost penniless."},
+{e:"Walt and Roy found the Disney Brothers studio in Hollywood",y:1923,c:"corp",f:"They started in their uncle's garage with a contract for a girl acting against cartoon backgrounds."},
+{e:"Walt marries Lillian Bounds",y:1925,c:"corp",f:"She worked as an inker at the studio, and she is the one who talked him out of naming the mouse Mortimer."},
+{e:"Oswald the Lucky Rabbit debuts",y:1927,c:"corp",f:"Walt's first real hit character, made for Universal on a contract he had not read carefully enough."},
+{e:"Walt loses Oswald and most of his animators",y:1928,c:"corp",f:"His distributor owned the rabbit outright, and the lesson pushed him to own everything he made afterward."},
+{e:"The Mickey Mouse Club begins as a theatre fan club",y:1929,c:"corp",f:"Cinemas ran Saturday matinees with a club oath, and membership topped a million within three years."},
+{e:"The first Mickey Mouse wristwatch goes on sale",y:1933,c:"corp",f:"It rescued the Ingersoll watch company from collapse and sold in the millions during the Depression."},
+{e:"Disney stock is offered to the public for the first time",y:1940,c:"corp",f:"The company needed cash after Pinocchio and Fantasia both failed to earn back their costs."},
+{e:"WED Enterprises is founded",y:1952,c:"corp",f:"Walt set up a private company using his own initials to design the park, since the studio board would not fund it."},
+{e:"Buena Vista begins distributing Disney's own films",y:1953,c:"corp",f:"The name came from the street the Burbank studio sits on, and it ended the studio's reliance on RKO."},
+{e:"Ground is broken for Disneyland in Anaheim",y:1954,c:"corp",f:"The orange grove site was chosen partly because a freeway was already planned to run past it."},
+{e:"Walt Disney Productions lists on the New York Stock Exchange",y:1957,c:"corp",f:"Park revenue had turned the company from a film studio into something Wall Street would take seriously."},
+{e:"Disney buys the film rights to Winnie the Pooh",y:1961,c:"corp",f:"The deal with A A Milne's estate led to decades of litigation over royalties."},
+{e:"The California Institute of the Arts is formed",y:1961,c:"corp",f:"Walt merged two struggling schools into one, and CalArts went on to train much of modern animation."},
+{e:"Walt Disney receives the Presidential Medal of Freedom",y:1964,c:"corp",f:"Lyndon Johnson presented it, and the citation called him a creator of an American folklore."},
+{e:"The Florida Project is announced in Orlando",y:1965,c:"corp",f:"Land had been bought quietly through shell companies so prices would not rocket once the buyer was known."},
+{e:"Walt Disney dies in Burbank",y:1966,c:"corp",f:"He was 65, and the persistent story that he was cryogenically frozen is untrue; he was cremated."},
+{e:"Florida creates the Reedy Creek Improvement District",y:1967,c:"corp",f:"The special district let Disney act as its own municipal government, issuing bonds and writing building codes."},
+{e:"Roy O Disney dies weeks after opening the Florida park",y:1971,c:"corp",f:"He came out of retirement to finish it and insisted it be named Walt Disney World, for his brother."},
+{e:"Ron Miller is ousted as chief executive",y:1984,c:"corp",f:"Walt's son-in-law lost the job during a takeover fight that nearly broke the company apart."},
+{e:"Michael Eisner and Frank Wells take charge of Disney",y:1984,c:"corp",f:"The pair arrived after a corporate raider had circled the company, and they ran it together for a decade."},
+{e:"Touchstone Pictures is created as a second label",y:1984,c:"corp",f:"It let Disney release films for adults without putting the family name on the poster."},
+{e:"Walt Disney Productions is renamed The Walt Disney Company",y:1986,c:"corp",f:"The change signalled that films were now only one part of a much larger business."},
+{e:"WED Enterprises is renamed Walt Disney Imagineering",y:1986,c:"corp",f:"The word joins imagination and engineering, and staff had used it informally for years."},
+{e:"The first Disney Store opens in Glendale",y:1987,c:"corp",f:"Michael Eisner personally reviewed the store designs, down to the layout of the merchandise."},
+{e:"The Disney Legends programme honours its first recipients",y:1987,c:"corp",f:"Fred MacMurray was the first named, and honorees get a bronze handprint plaque at the studio."},
+{e:"Hollywood Pictures is founded as a third film label",y:1989,c:"corp",f:"It was created to double Disney's output of adult-oriented films and was quietly wound down years later."},
+{e:"Disney founds the Mighty Ducks of Anaheim",y:1993,c:"corp",f:"A film studio naming a National Hockey League franchise after one of its own movies was unprecedented."},
+{e:"Frank Wells dies in a helicopter crash",y:1994,c:"corp",f:"His death ended the partnership at the top of Disney and set off a decade of executive turmoil."},
+{e:"Jeffrey Katzenberg leaves Disney",y:1994,c:"corp",f:"Passed over for the presidency, he left and helped found DreamWorks within months."},
+{e:"Disney agrees to buy Capital Cities and ABC",y:1995,c:"corp",f:"The 19 billion dollar deal was announced the same week Westinghouse moved on CBS."},
+{e:"Michael Ovitz joins Disney as president",y:1995,c:"corp",f:"The Hollywood agent lasted barely a year, and his severance package became a landmark shareholder lawsuit."},
+{e:"Disney completes its purchase of ABC",y:1996,c:"corp",f:"The deal brought ESPN with it, which turned out to be the most valuable asset in the package."},
+{e:"Disney buys the California Angels baseball club",y:1996,c:"corp",f:"Disney took a stake and control of operations first, buying the club outright three years later."},
+{e:"The town of Celebration opens near Walt Disney World",y:1996,c:"corp",f:"Disney master-planned a real town with real residents, then gradually sold off its stake."},
+{e:"Roy E Disney launches the SaveDisney campaign",y:2003,c:"corp",f:"Walt's nephew resigned from the board and campaigned publicly until Michael Eisner stepped down."},
+{e:"Disney acquires the Muppets",y:2004,c:"corp",f:"Jim Henson had negotiated a sale to Disney before his death, and it took fourteen more years to close."},
+{e:"Bob Iger becomes chief executive of Disney",y:2005,c:"corp",f:"He began his career as a weatherman and a studio labourer at ABC before running the company."},
+{e:"Disney sells the Mighty Ducks franchise",y:2005,c:"corp",f:"The new owners dropped Mighty from the name within a year."},
+{e:"Disney acquires Marvel Entertainment",y:2009,c:"corp",f:"The four billion dollar price looked steep at the time and was earned back many times over."},
+{e:"The D23 fan club is launched",y:2009,c:"corp",f:"The number refers to 1923, the year the Disney brothers founded their studio."},
+{e:"The Walt Disney Family Museum opens in San Francisco",y:2009,c:"corp",f:"Walt's daughter Diane built it in the Presidio to show the man rather than the brand."},
+{e:"Disney acquires Lucasfilm from George Lucas",y:2012,c:"corp",f:"Lucas took much of the four billion dollars in Disney stock and gave a large share to education charity."},
+{e:"Disney acquires Maker Studios",y:2014,c:"corp",f:"The purchase of a YouTube network was Disney's first serious bet on creators outside its own studios."},
+{e:"Disney announces a bid for 21st Century Fox",y:2017,c:"corp",f:"Comcast counterbid and drove the price up by roughly twenty billion dollars before withdrawing."},
+{e:"Disney completes the 21st Century Fox purchase",y:2019,c:"corp",f:"It brought back the X-Men and Fantastic Four, and made Disney the majority owner of Hulu."},
+{e:"Bob Chapek becomes chief executive",y:2020,c:"corp",f:"He took the job weeks before the pandemic closed every Disney park in the world."},
+{e:"Bob Iger returns as chief executive",y:2022,c:"corp",f:"The board recalled him on a Sunday night, less than three years after he had handed over the job."},
+{e:"Disney agrees terms to take full ownership of Hulu",y:2023,c:"corp",f:"Comcast's remaining third was valued through a formula the two companies had agreed years earlier."},
+{e:"Disney marks its hundredth anniversary",y:2023,c:"corp",f:"The centenary was counted from the day Walt and Roy signed their first Hollywood contract."},
+{e:"Timely Comics is founded in New York",y:1939,c:"saga",f:"The pulp publisher Martin Goodman started it, and it became Marvel Comics two decades later."},
+{e:"Captain America Comics number one is published",y:1941,c:"saga",f:"The cover shows Captain America punching Hitler, months before the United States entered the war."},
+{e:"The Fantastic Four number one is published",y:1961,c:"saga",f:"Stan Lee and Jack Kirby gave superheroes money troubles and arguments, and the modern Marvel style began here."},
+{e:"Spider-Man debuts in Amazing Fantasy fifteen",y:1962,c:"saga",f:"The publisher thought teenagers made poor heroes and that readers hated spiders, so he buried it in a cancelled title."},
+{e:"Iron Man debuts in Tales of Suspense",y:1963,c:"saga",f:"Stan Lee said he built a rich arms manufacturer specifically to see whether readers would accept a hero they should dislike."},
+{e:"The Avengers number one is published",y:1963,c:"saga",f:"Marvel assembled its existing heroes into a team partly to keep several struggling titles alive."},
+{e:"The X-Men number one is published",y:1963,c:"saga",f:"Mutants let Lee and Kirby skip inventing an origin story for every new character."},
+{e:"Black Panther debuts in Fantastic Four",y:1966,c:"saga",f:"He was the first Black superhero in mainstream American comics, and Wakanda arrived with him."},
+{e:"Lucasfilm is founded",y:1971,c:"saga",f:"George Lucas set it up before he had made a hit, and kept it private for forty one years."},
+{e:"Industrial Light and Magic is founded",y:1975,c:"saga",f:"Lucas built the effects house because no existing company could shoot the space battles he wanted."},
+{e:"Star Wars is released in theaters",y:1977,c:"saga",f:"Fox let Lucas keep sequel and merchandising rights in exchange for a lower directing fee."},
+{e:"The Empire Strikes Back is released",y:1980,c:"saga",f:"Lucas financed it himself rather than take studio money, betting his own fortune on the sequel."},
+{e:"Return of the Jedi is released",y:1983,c:"saga",f:"The film was shot under the fake title Blue Harvest to keep prices and onlookers down."},
+{e:"Marvel Entertainment files for bankruptcy",y:1996,c:"saga",f:"A collapse in the speculative comics market left the company selling off film rights to survive."},
+{e:"The Phantom Menace is released",y:1999,c:"saga",f:"It was the first Star Wars film in sixteen years and the first to lean heavily on digital characters."},
+{e:"Attack of the Clones is released",y:2002,c:"saga",f:"It was shot almost entirely on digital cameras, among the first major films to abandon film stock."},
+{e:"Revenge of the Sith is released",y:2005,c:"saga",f:"It was the first Star Wars film rated PG-13, for the sequence on the lava planet."},
+{e:"Iron Man launches the Marvel Cinematic Universe",y:2008,c:"saga",f:"Marvel borrowed against its own characters to fund it, having sold the film rights to its most famous ones."},
+{e:"The Incredible Hulk is released",y:2008,c:"saga",f:"It arrived weeks after Iron Man and remains the only MCU film Universal distributes."},
+{e:"The Clone Wars animated series premieres",y:2008,c:"saga",f:"Ahsoka Tano was created for it and became one of the most popular characters in Star Wars."},
+{e:"Iron Man 2 is released",y:2010,c:"saga",f:"Its post-credits scene showing Thor's hammer in a crater set up the following summer's film."},
+{e:"Thor is released in theaters",y:2011,c:"saga",f:"Kenneth Branagh directed it as a Shakespearean family drama that happens to involve a hammer."},
+{e:"Captain America The First Avenger is released",y:2011,c:"saga",f:"Chris Evans turned the role down repeatedly before accepting a six-picture deal."},
+{e:"The Avengers is released in theaters",y:2012,c:"saga",f:"It was the first film to bring separately introduced franchise heroes together, and it passed a billion dollars."},
+{e:"George Lucas hands Lucasfilm to Kathleen Kennedy",y:2012,c:"saga",f:"He named her co-chair months before selling the company, and she stayed on to run it under Disney."},
+{e:"Iron Man 3 is released",y:2013,c:"saga",f:"Shane Black rewrote the Mandarin as an actor hired to play a terrorist, which split fans permanently."},
+{e:"Thor The Dark World is released",y:2013,c:"saga",f:"Reshoots expanded Loki's part after test audiences responded to him more than to the villain."},
+{e:"Captain America The Winter Soldier is released",y:2014,c:"saga",f:"The Russo brothers came from television comedy and pitched it as a seventies political thriller."},
+{e:"Guardians of the Galaxy is released",y:2014,c:"saga",f:"Marvel gambled on characters almost nobody had heard of, and the soundtrack outsold most of that year's albums."},
+{e:"Star Wars Rebels premieres",y:2014,c:"saga",f:"It was the first Star Wars series made after Disney bought Lucasfilm, and it bridged the two trilogies."},
+{e:"Avengers Age of Ultron is released",y:2015,c:"saga",f:"Joss Whedon left the franchise afterward, saying the process had worn him down."},
+{e:"Ant-Man is released in theaters",y:2015,c:"saga",f:"Edgar Wright had developed it for eight years before leaving weeks ahead of filming."},
+{e:"The Force Awakens is released",y:2015,c:"saga",f:"It broke the domestic opening weekend record and was the first Star Wars film made without George Lucas."},
+{e:"Captain America Civil War is released",y:2016,c:"saga",f:"It functions as an Avengers film and introduced both Black Panther and a new Spider-Man."},
+{e:"Doctor Strange is released in theaters",y:2016,c:"saga",f:"Its folding cities were built with fractal software and won the film a visual effects nomination."},
+{e:"Rogue One is released in theaters",y:2016,c:"saga",f:"The first standalone Star Wars film ends minutes before the opening scene of the original."},
+{e:"Guardians of the Galaxy Vol 2 is released",y:2017,c:"saga",f:"Kurt Russell was digitally de-aged for a nineteen eighties prologue set on Earth."},
+{e:"Spider-Man Homecoming is released",y:2017,c:"saga",f:"Sony and Marvel struck an unusual sharing deal so the character could appear in both universes."},
+{e:"Thor Ragnarok is released in theaters",y:2017,c:"saga",f:"Taika Waititi let the cast improvise and turned the least popular Marvel series into a comedy."},
+{e:"The Last Jedi is released in theaters",y:2017,c:"saga",f:"Rian Johnson's choices divided the audience more sharply than any Star Wars film before it."},
+{e:"Black Panther is released in theaters",y:2018,c:"saga",f:"It was the first superhero film nominated for the best picture Academy Award."},
+{e:"Avengers Infinity War is released",y:2018,c:"saga",f:"It ends with the heroes losing, a choice the studio kept secret through a campaign asking fans not to spoil it."},
+{e:"Ant-Man and the Wasp is released",y:2018,c:"saga",f:"It was the first Marvel film to put a female hero in the title."},
+{e:"Solo A Star Wars Story is released",y:2018,c:"saga",f:"Its original directors were replaced most of the way through filming by Ron Howard."},
+{e:"Stan Lee dies at the age of ninety five",y:2018,c:"saga",f:"He had cameos in dozens of Marvel films, several of which were shot in advance and released after his death."},
+{e:"Captain Marvel is released in theaters",y:2019,c:"saga",f:"It was the first Marvel Studios film led by a woman and is set in the nineteen nineties."},
+{e:"Avengers Endgame is released in theaters",y:2019,c:"saga",f:"It became the highest-grossing film ever released, a record it held and then lost to a rerelease of Avatar."},
+{e:"Spider-Man Far From Home is released",y:2019,c:"saga",f:"It closed the twenty three film arc Marvel had begun with Iron Man."},
+{e:"The Rise of Skywalker is released",y:2019,c:"saga",f:"J J Abrams returned after Colin Trevorrow left, and the film had roughly a year of post-production."},
+{e:"The Mandalorian premieres on Disney+",y:2019,c:"saga",f:"Its virtual sets used curved LED walls rather than green screen, a technique quickly copied industry-wide."},
+{e:"Black Widow is released in theaters and on streaming",y:2021,c:"saga",f:"The simultaneous streaming release triggered a lawsuit from Scarlett Johansson that was later settled."},
+{e:"Shang-Chi and the Legend of the Ten Rings is released",y:2021,c:"saga",f:"It was Marvel's first film led by an Asian superhero, with fight choreography from Jackie Chan's team."},
+{e:"Eternals is released in theaters",y:2021,c:"saga",f:"Chloe Zhao shot much of it on location in natural light, finishing long before she won the directing Oscar."},
+{e:"Spider-Man No Way Home is released",y:2021,c:"saga",f:"It brought back villains and Spider-Men from two earlier film series and passed a billion dollars during a pandemic."},
+{e:"Doctor Strange in the Multiverse of Madness is released",y:2022,c:"saga",f:"Sam Raimi returned to superhero films twenty years after his first Spider-Man."},
+{e:"Thor Love and Thunder is released",y:2022,c:"saga",f:"Natalie Portman returned and lifted the hammer, becoming the Mighty Thor."},
+{e:"Black Panther Wakanda Forever is released",y:2022,c:"saga",f:"Marvel refused to recast Chadwick Boseman's role and rewrote the film around his character's death."},
+{e:"Andor premieres on Disney+",y:2022,c:"saga",f:"It was written as a political drama about how a rebellion is actually built, with almost no Jedi in it."},
+{e:"Guardians of the Galaxy Vol 3 is released",y:2023,c:"saga",f:"James Gunn was fired and rehired between films and finished the trilogy before leaving for DC."},
+{e:"Ahsoka premieres on Disney+",y:2023,c:"saga",f:"It brought characters from two animated series into live action for the first time."},
+{e:"Deadpool and Wolverine is released",y:2024,c:"saga",f:"The first R-rated Marvel Studios film, and for a time the highest-grossing R-rated film ever made."},
+{e:"Beauty and the Beast opens on Broadway",y:1994,c:"stage",f:"Disney's first stage musical was mocked by theatre veterans and ran for thirteen years."},
+{e:"The Lion King opens on Broadway",y:1997,c:"stage",f:"Julie Taymor kept the puppeteers visible, trusting audiences to watch the animal and the human at once."},
+{e:"The Lion King wins the Tony for best musical",y:1998,c:"stage",f:"Julie Taymor became the first woman to win the Tony for directing a musical."},
+{e:"Aida opens on Broadway",y:2000,c:"stage",f:"Elton John and Tim Rice wrote it after The Lion King, and Elton John won a Tony for the score."},
+{e:"Tarzan opens on Broadway",y:2006,c:"stage",f:"Performers swung on bungee rigs above the audience, and the show ran barely a year in New York."},
+{e:"The Little Mermaid opens on Broadway",y:2008,c:"stage",f:"Actors wore wheeled shoes called Heelys so they could glide as though swimming."},
+{e:"Newsies opens on Broadway",y:2012,c:"stage",f:"It was planned as a short limited run and stayed for two years after tickets sold out."},
+{e:"Aladdin opens on Broadway",y:2014,c:"stage",f:"Three Howard Ashman songs cut from the film were restored to the stage version."},
+{e:"Frozen opens on Broadway",y:2018,c:"stage",f:"Elsa's onstage dress change takes a few seconds and is one of the most guarded secrets in the show."},
+{e:"Flowers and Trees wins the first animated short Oscar",y:1932,c:"stage",f:"The Academy created the category that year, and Disney won it every year for the rest of the decade."},
+{e:"Walt receives an honorary Oscar for Snow White",y:1939,c:"stage",f:"Shirley Temple presented one full-sized statuette accompanied by seven miniature ones."},
+{e:"When You Wish Upon a Star wins best original song",y:1941,c:"stage",f:"Written for Pinocchio, it became the company's signature tune and now opens most Disney films."},
+{e:"Fantasia receives honorary Academy Awards",y:1942,c:"stage",f:"The awards recognised its sound system, since no category then existed for what the film had done."},
+{e:"Der Fuehrer's Face wins the animated short Oscar",y:1943,c:"stage",f:"Donald Duck's wartime nightmare is the only Donald cartoon ever to win the award."},
+{e:"Zip-a-Dee-Doo-Dah wins best original song",y:1948,c:"stage",f:"James Baskett received an honorary Oscar the same year, though he could not attend the Atlanta premiere."},
+{e:"Mary Poppins wins five Academy Awards",y:1965,c:"stage",f:"It was nominated for thirteen, the most any Disney film has ever received."},
+{e:"Alan Menken wins his first two Academy Awards",y:1990,c:"stage",f:"The Little Mermaid took both score and song, and Under the Sea beat a second nominee from the same film."},
+{e:"Beauty and the Beast is nominated for best picture",y:1992,c:"stage",f:"The first animated film in the category, in a year it took three of the five best song slots."},
+{e:"A Whole New World wins best original song",y:1993,c:"stage",f:"Howard Ashman had died before Aladdin was finished, and Tim Rice completed the lyrics."},
+{e:"Can You Feel the Love Tonight wins best original song",y:1995,c:"stage",f:"Three songs from The Lion King were nominated, so the film effectively competed against itself."},
+{e:"Colors of the Wind wins best original song",y:1996,c:"stage",f:"Stephen Schwartz wrote the lyric before the film's story was settled, and it shaped the script."},
+{e:"You'll Be in My Heart wins best original song",y:2000,c:"stage",f:"Phil Collins performed every song in Tarzan himself rather than writing for the characters."},
+{e:"The Academy creates the best animated feature category",y:2002,c:"stage",f:"It was introduced once enough animated films were being released each year to fill a ballot."},
+{e:"If I Didn't Have You wins best original song",y:2002,c:"stage",f:"Randy Newman had been nominated fifteen times before finally winning, for Monsters Inc."},
+{e:"Finding Nemo wins best animated feature",y:2004,c:"stage",f:"It was the first Pixar film to take the award, two years after the category was created."},
+{e:"Up is nominated for best picture",y:2010,c:"stage",f:"It was only the second animated film ever nominated in the category, eighteen years after the first."},
+{e:"We Belong Together wins best original song",y:2011,c:"stage",f:"Toy Story 3 also became the third animated film nominated for best picture."},
+{e:"Man or Muppet wins best original song",y:2012,c:"stage",f:"Bret McKenzie of Flight of the Conchords wrote it, and only two songs were nominated that year."},
+{e:"Let It Go wins best original song",y:2014,c:"stage",f:"Robert Lopez completed the EGOT faster than anyone before him, and doubled it four years later."},
+{e:"Remember Me wins best original song",y:2018,c:"stage",f:"The song appears in three different versions in Coco, each one changing what it means."},
+{e:"Black Panther wins three Academy Awards",y:2019,c:"stage",f:"Ruth E Carter and Hannah Beachler became the first Black women to win in costume and production design."},
+{e:"Disney Cruise Line is founded",y:1996,c:"sea",f:"Disney had chartered other companies' ships for package holidays before deciding to build its own fleet."},
+{e:"The Disney Magic makes its maiden voyage",y:1998,c:"sea",f:"Its hull curves and twin funnels were drawn from the great ocean liners rather than modern cruise ships."},
+{e:"Castaway Cay welcomes its first Disney ship",y:1998,c:"sea",f:"Disney leased the Bahamian island for 99 years and dredged a channel so ships could dock rather than tender."},
+{e:"Palo opens aboard the Disney Magic",y:1998,c:"sea",f:"The adults-only Italian restaurant carries a surcharge and books out within minutes of reservations opening."},
+{e:"The Disney Wonder enters service",y:1999,c:"sea",f:"It is a near twin of the Magic, distinguished mainly by its art nouveau interiors."},
+{e:"The Disney Dream enters service",y:2011,c:"sea",f:"It was roughly forty percent larger than the first two ships and added a virtual porthole to inside cabins."},
+{e:"The AquaDuck water coaster debuts at sea",y:2011,c:"sea",f:"It was the first water coaster ever built on a ship, and it hangs out over the side four decks up."},
+{e:"Remy opens aboard the Disney Dream",y:2011,c:"sea",f:"The French restaurant was developed with a Michelin-starred chef and named for the rat in Ratatouille."},
+{e:"Disney Cruise Line sails its first Alaska season",y:2011,c:"sea",f:"The Wonder repositioned to Vancouver, the line's first regular sailings in cold water."},
+{e:"The Disney Fantasy enters service",y:2012,c:"sea",f:"A sister to the Dream, it was given art nouveau interiors and assigned to week-long Caribbean routes."},
+{e:"The AquaDunk is added to the Disney Magic",y:2013,c:"sea",f:"A trapdoor drops riders straight down a translucent tube that juts out over the sea."},
+{e:"Tiana's Place opens aboard the Disney Wonder",y:2016,c:"sea",f:"The New Orleans jazz restaurant came from The Princess and the Frog and features a live band."},
+{e:"Star Wars Day at Sea debuts",y:2016,c:"sea",f:"Selected Caribbean sailings turn over an entire day to Star Wars characters, films and a deck party."},
+{e:"Marvel Day at Sea debuts",y:2017,c:"sea",f:"It followed the Star Wars format and was assigned to the Magic on selected Atlantic sailings."},
+{e:"The Disney Wish enters service",y:2022,c:"sea",f:"It was the first ship in the fleet powered by liquefied natural gas."},
+{e:"The AquaMouse debuts aboard the Disney Wish",y:2022,c:"sea",f:"Disney calls it the first attraction at sea, with screens and effects inside the tube."},
+{e:"Enchante opens aboard the Disney Wish",y:2022,c:"sea",f:"The adults-only restaurant was designed with chef Arnaud Lallement and themed to Beauty and the Beast."},
+{e:"Lookout Cay at Lighthouse Point opens",y:2024,c:"sea",f:"Disney's second private destination sits on Eleuthera and was designed with Bahamian artists."},
+{e:"The Disney Treasure enters service",y:2024,c:"sea",f:"A sister to the Wish, it was themed around adventure and carries a Haunted Mansion parlour bar."},
+];
+
+/* ============ helpers ============ */
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const yearText = (c) => String(c.y);
+
+function decadeHint(y){
+  const lo = Math.floor(y / 10) * 10;
+  return "Somewhere in the " + lo + "s.";
+}
+function shuffle(a){
+  const o = a.slice();
+  for(let i = o.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [o[i], o[j]] = [o[j], o[i]];
+  }
+  return o;
+}
+function store(k, v){
+  try{ if(v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }
+  catch(e){ return null; }
+}
+const PC_DARK  = ["#F5C24C","#F27FA9","#67DBD2","#8FB8FF"];
+const PC_LIGHT = ["#8E6208","#B03C6D","#0F7A74","#33569F"];
+function isDark(){
+  const t = document.documentElement.getAttribute("data-theme");
+  if(t) return t === "dark";
+  return !window.matchMedia("(prefers-color-scheme: light)").matches;
+}
+const pcolor = (i) => (isDark() ? PC_DARK : PC_LIGHT)[i];
+
+/* ============ state ============ */
+const S = {
+  mode:"solo", cats:new Set(Object.keys(CATS)), target:25,
+  players:[], turn:0, draw:[], line:[], card:null,
+  phase:"place", wishes:3, filed:0, streak:0,
+  pot:0, chain:0, dustUsed:false, seen:[], cursor:0,
+  cursorActive:false, cashedOut:false, bestAtStart:0, lastOk:false
+};
+
+/* ============ starfield ============ */
+(function stars(){
+  const sky = $("sky");
+  const pts = [[6,14,2],[13,42,1.4],[21,9,1.6],[28,60,1.2],[35,22,2.2],[42,48,1.3],[51,12,1.7],[58,36,1.2],[64,66,1.9],[71,18,1.4],[78,52,1.6],[85,28,2],[91,58,1.3],[96,16,1.5],[17,74,1.4],[46,80,1.2],[74,84,1.6]];
+  sky.innerHTML = pts.map((p,i) =>
+    '<i style="left:' + p[0] + '%;top:' + p[1] + '%;width:' + p[2] + 'px;height:' + p[2] +
+    'px;animation-delay:' + (i * 0.37).toFixed(2) + 's"></i>').join("");
+})();
+
+/* ============ theme ============ */
+function themeLabel(){
+  $("themeBtn").textContent = isDark() ? "☾ Twilight" : "☀ Daylight";
+}
+$("themeBtn").addEventListener("click", () => {
+  const next = isDark() ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  store("oy-theme", next);
+  themeLabel();
+  if(S.players.length){ renderScores(); renderStatus(); }
+  renderRoster();
+});
+(function initTheme(){
+  const t = store("oy-theme");
+  if(t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+  themeLabel();
+})();
+
+/* ============ home ============ */
+function buildCatChips(){
+  const box = $("catChips");
+  box.innerHTML = "";
+  Object.entries(CATS).forEach(([k, meta]) => {
+    const b = document.createElement("button");
+    b.className = "chip";
+    b.setAttribute("aria-pressed","true");
+    b.innerHTML = meta.label;
+    b.addEventListener("click", () => {
+      const on = b.getAttribute("aria-pressed") === "true";
+      if(on && S.cats.size === 1) return;
+      b.setAttribute("aria-pressed", String(!on));
+      on ? S.cats.delete(k) : S.cats.add(k);
+      updateDeckN();
+    });
+    box.appendChild(b);
+  });
+}
+const pool = () => DECK.filter(c => S.cats.has(c.c));
+function updateDeckN(){
+  const n = pool().length;
+  $("deckn").innerHTML = "<b>" + n + "</b> cards in the book";
+  $("startBtn").disabled = n < 6;
+}
+
+let roster = ["", ""];
+function renderRoster(){
+  const box = $("roster");
+  box.innerHTML = "";
+  roster.forEach((nm, i) => {
+    const row = document.createElement("div");
+    row.className = "rrow";
+    row.innerHTML =
+      '<span class="dot" style="--c:' + pcolor(i) + '"></span>' +
+      '<input type="text" maxlength="14" placeholder="Player ' + (i+1) + '" aria-label="Player ' + (i+1) + ' name">' +
+      (roster.length > 2 ? '<button class="x" aria-label="Remove player ' + (i+1) + '">✕</button>' : '');
+    const inp = row.querySelector("input");
+    inp.value = nm;
+    inp.addEventListener("input", () => { roster[i] = inp.value; });
+    const x = row.querySelector(".x");
+    if(x) x.addEventListener("click", () => { roster.splice(i,1); renderRoster(); });
+    box.appendChild(row);
+  });
+  $("addPlayer").style.display = roster.length >= 4 ? "none" : "";
+}
+$("addPlayer").addEventListener("click", () => { if(roster.length < 4){ roster.push(""); renderRoster(); } });
+
+function setMode(m){
+  S.mode = m;
+  $("modeSolo").setAttribute("aria-pressed", String(m === "solo"));
+  $("modeParty").setAttribute("aria-pressed", String(m === "party"));
+  $("partyPanel").hidden = m !== "party";
+}
+$("modeSolo").addEventListener("click", () => setMode("solo"));
+$("modeParty").addEventListener("click", () => setMode("party"));
+$("targetChips").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-target]");
+  if(!b) return;
+  document.querySelectorAll("[data-target]").forEach(x => x.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true");
+  S.target = Number(b.dataset.target);
+});
+
+/* ============ flow ============ */
+$("startBtn").addEventListener("click", start);
+
+function start(){
+  S.draw = shuffle(pool());
+  S.seen = []; S.filed = 0; S.streak = 0; S.wishes = 3; S.turn = 0;
+  S.cashedOut = false;
+  S.bestAtStart = Number(store("oy-best") || 0);
+
+  S.players = (S.mode === "party" ? roster : ["You"]).map((nm, i) => ({
+    name: (String(nm).trim() || ("Player " + (i+1))).slice(0,14),
+    score: 0, dust: 2, idx: i
+  }));
+
+  $("home").classList.add("hidden");
+  $("over").classList.add("hidden");
+  $("play").classList.remove("hidden");
+  $("scores").classList.toggle("hidden", S.mode !== "party");
+  beginTurn(true);
+}
+
+function nextFromDraw(){
+  if(!S.draw.length) S.draw = shuffle(pool());
+  return Object.assign({}, S.draw.pop());
+}
+
+function beginTurn(first){
+  S.pot = 0; S.chain = 0;
+  if(S.mode === "party" || first){
+    const a = nextFromDraw();
+    let b = nextFromDraw(), guard = 0;
+    while((b.e === a.e || b.y === a.y) && guard++ < 40) b = nextFromDraw();
+    S.line = [a, b].sort((x, y) => x.y - y.y);
+    S.line.forEach(c => c.seed = true);
+  }
+  dealCard();
+}
+
+function dealCard(){
+  S.card = nextFromDraw();
+  let guard = 0;
+  while(S.line.some(c => c.e === S.card.e) && guard++ < 80) S.card = nextFromDraw();
+  S.phase = "place"; S.dustUsed = false; S.cursor = 0; S.cursorActive = false;
+  renderAll();
+}
+
+/* ============ render ============ */
+function renderAll(){ renderStatus(); renderCard(); renderRail(); renderVerdict(); renderActions(); renderScores(); }
+
+const metric = (k, v, pot) =>
+  '<div class="metric"><span class="k">' + k + '</span><span class="v' + (pot ? " pot" : "") + '">' + v + '</span></div>';
+
+function renderStatus(){
+  const p = S.players[S.turn];
+  if(S.mode === "party"){
+    $("turnLabel").innerHTML = '<span class="dot" style="--c:' + pcolor(p.idx) + '"></span>' + esc(p.name) + "'s turn";
+    $("metaRow").innerHTML = metric("Wish pot", S.pot, true) + metric("In a row", S.chain) +
+                             metric("Banked", p.score) + metric("Target", S.target);
+  } else {
+    $("turnLabel").innerHTML = "Solo run";
+    $("metaRow").innerHTML =
+      metric("In the book", S.filed) + metric("Streak", S.streak) +
+      metric("Best", Number(store("oy-best") || 0)) +
+      '<div class="metric"><span class="k">Wishes</span><span class="wishes">' +
+        [0,1,2].map(i => '<span class="' + (i < S.wishes ? "" : "spent") + '">✦</span>').join("") +
+      '</span></div>';
+  }
+  $("dustCount").textContent = "× " + p.dust;
+  $("dustBtn").disabled = p.dust < 1 || S.dustUsed || S.phase !== "place";
+}
+
+function renderCard(){
+  const c = S.card;
+  $("cardCat").style.setProperty("--c", "var(" + CATS[c.c].v + ")");
+  $("cardCat").innerHTML = CATS[c.c].label;
+  $("cardBody").textContent = c.e;
+  const yb = $("cardYear");
+  if(S.phase === "reveal"){ yb.textContent = yearText(c); yb.classList.add("known"); }
+  else { yb.textContent = "· · · ·"; yb.classList.remove("known"); }
+  $("dustLine").classList.toggle("hidden", !S.dustUsed);
+  if(S.dustUsed) $("dustLine").textContent = "✦ " + decadeHint(c.y);
+  $("prompt").classList.toggle("hidden", S.phase !== "place");
+}
+
+function renderRail(){
+  const rail = $("rail");
+  rail.innerHTML = "";
+  const n = S.line.length;
+  for(let i = 0; i <= n; i++){
+    const slot = document.createElement("button");
+    slot.className = "slot";
+    slot.textContent = "✦";
+    slot.disabled = S.phase !== "place";
+    const before = i > 0 ? S.line[i-1] : null;
+    const after  = i < n ? S.line[i] : null;
+    slot.setAttribute("aria-label",
+      before && after ? "Place between " + before.e + " and " + after.e :
+      after ? "Place before " + after.e : "Place after " + before.e);
+    slot.addEventListener("click", () => place(i));
+    rail.appendChild(slot);
+    if(i < n){
+      const c = S.line[i];
+      const d = document.createElement("div");
+      d.className = "page" + (c.seed ? " seed" : "") + (c.just ? " justplaced" : "");
+      d.style.setProperty("--c", "var(" + CATS[c.c].v + ")");
+      d.innerHTML = '<div class="yr">' + yearText(c) + '</div><div class="ev">' + esc(c.e) + '</div>';
+      rail.appendChild(d);
+    }
+  }
+}
+
+function renderVerdict(){
+  const v = $("verdict");
+  if(S.phase !== "reveal"){ v.classList.add("hidden"); $("sparks").innerHTML = ""; return; }
+  v.classList.remove("hidden");
+  const ok = S.lastOk;
+  const r = $("ribbon");
+  r.style.setProperty("--sc", ok ? "var(--gold)" : "var(--rose)");
+  r.textContent = ok ? "✦ Wish granted ✦" : "Back to the vault";
+  r.classList.remove("pop"); void r.offsetWidth; r.classList.add("pop");
+  $("sparks").innerHTML = ok
+    ? [[-34,-30],[26,-38],[44,6],[-46,14],[10,40],[-16,-52]].map((d,i) =>
+        '<b style="--dx:' + d[0] + 'px;--dy:' + d[1] + 'px;animation-delay:' + (i*0.05).toFixed(2) + 's">✦</b>').join("")
+    : "";
+  $("yearline").innerHTML = esc(S.card.e) + " &mdash; <em>" + yearText(S.card) + "</em>";
+  $("factline").textContent = S.card.f;
+}
+
+function renderActions(){
+  const box = $("actions");
+  box.innerHTML = "";
+  if(S.phase !== "reveal") return;
+  const add = (label, cls, fn) => {
+    const b = document.createElement("button");
+    b.className = "btn " + cls; b.innerHTML = label;
+    b.addEventListener("click", fn); box.appendChild(b);
+  };
+  const note = (t) => { const n = document.createElement("span"); n.className = "note"; n.textContent = t; box.appendChild(n); };
+
+  if(S.mode === "solo"){
+    if(S.wishes <= 0){ add("See how you did", "btn--go", gameOver); return; }
+    add("Next card", "btn--go", dealCard);
+    if(S.filed > 0){
+      add("Stop here with " + S.filed, "btn--bank", () => { S.cashedOut = true; gameOver(); });
+      note("Walk away and the run is yours to keep.");
+    }
+    return;
+  }
+  if(!S.lastOk){ add("Pass the book", "btn--go", endTurn); note("Pot lost."); return; }
+  add("Push &mdash; next is worth " + (S.chain + 1), "btn--go", dealCard);
+  add("Bank " + S.pot, "btn--bank", bank);
+  note("Miss and the " + S.pot + " goes back in the vault.");
+}
+
+function renderScores(){
+  if(S.mode !== "party"){ $("scores").classList.add("hidden"); return; }
+  $("scores").classList.remove("hidden");
+  $("scores").innerHTML = S.players.map((p,i) =>
+    '<div class="pscore' + (i === S.turn ? " active" : "") + '" style="--c:' + pcolor(p.idx) + '">' +
+      '<span class="nm">' + esc(p.name) + '</span><span class="sc">' + p.score + '</span>' +
+      '<span class="tk">✦' + p.dust + '</span></div>').join("");
+}
+
+/* ============ placing ============ */
+function place(i){
+  if(S.phase !== "place") return;
+  const c = S.card;
+  const before = i > 0 ? S.line[i-1] : null;
+  const after  = i < S.line.length ? S.line[i] : null;
+  const ok = (!before || c.y >= before.y) && (!after || c.y <= after.y);
+
+  S.lastOk = ok; S.phase = "reveal";
+  S.seen.push({ card: c, ok });
+  S.line.forEach(x => x.just = false);
+
+  if(ok){
+    c.just = true;
+    S.line.splice(i, 0, c);
+    S.filed++; S.streak++;
+    if(S.mode === "party"){ S.chain++; S.pot += S.chain; }
+    else {
+      if(S.streak % 6 === 0 && S.players[0].dust < 5) S.players[0].dust++;
+      if(S.filed > Number(store("oy-best") || 0)) store("oy-best", String(S.filed));
+    }
+  } else {
+    S.streak = 0;
+    if(S.mode === "solo") S.wishes--;
+    else { S.pot = 0; S.chain = 0; }
+  }
+
+  renderAll();
+  if(ok){
+    const el = $("rail").children[i * 2 + 1];
+    if(el && el.scrollIntoView) el.scrollIntoView({ block:"nearest", inline:"center" });
+  }
+}
+
+$("dustBtn").addEventListener("click", () => {
+  const p = S.players[S.turn];
+  if(p.dust < 1 || S.dustUsed || S.phase !== "place") return;
+  p.dust--; S.dustUsed = true;
+  renderStatus(); renderCard(); renderScores();
+});
+
+function bank(){
+  const p = S.players[S.turn];
+  p.score += S.pot; S.pot = 0;
+  if(p.score >= S.target){ gameOver(); return; }
+  endTurn();
+}
+function endTurn(){ S.turn = (S.turn + 1) % S.players.length; beginTurn(false); }
+
+/* ============ over ============ */
+function gameOver(){
+  S.phase = "over";
+  $("play").classList.add("hidden");
+  $("over").classList.remove("hidden");
+  const right = S.seen.filter(s => s.ok).length;
+  const acc = S.seen.length ? Math.round((right / S.seen.length) * 100) : 0;
+
+  if(S.mode === "solo"){
+    const prior = Number(S.bestAtStart || 0);
+    const best = Math.max(prior, S.filed);
+    $("overKicker").textContent = S.cashedOut
+      ? "STOPPED WITH " + S.wishes + (S.wishes === 1 ? " WISH IN HAND" : " WISHES IN HAND")
+      : "ALL THREE WISHES SPENT";
+    $("overTitle").innerHTML = "<em>" + S.filed + "</em> " + (S.filed === 1 ? "card" : "cards") + " in the book";
+    $("overSub").textContent = S.filed > prior
+      ? (prior === 0 ? "A first run on the board." : "A new best - you beat " + prior + ".")
+      : "Your best is " + prior + ". Close the gap.";
+    $("overStats").innerHTML = metric("Placed", S.filed) + metric("Accuracy", acc + "%") +
+                               metric("Cards seen", S.seen.length) + metric("Best ever", best);
+  } else {
+    const top = Math.max(...S.players.map(p => p.score));
+    const winners = S.players.filter(p => p.score === top);
+    $("overKicker").textContent = "THE END";
+    $("overTitle").innerHTML = winners.length > 1
+      ? esc(winners.map(w => w.name).join(" & ")) + " tie it"
+      : "<em>" + esc(winners[0].name) + "</em> wins";
+    $("overSub").textContent = S.players.slice().sort((a,b) => b.score - a.score)
+      .map(p => p.name + " " + p.score).join("   ·   ");
+    $("overStats").innerHTML = metric("Top score", top) + metric("Cards played", S.seen.length) +
+                               metric("Group accuracy", acc + "%");
+  }
+
+  const byEvent = new Map();
+  S.seen.forEach(s => {
+    const prev = byEvent.get(s.card.e);
+    if(prev) prev.ok = prev.ok && s.ok;
+    else byEvent.set(s.card.e, { card: s.card, ok: s.ok });
+  });
+  const rows = Array.from(byEvent.values()).sort((a,b) => a.card.y - b.card.y);
+  $("recap").innerHTML = rows.map(s =>
+    '<div class="row' + (s.ok ? "" : " missed") + '">' +
+      '<div class="yr">' + yearText(s.card) + '</div><div>' +
+      '<div class="ev">' + esc(s.card.e) + (s.ok ? "" : '<span class="flag">MISSED</span>') + '</div>' +
+      '<div class="fc">' + esc(s.card.f) + '</div></div></div>').join("");
+
+  window.scrollTo({ top:0, behavior:"smooth" });
+}
+
+$("againBtn").addEventListener("click", start);
+$("homeBtn").addEventListener("click", () => {
+  $("over").classList.add("hidden"); $("play").classList.add("hidden");
+  $("home").classList.remove("hidden");
+  window.scrollTo({ top:0, behavior:"smooth" });
+});
+
+/* ============ keyboard ============ */
+document.addEventListener("keydown", (e) => {
+  if($("play").classList.contains("hidden")) return;
+  if(e.target.tagName === "INPUT") return;
+  const slots = Array.from($("rail").querySelectorAll(".slot"));
+  if(S.phase === "place" && (e.key === "ArrowRight" || e.key === "ArrowLeft")){
+    e.preventDefault();
+    if(S.cursorActive) S.cursor += e.key === "ArrowRight" ? 1 : -1;
+    S.cursorActive = true;
+    S.cursor = Math.max(0, Math.min(slots.length - 1, S.cursor));
+    slots.forEach((s,i) => s.classList.toggle("cursor", i === S.cursor));
+    slots[S.cursor].scrollIntoView({ block:"nearest", inline:"center" });
+  } else if(S.phase === "place" && (e.key === "Enter" || e.key === " ")){
+    e.preventDefault();
+    if(S.cursorActive) place(S.cursor);
+  } else if(S.phase === "place" && (e.key === "d" || e.key === "D")){
+    $("dustBtn").click();
+  } else if(S.phase === "reveal" && (e.key === "Enter" || e.key === " ")){
+    e.preventDefault();
+    const first = $("actions").querySelector("button");
+    if(first) first.click();
+  } else if(S.phase === "reveal" && (e.key === "b" || e.key === "B")){
+    const bb = Array.from($("actions").querySelectorAll("button")).find(b => /^(Bank|Stop here)/.test(b.textContent));
+    if(bb) bb.click();
+  }
+});
+
+buildCatChips(); renderRoster(); updateDeckN(); setMode("solo");
+</script>
